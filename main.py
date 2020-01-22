@@ -246,6 +246,7 @@ def statisticalAnalysis(u, h, r, a, tag):
 
 
 
+
 def drawHistogram(l, flag, type):
 
     if flag == "totalPosts" and type == "1":
