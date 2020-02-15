@@ -1,11 +1,12 @@
 import matplotlib.pyplot as plt
 import csv
+import collections
 from functools import reduce
 import plotly.figure_factory as ff
 import plotly.graph_objects as go
 from collections import Counter
 from datetime import datetime as dt
-
+import clusterComparator
 
 from sklearn.cluster import KMeans
 
@@ -16,6 +17,7 @@ files_common_path = '/Users/miguelsimoes/Documents/Tese/Final Data Warehouse/'
 SE = {}  # Student Evaluation Schema
 MP = {}  # Moodle Participation
 all_students_profiles={} # saves all the instances of students profiles
+
 
 class Student:
     def __init__(self, studentID):
@@ -109,16 +111,16 @@ def populateSchemaDictionaries():
     MP["web_element_dim"] = readCSVfile(files_common_path + 'Moodle Participation/web_element_dim.csv')
 
 
-def clusters():
+def clusters(): # splits the students according to quartiles and returns the 4 different clusters
     all_scores = [float(row[10]) for row in SE["student_result_fact"]]
     highest_score = max(all_scores)
-    c1 = [(float(row[1]), float(row[10])) for row in SE["student_result_fact"] if
+    c1 = [(row[1], float(row[10])) for row in SE["student_result_fact"] if
           float(row[10]) <= 0.25 * highest_score]
-    c2 = [(float(row[1]), float(row[10])) for row in SE["student_result_fact"] if
+    c2 = [(row[1], float(row[10])) for row in SE["student_result_fact"] if
           0.25 * highest_score < float(row[10]) <= 0.50 * highest_score]
-    c3 = [(float(row[1]), float(row[10])) for row in SE["student_result_fact"] if
+    c3 = [(row[1], float(row[10])) for row in SE["student_result_fact"] if
           0.50 * highest_score < float(row[10]) <= 0.75 * highest_score]
-    c4 = [(float(row[1]), float(row[10])) for row in SE["student_result_fact"] if float(row[10]) > 0.75 * highest_score]
+    c4 = [(row[1], float(row[10])) for row in SE["student_result_fact"] if float(row[10]) > 0.75 * highest_score]
 
     return c1, c2, c3, c4
 
@@ -126,30 +128,29 @@ def clusters():
 def sortSecond(val):
     return val[1]
 
-
 def drawplot(clusters):  # plots the
 
     list1 = clusters[0]
     list1.sort(key=sortSecond)
-    x = [tup[0] for tup in list1]
+    x = [float(tup[0]) for tup in list1]
     y = [tup[1] for tup in list1]
     plt.scatter(x, y, c='coral')
 
     list2 = clusters[1]
     list2.sort(key=sortSecond)
-    x = [tup[0] for tup in list2]
+    x = [float(tup[0])  for tup in list2]
     y = [tup[1] for tup in list2]
     plt.scatter(x, y, c='blue')
 
     list3 = clusters[2]
     list3.sort(key=sortSecond)
-    x = [tup[0] for tup in list3]
+    x = [float(tup[0])  for tup in list3]
     y = [tup[1] for tup in list3]
     plt.scatter(x, y, c='red')
 
     list4 = clusters[3]
     list4.sort(key=sortSecond)
-    x = [tup[0] for tup in list4]
+    x = [float(tup[0])  for tup in list4]
     y = [tup[1] for tup in list4]
     plt.scatter(x, y, c='green')
 
@@ -169,7 +170,7 @@ def buildProfile(studentId):
     studentProfile.setPosts([row for row in MP["posts_fact"] if row[1] == str(studentId)])
     studentProfile.setMessageAnalysis([row for row in MP["message_analysis_fact"] if row[1] == str(studentId)])
 
-    all_students_profiles[float(studentId)] = studentProfile # save the student Profile
+    all_students_profiles[studentId] = studentProfile # save the student Profile
 
 def buildAllStudentsProfiles():
     count=0
@@ -248,7 +249,6 @@ def getEvaluationItems(all_clusters, tag):
 
                     if already_found: break
 
-
                 if in_range:
                     this_student_badge_list=[row[1] for row in new_list]
                     badge_ntimes = Counter(this_student_badge_list) # given this students' badges, this dictionary saves the number of times that the student has each badge
@@ -258,8 +258,6 @@ def getEvaluationItems(all_clusters, tag):
                     elif all_clusters.index(el) == 1: eiHalfhearted += this_student_badge_list
                     elif all_clusters.index(el) == 2: eiRegular += this_student_badge_list
                     else: eiAchievers += this_student_badge_list
-
-
 
     return  eiUnderachievers, eiHalfhearted, eiRegular, eiAchievers
 
@@ -279,6 +277,14 @@ def checkDates(d):
             return True
     return False
 
+#this function was used to draw some conclusions for PMEIC presentation
+def comparison(l): # prints a list with the number of different elements from the 4 lists embedded in "l"
+    differences=[]
+    #print([el for el in remove_duplicates(l[1]) if el not in remove_duplicates(l[0])])
+    for i in range(len(l)-1):
+        differences.append(len(remove_duplicates(l[i]))-len(remove_duplicates(l[i+1])))
+    print(differences)
+
 
 def statisticalAnalysis(u, h, r, a, tag):
 
@@ -293,9 +299,12 @@ def statisticalAnalysis(u, h, r, a, tag):
         drawHistogram([el for el in l], "totalXPSkillTree", "2")
     elif tag == "evaluationItems_skill":
         l = getEvaluationItems([u, h, r, a], "skill")
+        comparison(l)
         drawBarchart([el for el in l], tag="skill", ylabel="Activities")
+
     elif tag == "evaluationItems_badges":
         l = getEvaluationItems([u, h, r, a], "badge")
+        comparison(l)
         drawBarchart([el for el in l], tag="badge", ylabel="Badges",
                      titles=["Underachievers Badges", "HalfHearted Badges", "Regular Students Badges",
                              "Achievers Badges"],
@@ -368,16 +377,32 @@ def drawHistogram(l, flag, type):
         plt.show()
 
 
-
 def main():
     populateSchemaDictionaries()
     underachievers, halfhearted, regular, achievers = clusters()
-    # drawplot([underachievers, halfhearted, regular, achievers])
-
-    # print(len([float(row[10]) for row in  SE["student_result_fact"] if float(row[10]) > 20000]))
     buildAllStudentsProfiles()
 
-    statisticalAnalysis(underachievers, halfhearted, regular, achievers, "evaluationItems_skill")
+    #drawplot([underachievers, halfhearted, regular, achievers])
+
+    #statisticalAnalysis(underachievers, halfhearted, regular, achievers, "evaluationItems_skill")
+
+    students_profiles = clusterComparator.getNeighbors("85980", underachievers, halfhearted, regular, achievers, all_students_profiles)
+
+
+    target_student_profile = all_students_profiles.get("80975")
+    student_items_description = target_student_profile.getStudentItemsDescription()
+    skills = sorted([int(el[0]) for el in student_items_description if
+                     el[2] == "Skill"])  # sort by the first element of list, which is the date
+    badges = sorted([el for el in student_items_description if el[2] == "Badge"])
+    quizzes = sorted([el for el in student_items_description if el[2] == "Quiz"])
+    bonus = sorted([el for el in student_items_description if el[2] == "Bonus"])
+
+    dic = clusterComparator.scrutinizeData(students_profiles, skills, badges, quizzes, bonus)
+    print(dic)
+    print("target student skills: ", skills)
+
+    od = collections.OrderedDict(reversed(sorted(dic.items())))
+    print(od)
 
 
 if __name__ == "__main__":
