@@ -25,6 +25,7 @@ def checkDateinrange(neighbor_skills, evaluationItems):
 
 
 
+
 # scrutinizes the data and makes some calculations to find the k nearest neighbors
 def scrutinizeData(neighbors_profiles, s, ba, q, bo, dic_editdistance={}, dic_euclideandistance={}):
     if len(neighbors_profiles) > 0:
