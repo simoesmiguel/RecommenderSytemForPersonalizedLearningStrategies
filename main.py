@@ -7,6 +7,7 @@ import plotly.graph_objects as go
 from collections import Counter
 from datetime import datetime as dt
 import clusterComparator
+import findDimensions
 
 from sklearn.cluster import KMeans
 
@@ -75,10 +76,10 @@ class Student:
 
 
 # returns a list of lists where each list represents a line of the csv_file_name
-def readCSVfile(csv_file_name):
+def readCSVfile(csv_file_name, d):
     l = []
     with open(csv_file_name) as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=',')
+        csv_reader = csv.reader(csv_file, delimiter=d)
         line_count = 0
         for row in csv_reader:
             if line_count == 0: line_count += 1
@@ -87,28 +88,33 @@ def readCSVfile(csv_file_name):
                 line_count += 1
         return l
 
+def write_csv_file(filename,l):
+    with open(filename, mode='w') as file:
+        writer = csv.writer(file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        for el in l:
+            writer.writerow(el)
 
 def populateSchemaDictionaries():
-    SE["student_result_fact"] = readCSVfile(files_common_path + 'Student Evaluation/student_result_fact (agg).csv')
-    SE["student_evaluation_fact"] = readCSVfile(files_common_path + 'Student Evaluation/student_evaluation_fact.csv')
-    SE["student_dim"] = readCSVfile(files_common_path + 'Student Evaluation/student_dim.csv')
-    SE["semester_dim"] = readCSVfile(files_common_path + 'Student Evaluation/semester_dim.csv')
-    SE["evaluation_item_dim"] = readCSVfile(files_common_path + 'Student Evaluation/evaluation_item_dim.csv')
-    SE["date_dim"] = readCSVfile(files_common_path + 'Student Evaluation/date_dim.csv')
+    SE["student_result_fact"] = readCSVfile(files_common_path + 'Student Evaluation/student_result_fact (agg).csv', ',')
+    SE["student_evaluation_fact"] = readCSVfile(files_common_path + 'Student Evaluation/student_evaluation_fact.csv', ',')
+    SE["student_dim"] = readCSVfile(files_common_path + 'Student Evaluation/student_dim.csv', ',')
+    SE["semester_dim"] = readCSVfile(files_common_path + 'Student Evaluation/semester_dim.csv', ',')
+    SE["evaluation_item_dim"] = readCSVfile(files_common_path + 'Student Evaluation/evaluation_item_dim_4.csv', ',')
+    SE["date_dim"] = readCSVfile(files_common_path + 'Student Evaluation/date_dim.csv', ',')
 
-    MP["action_dim"] = readCSVfile(files_common_path + 'Moodle Participation/action_dim.csv')
-    MP["content_topic_dim"] = readCSVfile(files_common_path + 'Moodle Participation/content_topic_dim.csv')
-    MP["date_dim"] = readCSVfile(files_common_path + 'Moodle Participation/date_dim.csv')
-    MP["logs_fact"] = readCSVfile(files_common_path + 'Moodle Participation/logs_fact.csv')
+    MP["action_dim"] = readCSVfile(files_common_path + 'Moodle Participation/action_dim.csv', ',')
+    MP["content_topic_dim"] = readCSVfile(files_common_path + 'Moodle Participation/content_topic_dim.csv', ',')
+    MP["date_dim"] = readCSVfile(files_common_path + 'Moodle Participation/date_dim.csv', ',')
+    MP["logs_fact"] = readCSVfile(files_common_path + 'Moodle Participation/logs_fact.csv', ',')
     MP["message_analysis_fact"] = readCSVfile(
-        files_common_path + 'Moodle Participation/message_analysis_fact (agg).csv')
-    MP["message_dim"] = readCSVfile(files_common_path + 'Moodle Participation/message_dim.csv')
+        files_common_path + 'Moodle Participation/message_analysis_fact (agg).csv', ',')
+    MP["message_dim"] = readCSVfile(files_common_path + 'Moodle Participation/message_dim.csv', ',')
     MP["moodle_participation_fact"] = readCSVfile(
-        files_common_path + 'Moodle Participation/moodle_participation_fact (agg).csv')
-    MP["posts_fact"] = readCSVfile(files_common_path + 'Moodle Participation/posts_fact.csv')
-    MP["semester_dim"] = readCSVfile(files_common_path + 'Moodle Participation/semester_dim.csv')
-    MP["student_dim"] = readCSVfile(files_common_path + 'Moodle Participation/student_dim.csv')
-    MP["web_element_dim"] = readCSVfile(files_common_path + 'Moodle Participation/web_element_dim.csv')
+        files_common_path + 'Moodle Participation/moodle_participation_fact (agg).csv', ',')
+    MP["posts_fact"] = readCSVfile(files_common_path + 'Moodle Participation/posts_fact.csv', ',')
+    MP["semester_dim"] = readCSVfile(files_common_path + 'Moodle Participation/semester_dim.csv', ',')
+    MP["student_dim"] = readCSVfile(files_common_path + 'Moodle Participation/student_dim.csv', ',')
+    MP["web_element_dim"] = readCSVfile(files_common_path + 'Moodle Participation/web_element_dim.csv', ',')
 
 
 def clusters(): # splits the students according to quartiles and returns the 4 different clusters
@@ -230,8 +236,8 @@ def getEvaluationItems(all_clusters, tag):
             if student_profile_id:
 
                 new_list = [] #esta lista vai ter só os items que nos interessam (skill ou Badge)
-                if tag == "skill": new_list = [el for el in student_profile_id if (el[2] == "Skill")]
-                elif tag == "badge": new_list = [el for el in student_profile_id if (el[2] == "Badge")]
+                if tag == "skill": new_list = [el for el in student_profile_id if (el[4] == "Skill")]
+                elif tag == "badge": new_list = [el for el in student_profile_id if (el[4] == "Badge")]
 
 
                 #ir buscar a data de cada item e ver se foi efetuada no primeiro semestre
@@ -250,7 +256,7 @@ def getEvaluationItems(all_clusters, tag):
                     if already_found: break
 
                 if in_range:
-                    this_student_badge_list=[row[1] for row in new_list]
+                    this_student_badge_list=[row[2] for row in new_list]
                     badge_ntimes = Counter(this_student_badge_list) # given this students' badges, this dictionary saves the number of times that the student has each badge
                     this_student_badge_list = remove_duplicates(this_student_badge_list)
 
@@ -376,6 +382,13 @@ def drawHistogram(l, flag, type):
         plt.ylabel('Counts')
         plt.show()
 
+def orderdicbyValue(dic):
+    return {k: v for k, v in sorted(dic.items(), key=lambda item: item[1][0])}
+
+def orderdicbyKey(dic):
+    return {k: v for k, v in sorted(dic.items(), key=lambda item: item[0])}
+
+
 
 def main():
     populateSchemaDictionaries()
@@ -386,23 +399,38 @@ def main():
 
     #statisticalAnalysis(underachievers, halfhearted, regular, achievers, "evaluationItems_skill")
 
-    students_profiles = clusterComparator.getNeighbors("85980", underachievers, halfhearted, regular, achievers, all_students_profiles)
+
+
+    neighbors_profiles = clusterComparator.getNeighbors("80975", underachievers, halfhearted, regular, achievers, all_students_profiles)
 
 
     target_student_profile = all_students_profiles.get("80975")
     student_items_description = target_student_profile.getStudentItemsDescription()
-    skills = sorted([int(el[0]) for el in student_items_description if
-                     el[2] == "Skill"])  # sort by the first element of list, which is the date
-    badges = sorted([el for el in student_items_description if el[2] == "Badge"])
-    quizzes = sorted([el for el in student_items_description if el[2] == "Quiz"])
-    bonus = sorted([el for el in student_items_description if el[2] == "Bonus"])
+    skills = [el for el in student_items_description if
+                     el[4] == "Skill"]
+    badges = sorted([el for el in student_items_description if el[4] == "Badge"])
+    quizzes = sorted([el for el in student_items_description if el[4] == "Quiz"])
+    bonus = sorted([el for el in student_items_description if el[4] == "Bonus"])
 
-    dic = clusterComparator.scrutinizeData(students_profiles, skills, badges, quizzes, bonus)
-    print(dic)
-    print("target student skills: ", skills)
+    evaluationItems = target_student_profile.getStudentEvaluationItems()
 
-    od = collections.OrderedDict(reversed(sorted(dic.items())))
-    print(od)
+    all_skills_in_range = findDimensions.checkDateinrange(skills, evaluationItems)
+    lista = [all_skills_in_range[key] for key in all_skills_in_range]
+
+    just_skill_codes= [el[11] for el in lista]
+    dic_editdistance, dic_euclideandistance = findDimensions.scrutinizeData(neighbors_profiles,just_skill_codes, badges, quizzes, bonus)
+
+    print("TARGET STUDENT SKILL CODES: ",just_skill_codes)
+    ordereddict= orderdicbyValue(dic_editdistance)
+    for key in ordereddict:
+        print(ordereddict.get(key)[0], ": ",ordereddict.get(key)[1] )
+
+
+    '''
+    print("\n=================\n",orderdicbyValue(dic_pearson))
+
+    print("\n=================\n", orderdicbyValue(dic_spearman))
+    '''
 
 
 if __name__ == "__main__":

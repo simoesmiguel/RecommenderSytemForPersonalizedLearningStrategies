@@ -1,5 +1,8 @@
 from scipy import spatial
+from scipy import stats
 from sklearn.metrics.pairwise import cosine_similarity
+import main
+
 
 def getNeighbors(targetStudentID,u,h,r,a, all_students_profiles):
 
@@ -13,50 +16,45 @@ def getNeighbors(targetStudentID,u,h,r,a, all_students_profiles):
         students = onlyIDs[index[0]+1]  # students who are in the profile above of the target Student's profile
 
         students_profiles = [all_students_profiles.get(studentId) for studentId in students]
-        print("neighbors do cluster acima:", students)
+        #print("neighbors do cluster acima:", students)
 
-        '''
-        first_s = students_profiles[0]
-        print(first_s.getStudentResults(),"\n")
-        print(first_s.getStudentEvaluationItems(),"\n")
-        print(first_s.getStudentItemsDescription(),"\n")
-        print(len(first_s.getStudentEvaluationItems()), "\n")
-        print(len(first_s.getStudentItemsDescription()), "\n")
-
-        print(first_s.getMoodleParticipation(),"\n")
-        print(first_s.getPosts(),"\n")
-        print(first_s.getMessageAnalysis(),"\n")
-        '''
         return students_profiles
 
+'''
 # scrutinizes the data and makes some calculations to find the k nearest neighbors
-def scrutinizeData(neighbors_profiles, s, ba, q, bo, dic={}):
+def scrutinizeData(neighbors_profiles, s, ba, q, bo, dic_cosine={}, dic_pearson={}, dic_spearman={}):
 
     if len(neighbors_profiles) > 0:
         neighbor_profile=neighbors_profiles[0]
-        neighbor_items_description = neighbor_profile.getStudentItemsDescription()
-        neighbor_skills = sorted([int(el[0]) for el in neighbor_items_description if el[2] == "Skill"]) # sort by the first element of list, which is the date
-        badges = sorted([el for el in neighbor_items_description if el[2] == "Badge"])
-        quizzes = sorted([el for el in neighbor_items_description if el[2] == "Quiz"])
-        bonus = sorted([el for el in neighbor_items_description if el[2] == "Bonus"])
+        neighbor_items_description = neighbor_profile.getStudentItemsDescription() # gets data from the evaluation item table
+        neighbor_skills = ([el for el in neighbor_items_description if el[4] == "Skill"]) # sort by the first element of list, which is the date
+        badges = sorted([el for el in neighbor_items_description if el[4] == "Badge"])
+        quizzes = sorted([el for el in neighbor_items_description if el[4] == "Quiz"])
+        bonus = sorted([el for el in neighbor_items_description if el[4] == "Bonus"])
 
-        if len(neighbor_skills) > 1 and len(s) > 1: # só se o aluno tiver mais do que uma skill já feita é que se vai comparar com os vizinhos
-            new_l = list(zip(neighbor_skills, s))
+        evaluationItems = neighbor_profile.getStudentEvaluationItems()
 
+        if len(neighbor_skills) > 1 and len(s) > 1: # just if the target student and the neighbor have earned more than one skill
+
+             # estas medidas têm em conta somente o itemID e calculam distancias entre os itemsIDs.
+            #calculate cosine similarity
             cosine = 1 - spatial.distance.cosine([el[0] for el in new_l], [el[1] for el in new_l])
-
             #key = cosine distance | value = student's skills
-            dic[cosine] = [neighbor_skills, neighbor_profile]
+            dic_cosine[neighbor_profile] = [neighbor_skills, cosine]
 
-        return scrutinizeData(neighbors_profiles[1:], s, ba, q, bo, dic)
+            #calculate pearson correlation
+            pearson = stats.pearsonr([el[0] for el in new_l], [el[1] for el in new_l])
+            dic_pearson[neighbor_profile] = [neighbor_skills, pearson[0]]
+
+            #calculate spearman correlation
+            spearman = stats.spearmanr([el[0] for el in new_l], [el[1] for el in new_l])
+            dic_spearman[neighbor_profile] = [neighbor_skills, spearman[0]]
+
+
+        return scrutinizeData(neighbors_profiles[1:], s, ba, q, bo, dic_cosine, dic_pearson, dic_spearman)
 
     else:
-        return dic
-
-
-
-
-
-
-
+        return dic_cosine, dic_pearson, dic_spearman
+        
+'''
 
