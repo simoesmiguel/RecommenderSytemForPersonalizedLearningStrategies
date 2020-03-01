@@ -4,6 +4,8 @@ import main
 from Levenshtein import _levenshtein
 
 
+#dic_skills, dic_badges, dic_quizzes, dic_bonus=[], [], [], []
+
 def checkDateinrange(neighbor_skills, evaluationItems):
     all_skills_in_range = {}
     for el1 in neighbor_skills:
@@ -21,28 +23,14 @@ def checkDateinrange(neighbor_skills, evaluationItems):
         sorted(all_skills_in_range.items()))  # retorna por ordem da data (do mais antigo para o mais recente)
 
 
-def saveDictionary(dic_skills, dic_badges, dic_quizzes, dic_bonus, new_l, neighbor_profile, codes, tag):
+def calculateAvgDistance(new_l):
 
     # calculate Levenshtein (edit) distance
     lst_all_distances = [calculateLevenshteinDistance(tupl[0], tupl[1]) for tupl in new_l]
     # calculate avg distance
     avg_distance = reduce(lambda a, b: a + b, lst_all_distances) / len(lst_all_distances)
 
-    if tag=="skills":
-        dic_skills[neighbor_profile] = [avg_distance, codes]
-        return dic_skills
-
-    elif tag == "badges":
-        dic_badges[neighbor_profile] = [avg_distance, codes]
-        return dic_badges
-
-    elif tag == "quizzes":
-        dic_quizzes[neighbor_profile] = [avg_distance, codes]
-        return dic_quizzes
-
-    elif tag == "bonus":
-        dic_bonus[neighbor_profile] = [avg_distance, codes]
-        return dic_bonus
+    return avg_distance
 
 def auxiliar(neighbor_skills, target_student_skills, evaluationItems):
 
@@ -107,39 +95,49 @@ def auxiliar(neighbor_skills, target_student_skills, evaluationItems):
 
 
 
-
 # scrutinizes the data and makes some calculations to find the k nearest neighbors
-def scrutinizeData(neighbors_profiles, s, ba, q, bo, dic_skills={}, dic_badges={}, dic_quizzes={}, dic_bonus={}):
-    if len(neighbors_profiles) > 0:
-        neighbor_profile = neighbors_profiles[0]
-        neighbor_items_description = neighbor_profile.getStudentItemsDescription()  # gets data from the evaluation item table
+def scrutinizeData(neighbors_profiles, s, ba, q, bo):
+    #global dic_skills, dic_badges, dic_quizzes, dic_bonus
+    dic_skills, dic_badges, dic_quizzes, dic_bonus = [], [], [], []
+
+    for profile in neighbors_profiles:
+
+        neighbor_items_description = profile.getStudentItemsDescription()  # gets data from the evaluation item table
         neighbor_skills = ([el for el in neighbor_items_description if
                             el[4] == "Skill"])  # sort by the first element of list, which is the date
         neighbor_badges = [el for el in neighbor_items_description if el[4] == "Badge"]
         neighbor_quizzes = [el for el in neighbor_items_description if el[4] == "Quiz"]
         neighbor_bonus = [el for el in neighbor_items_description if el[4] == "Bonus"]
 
-        evaluationItems = neighbor_profile.getStudentEvaluationItems()
+        evaluationItems = profile.getStudentEvaluationItems()
 
         new_l, codes = auxiliar(neighbor_skills, s, evaluationItems)
         if new_l != [] and codes != []:
-            dic_skills = saveDictionary(dic_skills, dic_badges, dic_quizzes, dic_bonus, new_l, neighbor_profile, codes, "skills")
+            #dic_skills = saveDictionary(dic_skills, dic_badges, dic_quizzes, dic_bonus, new_l, neighbor_profile, codes, "skills")
+            avg_distance = calculateAvgDistance(new_l)
+            if (avg_distance, codes) not in dic_skills:
+                dic_skills.append((avg_distance, codes))
 
         new_l, codes = auxiliar(neighbor_badges, ba, evaluationItems)
         if new_l != [] and codes != []:
-            dic_badges = saveDictionary(dic_skills, dic_badges, dic_quizzes, dic_bonus, new_l, neighbor_profile, codes, "badges")
+            avg_distance = calculateAvgDistance(new_l)
+            if (avg_distance, codes) not in dic_badges:
+                dic_badges.append((avg_distance, codes))
 
         new_l, codes = auxiliar(neighbor_quizzes, q, evaluationItems)
         if new_l != [] and codes != []:
-            dic_quizzes = saveDictionary(dic_skills, dic_badges, dic_quizzes, dic_bonus, new_l, neighbor_profile, codes, "quizzes")
+            avg_distance = calculateAvgDistance(new_l)
+            if (avg_distance, codes) not in dic_quizzes:
+                dic_quizzes.append((avg_distance, codes))
 
         new_l, codes = auxiliar(neighbor_bonus, bo, evaluationItems)
         if new_l != [] and codes != []:
-            dic_bonus = saveDictionary(dic_skills, dic_badges, dic_quizzes, dic_bonus, new_l, neighbor_profile, codes, "bonus")
+            avg_distance = calculateAvgDistance(new_l)
+            if (avg_distance, codes) not in dic_quizzes:
+                dic_quizzes.append((avg_distance, codes))
 
-        return scrutinizeData(neighbors_profiles[1:], s, ba, q, bo, dic_skills, dic_badges, dic_quizzes, dic_bonus)
-    else:
-        return dic_skills, dic_badges, dic_quizzes, dic_bonus
+
+    return dic_skills, dic_badges, dic_quizzes, dic_bonus
 
 
 # Levenshtein Distance

@@ -9,6 +9,7 @@ from datetime import datetime as dt
 import clusterComparator
 import findDimensions
 import recommender
+import MLModel
 
 from sklearn.cluster import KMeans
 
@@ -397,21 +398,34 @@ def auxiliar(skills, evaluationItems):
 
     return just_skill_codes
 
+def sortListofTuples(l):
+    return (sorted(l, key = lambda x: x[0]))
+
 def recommendForAllStudents(underachievers, halfhearted, regular, achievers):
 
+    '''
     dic_all_lines_skills={}
     dic_all_lines_badges={}
     dic_all_lines_quizzes={}
     dic_all_lines_bonus={}
+    '''
+    all_lines_skills=[]
+    all_lines_badges=[]
+    all_lines_quizzes=[]
+    all_lines_bonus=[]
 
     count=1
     for key in all_students_profiles:
-        #if count==20:
-        #    break
-        print("Another: ", count)
-        if veryfyStudentYear(key): # this student did the course before 2018
+        #if count > 95:
+        #if count >0:
 
-            neighbors_profiles = clusterComparator.getNeighbors(key, underachievers, halfhearted, regular, achievers,
+         #   if count==400:
+         #       break
+        print("Another: ", count)
+        if veryfyStudentYear(key,  "trainSet"): # this student did the course before 2018
+
+
+            neighbors_profiles, cluster = clusterComparator.getNeighbors(key, underachievers, halfhearted, regular, achievers,
                                                                 all_students_profiles)
 
             target_student_profile = all_students_profiles.get(key)
@@ -430,11 +444,6 @@ def recommendForAllStudents(underachievers, halfhearted, regular, achievers):
             just_quizzes_codes = auxiliar(quizzes, evaluationItems)
             just_bonus_codes = auxiliar(bonus, evaluationItems)
 
-            if debug:
-                print("skills : ", just_skill_codes)
-                print("badges : ", just_badges_codes)
-                print("quizzes : ", just_quizzes_codes)
-                print("binus: ", just_bonus_codes)
 
             dic_skills, dic_badges, dic_quizzes, dic_bonus = findDimensions.scrutinizeData(neighbors_profiles,
                                                                                            just_skill_codes,
@@ -442,39 +451,29 @@ def recommendForAllStudents(underachievers, halfhearted, regular, achievers):
                                                                                            just_quizzes_codes,
                                                                                            just_bonus_codes)
 
-            ordereddict1 = orderdicbyValue(dic_skills)
-            ordereddict2 = orderdicbyValue(dic_badges)
-            ordereddict3 = orderdicbyValue(dic_quizzes)
-            ordereddict4 = orderdicbyValue(dic_bonus)
 
-            if debug:
-                print("dic_skills: ", ordereddict1)
-                print("dic_badges: ", ordereddict2)
-                print("dic_quizzes: ", ordereddict3)
-                print("dic_bonus: ", ordereddict4)
+            ordereddict1 = sortListofTuples(dic_skills)
+            ordereddict2 = sortListofTuples(dic_badges)
+            ordereddict3 = sortListofTuples(dic_quizzes)
+            ordereddict4 = sortListofTuples(dic_bonus)
+
 
             l1 = recommender.recommendSkills(ordereddict1, just_skill_codes, 3, 3)
             l2 = recommender.recommendSkills(ordereddict2, just_badges_codes, 3, 3)
             l3 = recommender.recommendSkills(ordereddict3, just_quizzes_codes, 3, 3)
             l4 = recommender.recommendSkills(ordereddict4, just_bonus_codes, 3, 3)
 
-            if debug:
-                print("Recommended skills : ",l1)
-                print("Recommended badges : ",l2)
-                print("Recommended quizzes : ",l3)
-                print("Recommended bonus : ",l4)
+
+            all_lines_skills.append(([cluster],just_skill_codes, l1))
+            all_lines_badges.append(([cluster], just_badges_codes, l2))
+            all_lines_quizzes.append(([cluster], just_quizzes_codes, l3))
+            all_lines_bonus.append(([cluster], just_bonus_codes, l4))
+
+        count+=1
 
 
-
-            dic_all_lines_skills[auxiliar2(just_skill_codes)] = l1
-            dic_all_lines_badges[auxiliar2(just_badges_codes)] = l2
-            dic_all_lines_quizzes[auxiliar2(just_quizzes_codes)] = l3
-            dic_all_lines_bonus[auxiliar2(just_bonus_codes)] = l4
-
-            count+=1
-
-
-    return dic_all_lines_skills, dic_all_lines_badges, dic_all_lines_quizzes, dic_all_lines_bonus
+    #return dic_all_lines_skills, dic_all_lines_badges, dic_all_lines_quizzes, dic_all_lines_bonus
+    return all_lines_skills, all_lines_badges, all_lines_quizzes, all_lines_bonus
 
 def auxiliar2(l):
     a = ""
@@ -494,21 +493,33 @@ def write_file(dic, fileName):
 
     write_csv_file(files_common_path + "Student Evaluation/"+fileName+".csv", l)
 
-def veryfyStudentYear(studentID):
+def write_file2(lista, fileName):
+    l = []
+    for tuple in lista:
+        #l.append(tuple[0] + ["values: "] + tuple[1])
+        l.append(tuple[0] + tuple[1] + ["values: "]+tuple[2])
+    write_csv_file(files_common_path + "Student Evaluation/" + fileName + ".csv", l)
+
+def veryfyStudentYear(studentID, tag):
 
     student_profile = all_students_profiles.get(studentID)
     l=student_profile.getStudentResults()
 
-    for el in l: # normalmente a lista l só deve ter um elemento a não ser que haja um aluno que esteve inscrito na cadeira dois anos diferentes
-        if float(el[0]) < 2018:
-            return True
+    if tag == "trainSet":
+        for el in l: # normalmente a lista l só deve ter um elemento a não ser que haja um aluno que esteve inscrito na cadeira dois anos diferentes
+            if float(el[0]) < 2017:
+                return True
+    else:
+        for el in l:  # normalmente a lista l só deve ter um elemento a não ser que haja um aluno que esteve inscrito na cadeira dois anos diferentes
+            if float(el[0]) == 2017:
+                return True
 
     return False
 
 
 def main():
-    global debug
 
+    '''
     populateSchemaDictionaries()
     underachievers, halfhearted, regular, achievers = clusters()
     buildAllStudentsProfiles()
@@ -520,42 +531,22 @@ def main():
     debug = False
     d1, d2, d3, d4 = recommendForAllStudents(underachievers, halfhearted, regular, achievers)
 
-    write_file(d1,"trainingFileSkills")
-    write_file(d2,"trainingFileBadges")
-    write_file(d3,"trainingFileQuizzes")
-    write_file(d4,"trainingFileBonus")
+    #write_file2(d1, "testFileSkills")
+    #write_file2(d2, "testFileBadges")
+    #write_file2(d3, "testFileQuizzes")
+    #write_file2(d4, "testFileBonus")
 
-    #for key in d1:
-    #    print("key: ",key, " value: ",d1.get(key))
+    write_file2(d1, "trainingFileSkills")
+    write_file2(d2, "trainingFileBadges")
+    write_file2(d3, "trainingFileQuizzes")
+    write_file2(d4, "trainingFileBonus")
 
     print("THAT'S ALL FOLKS")
-
     '''
-    print("TARGET STUDENT SKILL CODES: ",just_skill_codes)
-    ordereddict= orderdicbyValue(dic_skills)
-    for key in ordereddict:
-        print(ordereddict.get(key)[0], ": ",ordereddict.get(key)[1] )
-    print(recommender.recommendSkills(ordereddict, just_skill_codes, 3, 3))
-    
-    print("TARGET STUDENT BADGES CODES: ",just_badges_codes)
-    ordereddict= orderdicbyValue(dic_badges)
-    for key in ordereddict:
-        print(ordereddict.get(key)[0], ": ",ordereddict.get(key)[1] )
-    print(recommender.recommendSkills(ordereddict, just_badges_codes, 3, 3))
-    
-    print("TARGET STUDENT Quizzes CODES: ", just_quizzes_codes)
-    ordereddict = orderdicbyValue(dic_quizzes)
-    for key in ordereddict:
-        print(ordereddict.get(key)[0], ": ", ordereddict.get(key)[1])
-    print(recommender.recommendSkills(ordereddict, just_quizzes_codes, 3, 3))
 
-    print("TARGET STUDENT Bonus CODES: ", just_bonus_codes)
-    ordereddict = orderdicbyValue(dic_bonus)
-    for key in ordereddict:
-        print(ordereddict.get(key)[0], ": ", ordereddict.get(key)[1])
-    print(recommender.recommendSkills(ordereddict, just_bonus_codes, 3, 3))
-    '''
- 
+    MLModel.main()
+
+
 
 
 

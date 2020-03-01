@@ -10,22 +10,27 @@ def getNeighbors(targetStudentID,u,h,r,a, all_students_profiles):
     for l in [u,h,r,a]:
         onlyIDs.append([tup[0] for tup in l])
 
-    index =[onlyIDs.index(l) for l in onlyIDs for el in l if targetStudentID == el]  # discover the profile of the student
+    index = [onlyIDs.index(l) for l in onlyIDs for el in l if targetStudentID == el]  # discover the profile of the student
     #print("O target student", targetStudentID ," encontra-se no cluster: ", index)
     if index[0] != 3:  # if the target student does not belong to the achievers cluster
 
         # students who are in the profile above of the target Student's profile and did the course before 2018
-        students = [el for el in onlyIDs[index[0]+1] if veryfyStudentYear(el, all_students_profiles)]
+        #students = [el for el in onlyIDs[index[0]+1] if veryfyStudentYear(el, all_students_profiles, "testSet")]
+
+        students = [el for el in onlyIDs[index[0]+1]]
 
         students_profiles = [all_students_profiles.get(studentId) for studentId in students]
         #print("neighbors do cluster acima:", students)
 
     else:
         # return all neighbors from the same cluster except himself
-        students = [el for el in onlyIDs[index[0]] if veryfyStudentYear(el, all_students_profiles)] # students who are in the profile same profile as the target student and did the course before 2018
+        #students = [el for el in onlyIDs[index[0]] if veryfyStudentYear(el, all_students_profiles,  "testSet")] # students who are in the profile same profile as the target student and did the course before 2018
+        students = [el for el in onlyIDs[index[0]]]
+
         students_profiles = [all_students_profiles.get(studentId) for studentId in students if studentId != targetStudentID]
         #print("student neighbor profiles : ", students_profiles )
-    return students_profiles
+
+    return students_profiles, index[0]
 
 
 '''
@@ -66,13 +71,18 @@ def scrutinizeData(neighbors_profiles, s, ba, q, bo, dic_cosine={}, dic_pearson=
         
 '''
 
-def veryfyStudentYear(studentID, all_students_profiles):
+def veryfyStudentYear(studentID, all_students_profiles, tag):
     student_profile = all_students_profiles.get(studentID)
-    l=student_profile.getStudentResults()
+    l = student_profile.getStudentResults()
 
-    for el in l: # normalmente a lista l só deve ter um elemento a não ser que haja um aluno que esteve inscrito na cadeira dois anos diferentes
-        if float(el[0])< 2018:
-            return True
+    if tag == "trainSet":
+        for el in l:  # normalmente a lista l só deve ter um elemento a não ser que haja um aluno que esteve inscrito na cadeira dois anos diferentes
+            if float(el[0]) < 2018:
+                return True
+    else:
+        for el in l:  # normalmente a lista l só deve ter um elemento a não ser que haja um aluno que esteve inscrito na cadeira dois anos diferentes
+            if float(el[0]) == 2017:
+                return True
 
     return False
 
