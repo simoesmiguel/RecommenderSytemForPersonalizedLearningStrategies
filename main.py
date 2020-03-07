@@ -10,6 +10,8 @@ import clusterComparator
 import findDimensions
 import recommender
 import MLModel
+import MyMLModel
+import MLModel2
 
 from sklearn.cluster import KMeans
 
@@ -422,7 +424,7 @@ def recommendForAllStudents(underachievers, halfhearted, regular, achievers):
          #   if count==400:
          #       break
         print("Another: ", count)
-        if veryfyStudentYear(key,  "trainSet"): # this student did the course before 2018
+        if veryfyStudentYear(key,  "testSet"): # this student did the course before 2018
 
 
             neighbors_profiles, cluster = clusterComparator.getNeighbors(key, underachievers, halfhearted, regular, achievers,
@@ -518,8 +520,8 @@ def veryfyStudentYear(studentID, tag):
 
 
 def main():
-
     '''
+
     populateSchemaDictionaries()
     underachievers, halfhearted, regular, achievers = clusters()
     buildAllStudentsProfiles()
@@ -531,10 +533,11 @@ def main():
     debug = False
     d1, d2, d3, d4 = recommendForAllStudents(underachievers, halfhearted, regular, achievers)
 
-    #write_file2(d1, "testFileSkills")
-    #write_file2(d2, "testFileBadges")
-    #write_file2(d3, "testFileQuizzes")
-    #write_file2(d4, "testFileBonus")
+
+    write_file2(d1, "testFileSkills")
+    write_file2(d2, "testFileBadges")
+    write_file2(d3, "testFileQuizzes")
+    write_file2(d4, "testFileBonus")
 
     write_file2(d1, "trainingFileSkills")
     write_file2(d2, "trainingFileBadges")
@@ -544,10 +547,13 @@ def main():
     print("THAT'S ALL FOLKS")
     '''
 
-    MLModel.main()
 
 
+    #MLModel.main()
 
+    MyMLModel.main()
+
+    #MLModel2.main()
 
 
 

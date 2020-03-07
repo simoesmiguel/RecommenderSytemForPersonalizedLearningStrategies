@@ -46,40 +46,8 @@ def auxiliar(neighbor_skills, target_student_skills, evaluationItems):
                     target_student_skills):  # we don't consider the neighbors who have less completed skills than the target student
                 just_codes = [el[11] for el in lista]
 
-                # =============================================
-                '''this piece of code joins the skills which were achieved both by target student and its neighbor, but were not 
-                achieved in the same order. For instance:
-
-                student_target_skills = [1,4,2,5,6]
-                neighbor_skills =       [3,4,1,7,8]
-
-                by the end of this code, new_l = [(1,1),(4,4),(2,3),(5,7),(6,8)]
-                Attention! Most of the times, neighbor_skills is a bigger array than student_target_skills
-                '''
-                copy_s = [el for el in target_student_skills]
-                copy_just_codes = [el for el in just_codes]
-                n = []  # tuples list
-                elements_to_delete1 = []
-                elements_to_delete2 = []
-
-                for code in copy_s:
-                    for code2 in just_codes:
-                        if code == code2:
-                            elements_to_delete1.append(code)
-                            elements_to_delete2.append(code2)
-                            n.append((code, code2))
-                            break
-
-                for code1 in elements_to_delete1:
-                    copy_s.remove(code1)
-                for code2 in elements_to_delete2:
-                    just_codes.remove(code2)
-
-                n2 = list(zip(just_codes, copy_s))
-                new_l = n + n2
-                # =============================================
-
-                return new_l, copy_just_codes
+                new_l = orderElements(target_student_skills, just_codes)
+                return new_l, just_codes
 
     elif len(target_student_skills) == 0: # se o aluno ainda não tiver nenhumas skills
         all_skills_in_range = checkDateinrange(neighbor_skills, evaluationItems)
@@ -146,3 +114,60 @@ def calculateLevenshteinDistance(string1, string2):
 
 def calculateEuclideanDistance(string1, string2):
     pass
+
+
+def orderElements(tg_student_act, neighbor_act):
+    '''this function joins the skills which were achieved both by target student and its neighbor, but were not
+       achieved in the same order. Also, this function joins the most similar skills between the target student and
+       its neighbor in order to minimize the avg distance
+       For instance:
+
+       student_target_skills = [aa,bb,cd,ef,zx]
+       neighbor_skills =       [ce,bb,aa,fg,jr]
+
+       by the end of this code, new_l = [(aa,aa),(bb,bb),(cd,ce),(ef,fg),(zx,jr)]
+       Attention! Most of the times, neighbor_skills is a bigger array than student_target_skills
+    '''
+
+    copy_act = [el for el in tg_student_act]  # all elements except the students' level
+    copy_neighbor_act = [element for element in neighbor_act]
+    n = []  # tuples list
+    elements_to_delete1 = []
+    elements_to_delete2 = []
+
+    for code in copy_act:
+        for code2 in copy_neighbor_act:
+            if code == code2:
+                elements_to_delete1.append(code)
+                elements_to_delete2.append(code2)
+                n.append((code, code2))
+                break
+
+    for code1 in elements_to_delete1:
+        copy_act.remove(code1)
+    for code2 in elements_to_delete2:
+        copy_neighbor_act.remove(code2)
+
+    # n2 = list(zip(copy_act, copy_neighbor_act))
+
+    already_added =[]
+    n2=[]
+    for el in copy_act:
+        dic = {}
+        for el2 in copy_neighbor_act:
+            if el2  not in already_added:
+                dist = calculateLevenshteinDistance(el, el2)
+                dic[(el, el2)] = dist
+
+        ordered_dic = orderdicbyValue(dic)
+        most_similar_tuple = ordered_dic.popitem()[0]
+        already_added.append(most_similar_tuple[1])
+
+        n2.append(most_similar_tuple)
+
+    new_l = n + n2
+
+    return new_l
+
+def orderdicbyValue(dic): # orders dict in reverse order
+    return {k: v for k, v in reversed(sorted(dic.items(), key=lambda item: item[1]))}

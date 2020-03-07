@@ -1,4 +1,5 @@
 import csv
+from collections import Counter
 from functools import reduce
 import numpy as np
 
@@ -102,8 +103,8 @@ def originalFormat(tinput, l_input_encoded):
 
     return new_input
 
-def KNNclassifier(xtrain, ytrain, xtest):
-    model = KNeighborsClassifier(n_neighbors=1)
+def KNNclassifier(xtrain, ytrain, xtest, k):
+    model = KNeighborsClassifier(n_neighbors=k)
 
     model.fit(xtrain, ytrain)
 
@@ -119,8 +120,8 @@ def LinearRegression(xtrain, ytrain, xtest):
 
     return outcome
 '''
-def RandomForest(X_train, y_train, X_test, y_test):
-    clf = GradientBoostingClassifier(n_estimators=100, learning_rate=0.50,max_depth = 15, max_leaf_nodes=5).fit(X_train, y_train)
+def RandomForest(X_train, y_train, X_test, y_test, n_estimators, learning_rate, max_depth, max_leaf_nodes):
+    clf = GradientBoostingClassifier(n_estimators=n_estimators, learning_rate=learning_rate,max_depth = max_depth, max_leaf_nodes=max_leaf_nodes).fit(X_train, y_train)
 
     score= clf.score(X_test, y_test)
 
@@ -143,10 +144,48 @@ def match(l1, l2, tag, tag2):
             else:
                 dic_y_testEncoded[str(l1[i])] = l2[i]
 
+def predictRandomForest(X_train, Y_train, X_test, Y_test):
+    learning_rates = list(np.linspace(0.1, 1, 11))
+    estimators = list(np.arange(1, 200, 10))
+    depths = list(np.arange(1, 50, 5))
+    leaf_nodes = list(np.arange(2, 30, 2))
+
+    dic ={}
+
+    for n in estimators:
+        for l in learning_rates:
+            for d in depths:
+                for max_l in leaf_nodes:
+                    y_pred = RandomForest(X_train, Y_train, X_test, Y_test, n, l, d, max_l)
+                    print("Score: ", y_pred)
+                    dic[str([n, l, d, max_l])] = y_pred
+
+
+    new_dic = {k: v for k, v in sorted(dic.items(), key=lambda item: item[1])}
+    print(new_dic)
+
 def trainModel():
     l = readCSVfile(files_common_path + "Student Evaluation/trainingFileSkills.csv", ",")
     new_l = [line[1:] for line in l]
     tinput, toutput = buildTrainLists(new_l)
+
+    dic = Counter(toutput)
+    #print(dic)
+
+    # Upsampling
+    for key in dic:
+        index = toutput.index(key)
+        count = dic.get(key)
+        while count < 96:
+            tinput.append(tinput[index])
+            toutput.append(key)
+            line_l = l[index]
+            l.append(line_l)
+
+            count += 1
+
+    dic = Counter(toutput)
+    #print(dic)
 
     #print(tinput)
     l2 = readCSVfile(files_common_path + "Student Evaluation/testFileSkills.csv", ",")
@@ -170,8 +209,7 @@ def trainModel():
 
     all_to_encode = x_train_decoded + toutput + x_test_decoded + testoutput
 
-    clusters = [line[0] for line in l]
-    clusters2 = [line[0] for line in l2]
+
 
     all_encoded = labelEncoder(all_to_encode)
 
@@ -193,12 +231,18 @@ def trainModel():
     #Y_test = originalFormat(new_testoutput, y_test_encoded)
     Y_test= y_test_encoded
 
+
+
+    clusters = [line[0] for line in l]
+    clusters2 = [line[0] for line in l2]
+    
     for i in range(len(X_train)):
         X_train[i] = [int(clusters[i])] + X_train[i]
 
     for i in range(len(X_test)):
         X_test[i] = [int(clusters2[i])] + X_test[i]
 
+    print(X_train)
 
 
     #match(X_train, new_tinput, "input", "train")
@@ -207,90 +251,21 @@ def trainModel():
     #match(Y_test, new_testoutput, "output", "test")
 
     '''
-    y_pred = KNNclassifier(X_train, Y_train, X_test)
-    
-    print("labels in y_true that don't appear in y_pred: ", set(Y_test) - set(y_pred))
+    for k in range (1, 20):
+        y_pred = KNNclassifier(X_train, Y_train, X_test, k)
 
-    # results = confusion_matrix(Y_test, y_pred)
+        #print("labels in y_true that don't appear in y_pred: ", set(Y_test) - set(y_pred))
 
-    # print('Confusion Matrix :')
-    # print(results)
 
-    print('Accuracy Score :', accuracy_score(Y_test, y_pred))
-    print('Report : ')
-    print(classification_report(Y_test, y_pred))
+        print('Accuracy Score :', accuracy_score(Y_test, y_pred))
+
+        #print('Report : ')
+        #print(classification_report(Y_test, y_pred))
+
+
     '''
 
-
-    y_pred = RandomForest(X_train, Y_train, X_test, Y_test)
-    print("Score: ", y_pred)
-
-    ######## Just to order the things #########
-    '''
-    example:
-            from this: [15, 10, 14]  :  [ 7 11 15]
-            to this  : [15, 10, 14]  :  [15  7 11]
-
-    '''
-    '''
-    for i in range(len(Y_test)):
-        line_test = Y_test[i]
-        line_pred = [el for el in y_pred[i]]
-        new_test=[]
-        already_added=[]
-
-        for j in range(len(line_test)):
-            if line_test[j] in line_pred:
-                new_test.append(line_test[j])
-                already_added.append(j)
-        new_test = sorted(new_test)
-
-        for j in range(len(line_test)):
-            if j not in already_added:
-                new_test.append(line_test[j])
-                already_added.append(j)
-
-        Y_test[i] = new_test
-
-    for i in range(len(y_pred)):
-        line_test = Y_test[i]
-        line_pred = [el for el in y_pred[i]]
-        new_pred = []
-        already_added=[]
-
-        for j in range(len(line_pred)):
-            if line_pred[j] in line_test:
-                new_pred.append(line_pred[j] )
-                already_added.append(j)
-        new_pred = sorted(new_pred)
-
-        for j in range(len(line_pred)):
-            if j not in already_added:
-                new_pred.append(line_pred[j])
-                already_added.append(j)
-
-        y_pred[i] = new_pred
-    ##############################################
-    
-    
-
-    l_final_pred=[]
-    for i in range(0,3):
-        for el in y_pred:
-            l_final_pred.append(el[i])
-
-    l_final_test=[]
-    for i in range(0,3):
-        for el in Y_test:
-            l_final_test.append(el[i])
-    '''
-
-    #a = [el for line in y_pred for el in line]
-    #b = [el for line in Y_test for el in line]
-
-
-
-
+    predictRandomForest(X_train, Y_train, X_test, Y_test)
 
 
 def main():
