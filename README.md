@@ -8,4 +8,4 @@ With the purpose of promoting behavior change and leveraging the students’ eng
 
 
 
-https://zenodo.org/badge/235339011.svg
+[![DOI](https://zenodo.org/badge/235339011.svg)](https://zenodo.org/badge/latestdoi/235339011)
