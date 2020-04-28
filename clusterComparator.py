@@ -14,7 +14,7 @@ def getNeighbors(targetStudentID,u,h,r,a, all_students_profiles):
     #print("O target student", targetStudentID ," encontra-se no cluster: ", index)
     if index[0] != 3:  # if the target student does not belong to the achievers cluster
 
-        # students who are in the profile above of the target Student's profile and did the course before 2018
+        # students who are in the profile above of the target Student's profile
         #students = [el for el in onlyIDs[index[0]+1] if veryfyStudentYear(el, all_students_profiles, "testSet")]
 
         students = [el for el in onlyIDs[index[0]+1]]

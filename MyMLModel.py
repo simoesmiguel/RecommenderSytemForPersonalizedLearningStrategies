@@ -21,7 +21,7 @@ para cada estudante que está presente no test set:
     Verificar se aquilo que foi recomendado é realmente aquilo que deveria ser recomendado.
 
 '''
-files_common_path = '/Users/miguelsimoes/Documents/Tese/Final Data Warehouse/'
+files_common_path = '/Users/miguelsimoes/Documents/Universidade/Tese/Final Data Warehouse/'
 
 def readCSVfile(csv_file_name, d):
     l = []
@@ -73,10 +73,14 @@ def findNeighbors(input, tg_student_act, k_neighbors, tag):
 
                 new_l = orderElements(tg_student_act[1:], el[1:], tag)
 
+                #print("elemento : ", el)
+                #print("new_l : ", new_l)
+
                 avg_distance = calculateAvgDistance(new_l, tag)
+                #print("avg_distance =  ", avg_distance)
 
                 if tag == "levenshtein" or tag == "jaccard" or tag == "hamming" or tag == "soundex" or tag == "damerau":
-                    if len(neighbors) == k_neighbors:
+                    if len(neighbors) == k_neighbors: # if the max number of neighbors was already reached
                         largest_dist = reduce(lambda a, b: a if a > b else b, [el[0] for el in neighbors])
 
                         if avg_distance < largest_dist:
@@ -88,7 +92,7 @@ def findNeighbors(input, tg_student_act, k_neighbors, tag):
 
                 else: # jaro and lcs measures
                     if len(neighbors) == k_neighbors:
-                        lowest_dist = reduce(lambda a, b: a if a > b else b, [el[0] for el in neighbors])
+                        lowest_dist = reduce(lambda a, b: a if a < b else b, [el[0] for el in neighbors])
 
                         if avg_distance > lowest_dist:
                             el_to_delete = [el for el in neighbors if el[0] == lowest_dist][0]
@@ -98,12 +102,14 @@ def findNeighbors(input, tg_student_act, k_neighbors, tag):
                         neighbors.append((avg_distance, el))
 
 
-    else:
-        if len(neighbors) < k_neighbors:
-            for el in input:
-                if el[0] == tg_student_act[0] and len(el) == 1:
+    else: # if the target student just does not have performed any activities
+        for el in input:
+            if len(neighbors) < k_neighbors:
+                if el[0] == tg_student_act[0] and len(el) > 1: #if the neighbor and the target student belong to the
+                                                            # same level but the neighbor has performed more activities
                     neighbors.append((0, el))
-
+            else:
+                break
 
     return neighbors
 
@@ -207,7 +213,7 @@ def orderElements(tg_student_act, neighbor_act, tag):
        Attention! Most of the times, neighbor_skills is a bigger array than student_target_skills
     '''
 
-    copy_act = [el for el in tg_student_act]  # all elements except the students' level
+    copy_act = [el for el in tg_student_act]
     copy_neighbor_act = [element for element in neighbor_act]
     n = []  # tuples list
     elements_to_delete1 = []
@@ -285,7 +291,6 @@ def makeRecommendations (neighbors_list, train_input, train_output, test_output,
     indexes = [train_input.index(el[1]) for el in ordered_n_list]
 
     recommendations = list(dict.fromkeys([el for index in indexes for el in train_output[index]]))
-
     new_l = orderElements(test_output, recommendations, tag)
     y_test = [el[0] for el in new_l]
     y_pred = [el[1] for el in new_l]
@@ -297,11 +302,15 @@ def makeRecommendations (neighbors_list, train_input, train_output, test_output,
 
     f1 = f1_score(y_test, y_pred,  average="micro")
 
-    return precision, recall, f1
+    return precision, recall, f1, recommendations, y_pred, y_test
+
+def write_csv_file(filename,l):
+    with open(filename, mode='w') as file:
+        writer = csv.writer(file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        for el in l:
+            writer.writerow(el)
 
 def main():
-
-
 
     l = readCSVfile(files_common_path + "Student Evaluation/trainingFileSkills.csv", ",")
 
@@ -314,11 +323,17 @@ def main():
 
     all_measures =["soundex", "jaccard", "jaro", "damerau"]
     colors_labels = ['b', 'g', 'dimgray', 'red']
+    colors_labels2 = ['yellowgreen', 'violet', 'tan', 'maroon']
+
+    file = open(files_common_path+"outputMyMLModel.txt","w")
 
     for tag in all_measures:
-        accuracy_k = []
+        accuracy_k = [(0,0)]
+        print("tag = ",tag )
+        file.write("-------------------------------------------------------------------------------------------------------------------------------------- \n")
 
         for k in range(1,40): # k neighbors
+        #for k in range(2,5):
 
             all_recalls = []
             all_precisions = []
@@ -328,23 +343,45 @@ def main():
             for i in range (len(test_input)):
 
                 n = findNeighbors(train_input, test_input[i], k, tag)
-                #print("student: ", el, " neighbors: ", n)
+                file.write("student: \n")
+                for el in test_input[i]:
+                    file.write(str(el)+" \n")
 
-                r, precision, f1 = makeRecommendations(n, train_input, train_output, test_output[i], tag)
+                file.write("neighbors: \n")
+                for el in n:
+                    file.write(str(el)+"\n")
+
+                file.write ("tag: "+ tag+"\n")
+                file.write("K : "+ str(k)+"\n")
+                r, precision, f1, recommendations, y_pred, y_test = makeRecommendations(n, train_input, train_output, test_output[i], tag)
                 all_recalls.append(r)
                 all_precisions.append(precision)
                 all_f1.append(f1)
+                file.write("Possible Recommendations: "+"\n")
+                for el in recommendations:
+                    file.write(str(el)+" \n")
+                file.write("Trully Recommended:  ")
+                for el in y_pred:
+                    file.write(str(el)+ "    ")
+                file.write("\n")
+                file.write("What should be recommended: ")
+                for el in y_test:
+                    file.write(str(el) + "    ")
+                file.write("\n")
+                file.write("Precision: "+ str(precision)+ " \n")
+                file.write("Recall: "+str(r)+"\n")
+                file.write("F1_score: " + str(f1) + "\n")
+                file.write("\n \n")
 
             mean_recall = reduce(lambda a, b: a + b, all_recalls) / len(all_recalls)
             mean_precision = reduce(lambda a, b: a + b, all_precisions) / len(all_precisions)
             mean_f1 = reduce(lambda a, b: a + b, all_f1) / len(all_f1)
 
 
-            accuracy_k.append((mean_precision, mean_recall, mean_f1, k))
+            accuracy_k.append((mean_precision, k))
 
-        print(accuracy_k)
 
-        ["soundex", "jaccard", "jaro", "damerau"]
+
         if tag == "soundex":
             l = "Soundex Measure"
         elif tag == "jaccard":
@@ -356,12 +393,17 @@ def main():
         else:
             l= tag
 
-        plt.plot([el[3] for el in accuracy_k], [el[0] for el in accuracy_k], colors_labels[all_measures.index(tag)], label = l)
-        #plt.plot([el[3] for el in accuracy_k], [el[1] for el in accuracy_k])
+        plt.plot([el[1] for el in accuracy_k], [el[0]*100 for el in accuracy_k], colors_labels[all_measures.index(tag)], label = l)
+        #plt.plot([el[3] for el in accuracy_k], [el[1]*100 for el in accuracy_k] , colors_labels2[all_measures.index(tag)], label = l)
         #plt.plot([el[3] for el in accuracy_k], [el[2] for el in accuracy_k])
 
-    plt.ylabel("Precision")
+
+    file.close()
+
+    plt.ylabel("Precision (%)")
     plt.xlabel("k Neighbors")
     plt.legend()
     plt.title ("Precision Vs (K) Neighbors")
     plt.show()
+
+

@@ -17,7 +17,7 @@ from sklearn.cluster import KMeans
 
 import numpy as np
 
-files_common_path = '/Users/miguelsimoes/Documents/Tese/Final Data Warehouse/'
+files_common_path = '/Users/miguelsimoes/Documents/Universidade/Tese/Final Data Warehouse/'
 
 SE = {}  # Student Evaluation Schema
 MP = {}  # Moodle Participation
@@ -104,7 +104,7 @@ def populateSchemaDictionaries():
     SE["student_evaluation_fact"] = readCSVfile(files_common_path + 'Student Evaluation/student_evaluation_fact.csv', ',')
     SE["student_dim"] = readCSVfile(files_common_path + 'Student Evaluation/student_dim.csv', ',')
     SE["semester_dim"] = readCSVfile(files_common_path + 'Student Evaluation/semester_dim.csv', ',')
-    SE["evaluation_item_dim"] = readCSVfile(files_common_path + 'Student Evaluation/evaluation_item_dim_4.csv', ',')
+    SE["evaluation_item_dim"] = readCSVfile(files_common_path + 'Student Evaluation/evaluation_item_dim_5.csv', ',')
     SE["date_dim"] = readCSVfile(files_common_path + 'Student Evaluation/date_dim.csv', ',')
 
     MP["action_dim"] = readCSVfile(files_common_path + 'Moodle Participation/action_dim.csv', ',')
@@ -416,16 +416,16 @@ def recommendForAllStudents(underachievers, halfhearted, regular, achievers):
     all_lines_quizzes=[]
     all_lines_bonus=[]
 
+    found = False
     count=1
     for key in all_students_profiles:
         #if count > 95:
         #if count >0:
 
-         #   if count==400:
-         #       break
-        print("Another: ", count)
-        if veryfyStudentYear(key,  "testSet"): # this student did the course before 2018
 
+        print("Another: ", count)
+        if veryfyStudentYear(key,  "trainSet"): # this student did the course before 2018
+        #if veryfyStudentYear(key, "trainSet"):
 
             neighbors_profiles, cluster = clusterComparator.getNeighbors(key, underachievers, halfhearted, regular, achievers,
                                                                 all_students_profiles)
@@ -439,12 +439,27 @@ def recommendForAllStudents(underachievers, halfhearted, regular, achievers):
             quizzes = [el for el in student_items_description if el[4] == "Quiz"]
             bonus = [el for el in student_items_description if el[4] == "Bonus"]
 
+
+
+
             evaluationItems = target_student_profile.getStudentEvaluationItems()
 
             just_skill_codes = auxiliar(skills, evaluationItems)
             just_badges_codes = auxiliar(badges, evaluationItems)
             just_quizzes_codes = auxiliar(quizzes, evaluationItems)
             just_bonus_codes = auxiliar(bonus, evaluationItems)
+
+            print("student skills: ", just_skill_codes)
+
+            if just_skill_codes == [ '10205233CompletetheeBookSkill', '10005133CompletetheZombiesandMonstersSkill',
+                                     '09504733CompletetheAlienInvasionSkill', '10305333CompletetheCourseLogoSkill', '09905033CompletetheTextArtSkill']:
+            #if target_student_profile.getstudentID() == "56893":
+                print("tg student ID: ")
+                print(target_student_profile.getstudentID())
+                print("vai ficar tudo bem :D")
+                print ("neighbors: ")
+                found = True
+                break
 
 
             dic_skills, dic_badges, dic_quizzes, dic_bonus = findDimensions.scrutinizeData(neighbors_profiles,
@@ -520,11 +535,13 @@ def veryfyStudentYear(studentID, tag):
 
 
 def main():
-    '''
 
+    '''
     populateSchemaDictionaries()
     underachievers, halfhearted, regular, achievers = clusters()
     buildAllStudentsProfiles()
+
+
 
     #drawplot([underachievers, halfhearted, regular, achievers])
 
@@ -532,28 +549,32 @@ def main():
 
     debug = False
     d1, d2, d3, d4 = recommendForAllStudents(underachievers, halfhearted, regular, achievers)
-
-
+    '''
+    '''
     write_file2(d1, "testFileSkills")
     write_file2(d2, "testFileBadges")
     write_file2(d3, "testFileQuizzes")
     write_file2(d4, "testFileBonus")
 
-    write_file2(d1, "trainingFileSkills")
-    write_file2(d2, "trainingFileBadges")
-    write_file2(d3, "trainingFileQuizzes")
-    write_file2(d4, "trainingFileBonus")
+    #write_file2(d1, "trainingFileSkills")
+    #write_file2(d2, "trainingFileBadges")
+    #write_file2(d3, "trainingFileQuizzes")
+    #write_file2(d4, "trainingFileBonus")
 
     print("THAT'S ALL FOLKS")
+
     '''
 
 
-
     #MLModel.main()
+    # ExperimentalPurposes.main()
+
+    # MLModel2.main()
 
     MyMLModel.main()
 
-    #MLModel2.main()
+
+
 
 
 

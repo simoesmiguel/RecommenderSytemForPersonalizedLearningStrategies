@@ -80,6 +80,13 @@ def scrutinizeData(neighbors_profiles, s, ba, q, bo):
         evaluationItems = profile.getStudentEvaluationItems()
 
         new_l, codes = auxiliar(neighbor_skills, s, evaluationItems)
+
+        print("neighbor ID: ", profile.getstudentID())
+
+        print("neighbor skills: ", codes)
+
+
+
         if new_l != [] and codes != []:
             #dic_skills = saveDictionary(dic_skills, dic_badges, dic_quizzes, dic_bonus, new_l, neighbor_profile, codes, "skills")
             avg_distance = calculateAvgDistance(new_l)
