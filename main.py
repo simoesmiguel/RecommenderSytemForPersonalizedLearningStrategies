@@ -560,7 +560,7 @@ def recommendForAllStudents_completeProfiles(underachievers, halfhearted, regula
 
 
 
-            dic_skills, dic_badges, dic_quizzes, dic_bonus, posts_list= findDimensions.scrutinizeData(neighbors_profiles,
+            list_skills, list_badges, list_quizzes, list_bonus, posts_list= findDimensions.scrutinizeData(neighbors_profiles,
                                                                                            just_skill_codes,
                                                                                            just_badges_codes,
                                                                                            just_quizzes_codes,
@@ -568,19 +568,19 @@ def recommendForAllStudents_completeProfiles(underachievers, halfhearted, regula
                                                                                            topic_dic,
                                                                                            content_topic)
 
-            ordereddict1 = sortListofTuples(dic_skills)
-            ordereddict2 = sortListofTuples(dic_badges)
-            ordereddict3 = sortListofTuples(dic_quizzes)
-            ordereddict4 = sortListofTuples(dic_bonus)
-            ordereddict5 = sortListofTuples(posts_list)
+            orderedList1 = sortListofTuples(list_skills)
+            orderedList2 = sortListofTuples(list_badges)
+            orderedList3 = sortListofTuples(list_quizzes)
+            orderedList4 = sortListofTuples(list_bonus)
+            orderedList5 = sortListofTuples(posts_list)
 
-            print(ordereddict5)
 
-        '''
-            l1 = recommender.recommendSkills(ordereddict1, just_skill_codes, 3, 3)
-            l2 = recommender.recommendSkills(ordereddict2, just_badges_codes, 3, 3)
-            l3 = recommender.recommendSkills(ordereddict3, just_quizzes_codes, 3, 3)
-            l4 = recommender.recommendSkills(ordereddict4, just_bonus_codes, 3, 3)
+
+            l1 = recommender.recommendSkills(orderedList1, just_skill_codes, 3, 3)
+            l2 = recommender.recommendSkills(orderedList2, just_badges_codes, 3, 3)
+            l3 = recommender.recommendSkills(orderedList3, just_quizzes_codes, 3, 3)
+            l4 = recommender.recommendSkills(orderedList4, just_bonus_codes, 3, 3)
+            l5 = recommender.recommendSkills(orderedList5, [key+str(topic_dic.get(key)) for key in topic_dic] , 3, 3)
 
 
             all_lines_skills.append(([cluster],just_skill_codes, l1))

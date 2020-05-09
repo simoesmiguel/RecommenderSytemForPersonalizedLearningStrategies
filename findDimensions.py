@@ -110,12 +110,34 @@ def auxiliar2(neighbor_posts, target_student_posts, content_topic):
 
 
 # scrutinizes the data and makes some calculations to find the k nearest neighbors
-def scrutinizeData(neighbors_profiles, s, ba, q, bo, topic_dic, content_topic):
+def scrutinizeData(neighbors_profiles, s, ba, q, bo, topic_dic, content_topic, type_of_recommendation):
+
+    global neighbor_indicators
+    global target_student_indicators
+
+    if type_of_recommendation == "everything":
+
+        target_student_indicators = [1,1,1,1,1] # skills, badges, bonus, quizzes, posts
+        neighbor_indicators = [0,0,0,0,0]
+
+        if len(s) == 0:
+            target_student_indicators[0] = 0
+        if len(ba) == 0:
+            target_student_indicators[1] = 0
+        if len(bo) == 0:
+            target_student_indicators[2] = 0
+        if len(q) == 0:
+            target_student_indicators[3] = 0
+        if len(content_topic.items()) == 0:
+            target_student_indicators[4] = 0
 
     #global dic_skills, dic_badges, dic_quizzes, dic_bonus
-    dic_skills, dic_badges, dic_quizzes, dic_bonus, posts_list = [], [], [], [], []
 
-    for profile in neighbors_profiles:
+    dic_skills, dic_badges, dic_quizzes, dic_bonus, posts_list = [], [], [], [], []
+    lista_all = []
+
+
+    for profile in neighbors_profiles: # for all the target student's neighbors
 
         neighbor_items_description = profile.getStudentItemsDescription()  # gets data from the evaluation item table
         neighbor_skills = ([el for el in neighbor_items_description if
@@ -132,41 +154,72 @@ def scrutinizeData(neighbors_profiles, s, ba, q, bo, topic_dic, content_topic):
 
         new_l2, n_posts_encoded = auxiliar2(neighbor_posts, topic_dic, content_topic )
 
-
-
+        ##neighbor skills
         if new_l != [] and codes != []:
-            #dic_skills = saveDictionary(dic_skills, dic_badges, dic_quizzes, dic_bonus, new_l, neighbor_profile, codes, "skills")
-            avg_distance = calculateAvgDistance(new_l)
-            if (avg_distance, codes) not in dic_skills:
-                dic_skills.append((avg_distance, codes))
+            neighbor_indicators[0] = 1
+            avg_distance_skills = calculateAvgDistance(new_l)
+            if type_of_recommendation != "everything":
+                if (avg_distance_skills, codes) not in dic_skills:
+                    dic_skills.append((avg_distance_skills, codes))
 
+        ##neighbor badges
         new_l, codes = auxiliar(neighbor_badges, ba, evaluationItems)
         if new_l != [] and codes != []:
-            avg_distance = calculateAvgDistance(new_l)
-            if (avg_distance, codes) not in dic_badges:
-                dic_badges.append((avg_distance, codes))
+            neighbor_indicators[1] = 1
+            avg_distance_badges = calculateAvgDistance(new_l)
+            if type_of_recommendation != "everything":
+                if (avg_distance_badges, codes) not in dic_badges:
+                    dic_badges.append((avg_distance_badges, codes))
 
-        new_l, codes = auxiliar(neighbor_quizzes, q, evaluationItems)
-        if new_l != [] and codes != []:
-            avg_distance = calculateAvgDistance(new_l)
-            if (avg_distance, codes) not in dic_quizzes:
-                dic_quizzes.append((avg_distance, codes))
-
+        ##neighbor bonus
         new_l, codes = auxiliar(neighbor_bonus, bo, evaluationItems)
         if new_l != [] and codes != []:
-            avg_distance = calculateAvgDistance(new_l)
-            if (avg_distance, codes) not in dic_bonus:
-                dic_bonus.append((avg_distance, codes))
+            neighbor_indicators[2] = 1
+            avg_distance_bonus = calculateAvgDistance(new_l)
+            if type_of_recommendation != "everything":
+                if (avg_distance_bonus, codes) not in dic_bonus:
+                    dic_bonus.append((avg_distance_bonus, codes))
 
+            ##neighbor quizzes
+        new_l, codes = auxiliar(neighbor_quizzes, q, evaluationItems)
+        if new_l != [] and codes != []:
+            neighbor_indicators[3] = 1
+            avg_distance_quizzes = calculateAvgDistance(new_l)
+            if type_of_recommendation != "everything":
+                if (avg_distance_quizzes, codes) not in dic_quizzes:
+                    dic_quizzes.append((avg_distance_quizzes, codes))
 
-        ##posts
+        ##neighbor posts
         if new_l2 != [] and  n_posts_encoded !=[]:
-            avg_distance = calculateAvgDistance(new_l2)
-            if (avg_distance, n_posts_encoded) not in posts_list:
-                posts_list.append((avg_distance, n_posts_encoded))
+            neighbor_indicators[4] = 1
+            avg_distance_posts = calculateAvgDistance(new_l2)
+            if type_of_recommendation != "everything":
+                if (avg_distance_posts, n_posts_encoded) not in posts_list:
+                    posts_list.append((avg_distance_posts, n_posts_encoded))
 
 
-    return dic_skills, dic_badges, dic_quizzes, dic_bonus, posts_list
+        if type_of_recommendation == "everything":
+            count1, count2 = 0, 0
+            for i in range(target_student_indicators):
+                if target_student_indicators[i] == 1:
+                    count1 += 1
+                    if neighbor_indicators[i] == 1:
+                        count2 += 1
+
+            if count2 >= count1: # we found a candidate to be neighbor of the target student
+                total_distance = avg_distance_skills + avg_distance_badges + avg_distance_bonus + avg_distance_quizzes + avg_distance_posts
+
+
+
+
+
+
+
+    if type_of_recommendation != "everything":
+        return dic_skills, dic_badges, dic_quizzes, dic_bonus, posts_list
+
+
+
 
 
 # Levenshtein Distance

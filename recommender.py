@@ -3,13 +3,13 @@
 returns n_skills_to_recommend taking into account the number of knwighbors
 '''
 
-def recommendSkills(dic_skills, target_student_skills, kneighbors, n_skills_to_recommend):
+def recommendSkills(list_skills, target_student_skills, kneighbors, n_skills_to_recommend):
 
     # go through all the k nearest neighbors and save the skills that were not yet performed by the target student
     skills_to_recommend = []
     neighbors=1
 
-    for tupl in dic_skills:
+    for tupl in list_skills:
         if neighbors <= kneighbors or len(skills_to_recommend) == 0: # if the number of neighbors visited is less than
                                                                     # the number of neighbors desired to search, or if any recommendation was not found yet
             all_codes = tupl[1]
