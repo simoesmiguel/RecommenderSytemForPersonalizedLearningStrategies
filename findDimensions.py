@@ -52,21 +52,68 @@ def auxiliar(neighbor_skills, target_student_skills, evaluationItems):
     elif len(target_student_skills) == 0: # se o aluno ainda não tiver nenhumas skills
         all_skills_in_range = checkDateinrange(neighbor_skills, evaluationItems)
         lista = [all_skills_in_range[key] for key in all_skills_in_range]
-        if lista != []:
+        if lista != []: # se o neighbor tiver completado skills até 15/04
             just_codes = [el[11] for el in lista]
-
             new_l = [(code, code) for code in just_codes]
             return new_l, just_codes
 
     return [],[]
 
 
+def auxiliar2(neighbor_posts, target_student_posts, content_topic):
+
+    '''
+        target_student_posts -> target student's posts that were made until 15/04
+            type: dictionary
+        neighbor_posts -> posts that the student made without time range, i.e all posts that the neighbor student did
+            type: list of lists where each list is a line represents one post from the neighbor student
+    '''
+
+
+    posts_in_range = []
+    topic_dic_ordered = []
+    topic_dic = {}
+    for lista in neighbor_posts:
+        date = lista[2][2:4] + "/" + lista[2][4:6] + "/" + lista[2][6:8]
+        if main.checkDates(date):
+            posts_in_range.append(lista)
+
+    if posts_in_range != []:  # if the neighbor student has made any posts up to 15/04
+
+        discussion_topics = [l[0] for l in content_topic for lista in posts_in_range if lista[3] == l[-1]]
+        for el in discussion_topics:
+            if el not in topic_dic.keys():
+                topic_dic[el] = 1
+            else:
+                topic_dic[el] = topic_dic.get(el) + 1
+
+        #topic_dic_ordered = sorted(topic_dic.items())
+
+        a =[key+str(target_student_posts.get(key)) for key in target_student_posts]  # ex: ["BugsForum2", "Questions1", "..."]
+        b = [key+str(topic_dic.get(key)) for key in topic_dic]   # ex: ["BugsForum2", "Questions1", "..."]
+
+        if len(a) == 0: # se o target student ainda não tiver nenhum post
+            new_l = [(post, post) for post in b]
+
+        elif len(a) > 0 and len(a) < len(b): # se o target student já tiver mais do que um post e o neighbor tiver mais posts do que o target student
+            new_l = orderElements(a, b)
+
+        else:
+            new_l=[]
+
+        return new_l, b
+
+    else:
+        return [],[]
+
+
 
 
 # scrutinizes the data and makes some calculations to find the k nearest neighbors
-def scrutinizeData(neighbors_profiles, s, ba, q, bo):
+def scrutinizeData(neighbors_profiles, s, ba, q, bo, topic_dic, content_topic):
+
     #global dic_skills, dic_badges, dic_quizzes, dic_bonus
-    dic_skills, dic_badges, dic_quizzes, dic_bonus = [], [], [], []
+    dic_skills, dic_badges, dic_quizzes, dic_bonus, posts_list = [], [], [], [], []
 
     for profile in neighbors_profiles:
 
@@ -79,11 +126,11 @@ def scrutinizeData(neighbors_profiles, s, ba, q, bo):
 
         evaluationItems = profile.getStudentEvaluationItems()
 
+        neighbor_posts = profile.getPosts()
+
         new_l, codes = auxiliar(neighbor_skills, s, evaluationItems)
 
-        print("neighbor ID: ", profile.getstudentID())
-
-        print("neighbor skills: ", codes)
+        new_l2, n_posts_encoded = auxiliar2(neighbor_posts, topic_dic, content_topic )
 
 
 
@@ -108,11 +155,18 @@ def scrutinizeData(neighbors_profiles, s, ba, q, bo):
         new_l, codes = auxiliar(neighbor_bonus, bo, evaluationItems)
         if new_l != [] and codes != []:
             avg_distance = calculateAvgDistance(new_l)
-            if (avg_distance, codes) not in dic_quizzes:
-                dic_quizzes.append((avg_distance, codes))
+            if (avg_distance, codes) not in dic_bonus:
+                dic_bonus.append((avg_distance, codes))
 
 
-    return dic_skills, dic_badges, dic_quizzes, dic_bonus
+        ##posts
+        if new_l2 != [] and  n_posts_encoded !=[]:
+            avg_distance = calculateAvgDistance(new_l2)
+            if (avg_distance, n_posts_encoded) not in posts_list:
+                posts_list.append((avg_distance, n_posts_encoded))
+
+
+    return dic_skills, dic_badges, dic_quizzes, dic_bonus, posts_list
 
 
 # Levenshtein Distance

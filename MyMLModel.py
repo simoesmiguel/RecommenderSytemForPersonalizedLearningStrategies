@@ -101,15 +101,20 @@ def findNeighbors(input, tg_student_act, k_neighbors, tag):
                     else:
                         neighbors.append((avg_distance, el))
 
-
-    else: # if the target student just does not have performed any activities
+    else:  # if the target student just does not have performed any activities
         for el in input:
             if len(neighbors) < k_neighbors:
-                if el[0] == tg_student_act[0] and len(el) > 1: #if the neighbor and the target student belong to the
-                                                            # same level but the neighbor has performed more activities
+                if el[0] == tg_student_act[0] and len(el) > 1:  # if the neighbor and the target student belong to the
+                    # same level but the neighbor has performed more activities
                     neighbors.append((0, el))
             else:
                 break
+    '''
+    elif len(neighbors) < k_neighbors:
+        for el in input:
+            if el[0] == tg_student_act[0] and len(el) == 1:
+                neighbors.append((0, el))
+    '''
 
     return neighbors
 
@@ -295,26 +300,31 @@ def makeRecommendations (neighbors_list, train_input, train_output, test_output,
     y_test = [el[0] for el in new_l]
     y_pred = [el[1] for el in new_l]
 
+    if y_test!=[] and y_pred != []:
+        precision = precision_score(y_test, y_pred, average="micro") # the less false positives a classifier gives, the higher is its precision.
 
-    precision = precision_score(y_test, y_pred, average="micro") # the less false positives a classifier gives, the higher is its precision.
+        recall = recall_score(y_test, y_pred, average="micro")
 
-    recall = recall_score(y_test, y_pred, average="micro")
-
-    f1 = f1_score(y_test, y_pred,  average="micro")
+        f1 = f1_score(y_test, y_pred,  average="micro")
+    else:
+        return 0,0,0,recommendations,y_pred,y_test
 
     return precision, recall, f1, recommendations, y_pred, y_test
 
-def write_csv_file(filename,l):
-    with open(filename, mode='w') as file:
-        writer = csv.writer(file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        for el in l:
-            writer.writerow(el)
+
 
 def main():
 
-    l = readCSVfile(files_common_path + "Student Evaluation/trainingFileSkills.csv", ",")
+    #l = readCSVfile(files_common_path + "Student Evaluation/trainingFileSkills.csv", ",")
+    #l2 = readCSVfile(files_common_path + "Student Evaluation/testFileSkills.csv", ",")
 
-    l2 = readCSVfile(files_common_path + "Student Evaluation/testFileSkills.csv", ",")
+    #l = readCSVfile(files_common_path + "Student Evaluation/trainingFileBadges.csv", ",")
+    #l2 = readCSVfile(files_common_path + "Student Evaluation/testFileBadges.csv", ",")
+
+    l = readCSVfile(files_common_path + "Student Evaluation/trainingFileQuizzes.csv", ",")
+    l2 = readCSVfile(files_common_path + "Student Evaluation/testFileQuizzes.csv", ",")
+
+
 
     train_input, train_output = buildInputandOutput(l)
 
@@ -325,15 +335,12 @@ def main():
     colors_labels = ['b', 'g', 'dimgray', 'red']
     colors_labels2 = ['yellowgreen', 'violet', 'tan', 'maroon']
 
-    file = open(files_common_path+"outputMyMLModel.txt","w")
-
     for tag in all_measures:
         accuracy_k = [(0,0)]
-        print("tag = ",tag )
-        file.write("-------------------------------------------------------------------------------------------------------------------------------------- \n")
+        print("tag: ",tag)
+        #accuracy_k =[]
 
         for k in range(1,40): # k neighbors
-        #for k in range(2,5):
 
             all_recalls = []
             all_precisions = []
@@ -343,35 +350,10 @@ def main():
             for i in range (len(test_input)):
 
                 n = findNeighbors(train_input, test_input[i], k, tag)
-                file.write("student: \n")
-                for el in test_input[i]:
-                    file.write(str(el)+" \n")
-
-                file.write("neighbors: \n")
-                for el in n:
-                    file.write(str(el)+"\n")
-
-                file.write ("tag: "+ tag+"\n")
-                file.write("K : "+ str(k)+"\n")
                 r, precision, f1, recommendations, y_pred, y_test = makeRecommendations(n, train_input, train_output, test_output[i], tag)
                 all_recalls.append(r)
                 all_precisions.append(precision)
                 all_f1.append(f1)
-                file.write("Possible Recommendations: "+"\n")
-                for el in recommendations:
-                    file.write(str(el)+" \n")
-                file.write("Trully Recommended:  ")
-                for el in y_pred:
-                    file.write(str(el)+ "    ")
-                file.write("\n")
-                file.write("What should be recommended: ")
-                for el in y_test:
-                    file.write(str(el) + "    ")
-                file.write("\n")
-                file.write("Precision: "+ str(precision)+ " \n")
-                file.write("Recall: "+str(r)+"\n")
-                file.write("F1_score: " + str(f1) + "\n")
-                file.write("\n \n")
 
             mean_recall = reduce(lambda a, b: a + b, all_recalls) / len(all_recalls)
             mean_precision = reduce(lambda a, b: a + b, all_precisions) / len(all_precisions)
@@ -379,8 +361,6 @@ def main():
 
 
             accuracy_k.append((mean_precision, k))
-
-
 
         if tag == "soundex":
             l = "Soundex Measure"
@@ -397,8 +377,6 @@ def main():
         #plt.plot([el[3] for el in accuracy_k], [el[1]*100 for el in accuracy_k] , colors_labels2[all_measures.index(tag)], label = l)
         #plt.plot([el[3] for el in accuracy_k], [el[2] for el in accuracy_k])
 
-
-    file.close()
 
     plt.ylabel("Precision (%)")
     plt.xlabel("k Neighbors")

@@ -12,6 +12,7 @@ def getNeighbors(targetStudentID,u,h,r,a, all_students_profiles):
 
     index = [onlyIDs.index(l) for l in onlyIDs for el in l if targetStudentID == el]  # discover the profile of the student
     #print("O target student", targetStudentID ," encontra-se no cluster: ", index)
+
     if index[0] != 3:  # if the target student does not belong to the achievers cluster
 
         # students who are in the profile above of the target Student's profile
@@ -31,6 +32,7 @@ def getNeighbors(targetStudentID,u,h,r,a, all_students_profiles):
         #print("student neighbor profiles : ", students_profiles )
 
     return students_profiles, index[0]
+
 
 
 '''

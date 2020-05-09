@@ -403,14 +403,15 @@ def auxiliar(skills, evaluationItems):
 def sortListofTuples(l):
     return (sorted(l, key = lambda x: x[0]))
 
+'''
 def recommendForAllStudents(underachievers, halfhearted, regular, achievers):
 
-    '''
-    dic_all_lines_skills={}
-    dic_all_lines_badges={}
-    dic_all_lines_quizzes={}
-    dic_all_lines_bonus={}
-    '''
+    
+    #dic_all_lines_skills={}
+    #dic_all_lines_badges={}
+    #dic_all_lines_quizzes={}
+    #dic_all_lines_bonus={}
+    
     all_lines_skills=[]
     all_lines_badges=[]
     all_lines_quizzes=[]
@@ -419,9 +420,6 @@ def recommendForAllStudents(underachievers, halfhearted, regular, achievers):
     found = False
     count=1
     for key in all_students_profiles:
-        #if count > 95:
-        #if count >0:
-
 
         print("Another: ", count)
         if veryfyStudentYear(key,  "trainSet"): # this student did the course before 2018
@@ -440,8 +438,6 @@ def recommendForAllStudents(underachievers, halfhearted, regular, achievers):
             bonus = [el for el in student_items_description if el[4] == "Bonus"]
 
 
-
-
             evaluationItems = target_student_profile.getStudentEvaluationItems()
 
             just_skill_codes = auxiliar(skills, evaluationItems)
@@ -449,25 +445,12 @@ def recommendForAllStudents(underachievers, halfhearted, regular, achievers):
             just_quizzes_codes = auxiliar(quizzes, evaluationItems)
             just_bonus_codes = auxiliar(bonus, evaluationItems)
 
-            print("student skills: ", just_skill_codes)
-
-            if just_skill_codes == [ '10205233CompletetheeBookSkill', '10005133CompletetheZombiesandMonstersSkill',
-                                     '09504733CompletetheAlienInvasionSkill', '10305333CompletetheCourseLogoSkill', '09905033CompletetheTextArtSkill']:
-            #if target_student_profile.getstudentID() == "56893":
-                print("tg student ID: ")
-                print(target_student_profile.getstudentID())
-                print("vai ficar tudo bem :D")
-                print ("neighbors: ")
-                found = True
-                break
-
 
             dic_skills, dic_badges, dic_quizzes, dic_bonus = findDimensions.scrutinizeData(neighbors_profiles,
                                                                                            just_skill_codes,
                                                                                            just_badges_codes,
                                                                                            just_quizzes_codes,
                                                                                            just_bonus_codes)
-
 
             ordereddict1 = sortListofTuples(dic_skills)
             ordereddict2 = sortListofTuples(dic_badges)
@@ -491,6 +474,127 @@ def recommendForAllStudents(underachievers, halfhearted, regular, achievers):
 
     #return dic_all_lines_skills, dic_all_lines_badges, dic_all_lines_quizzes, dic_all_lines_bonus
     return all_lines_skills, all_lines_badges, all_lines_quizzes, all_lines_bonus
+
+'''
+
+
+
+def recommendForAllStudents_completeProfiles(underachievers, halfhearted, regular, achievers):
+    # recommends based on the most complete students profile
+
+    '''
+    dic_all_lines_skills={}
+    dic_all_lines_badges={}
+    dic_all_lines_quizzes={}
+    dic_all_lines_bonus={}
+    '''
+    all_lines_skills=[]
+    all_lines_badges=[]
+    all_lines_quizzes=[]
+    all_lines_bonus=[]
+
+    found = False
+    count=1
+    for key in all_students_profiles:
+
+        print("Another: ", count)
+        if veryfyStudentYear(key,  "trainSet"): # this student did the course before 2018
+        #if veryfyStudentYear(key, "trainSet"):
+
+            neighbors_profiles, cluster = clusterComparator.getNeighbors(key, underachievers, halfhearted, regular, achievers,
+                                                                all_students_profiles)
+
+
+            target_student_profile = all_students_profiles.get(key)
+
+            student_items_description = target_student_profile.getStudentItemsDescription()
+
+            skills = [el for el in student_items_description if el[4] == "Skill"]
+            badges = [el for el in student_items_description if el[4] == "Badge"]
+            quizzes = [el for el in student_items_description if el[4] == "Quiz"]
+            bonus = [el for el in student_items_description if el[4] == "Bonus"]
+
+
+            target_student_posts = target_student_profile.getPosts()
+
+            content_topic =[]
+            posts_in_range=[]
+            topic_dic_ordered =[]
+            topic_dic = {}
+            if target_student_posts!=[]: # if the student has made any post
+                for lista in target_student_posts:
+                    date = lista[2][2:4]+"/"+lista[2][4:6]+"/"+lista[2][6:8]
+                    if checkDates(date):
+                        posts_in_range.append(lista)
+
+
+                if posts_in_range != []: # if there are any posts within the range of 15/04
+                    content_topic = readCSVfile(files_common_path + 'Moodle Participation/content_topic_dim.csv', ',')
+
+                    discussion_topics = [l[0] for l in content_topic for lista in posts_in_range if lista[3] == l[-1]]
+                    for el in discussion_topics:
+                        if el not in topic_dic.keys():
+                            topic_dic[el] =1
+                        else:
+                            topic_dic[el] = topic_dic.get(el) +1
+
+                    topic_dic_ordered = sorted(topic_dic.items())
+
+            #topic_dic_ordered = [("Bugs Forum",2),( Questions,1)]
+
+
+            '''
+            posts_to_compare =""
+            if topic_dic_ordered != []:
+                for tuplo in topic_dic_ordered:
+                    posts_to_compare += tuplo[0]+tuplo[1]
+            '''
+
+
+            evaluationItems = target_student_profile.getStudentEvaluationItems()
+
+            just_skill_codes = auxiliar(skills, evaluationItems)
+            just_badges_codes = auxiliar(badges, evaluationItems)
+            just_quizzes_codes = auxiliar(quizzes, evaluationItems)
+            just_bonus_codes = auxiliar(bonus, evaluationItems)
+
+
+
+            dic_skills, dic_badges, dic_quizzes, dic_bonus, posts_list= findDimensions.scrutinizeData(neighbors_profiles,
+                                                                                           just_skill_codes,
+                                                                                           just_badges_codes,
+                                                                                           just_quizzes_codes,
+                                                                                           just_bonus_codes,
+                                                                                           topic_dic,
+                                                                                           content_topic)
+
+            ordereddict1 = sortListofTuples(dic_skills)
+            ordereddict2 = sortListofTuples(dic_badges)
+            ordereddict3 = sortListofTuples(dic_quizzes)
+            ordereddict4 = sortListofTuples(dic_bonus)
+            ordereddict5 = sortListofTuples(posts_list)
+
+            print(ordereddict5)
+
+        '''
+            l1 = recommender.recommendSkills(ordereddict1, just_skill_codes, 3, 3)
+            l2 = recommender.recommendSkills(ordereddict2, just_badges_codes, 3, 3)
+            l3 = recommender.recommendSkills(ordereddict3, just_quizzes_codes, 3, 3)
+            l4 = recommender.recommendSkills(ordereddict4, just_bonus_codes, 3, 3)
+
+
+            all_lines_skills.append(([cluster],just_skill_codes, l1))
+            all_lines_badges.append(([cluster], just_badges_codes, l2))
+            all_lines_quizzes.append(([cluster], just_quizzes_codes, l3))
+            all_lines_bonus.append(([cluster], just_bonus_codes, l4))
+            '''
+        count+=1
+
+
+    #return dic_all_lines_skills, dic_all_lines_badges, dic_all_lines_quizzes, dic_all_lines_bonus
+    return all_lines_skills, all_lines_badges, all_lines_quizzes, all_lines_bonus
+
+
 
 def auxiliar2(l):
     a = ""
@@ -536,11 +640,11 @@ def veryfyStudentYear(studentID, tag):
 
 def main():
 
-    '''
+
     populateSchemaDictionaries()
     underachievers, halfhearted, regular, achievers = clusters()
     buildAllStudentsProfiles()
-
+    '''
 
 
     #drawplot([underachievers, halfhearted, regular, achievers])
@@ -549,7 +653,9 @@ def main():
 
     debug = False
     d1, d2, d3, d4 = recommendForAllStudents(underachievers, halfhearted, regular, achievers)
+
     '''
+    recommendForAllStudents_completeProfiles(underachievers, halfhearted, regular, achievers)
     '''
     write_file2(d1, "testFileSkills")
     write_file2(d2, "testFileBadges")
