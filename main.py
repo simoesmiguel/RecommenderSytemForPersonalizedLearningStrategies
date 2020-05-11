@@ -479,7 +479,7 @@ def recommendForAllStudents(underachievers, halfhearted, regular, achievers):
 
 
 
-def recommendForAllStudents_completeProfiles(underachievers, halfhearted, regular, achievers):
+def recommendForAllStudents_completeProfiles(underachievers, halfhearted, regular, achievers, activities_to_recommend):
     # recommends based on the most complete students profile
 
     '''
@@ -492,6 +492,15 @@ def recommendForAllStudents_completeProfiles(underachievers, halfhearted, regula
     all_lines_badges=[]
     all_lines_quizzes=[]
     all_lines_bonus=[]
+
+    recommendations_file=[]
+
+    activities_to_recommend_mapping = {0: "Recommended Skills", 1: "Recommended badges", 2: "Recommended bonus",
+                                       3: "Recommended quizzes", 4: "Recommended posts"}
+
+    recommendations_file = [["cluster", "Student skills", "Student badges" ,"Student bonus", "Student quizzes", "Student posts"]]
+    for index in activities_to_recommend:
+        recommendations_file[0].append(activities_to_recommend_mapping.get(index))
 
     found = False
     count=1
@@ -558,8 +567,8 @@ def recommendForAllStudents_completeProfiles(underachievers, halfhearted, regula
             just_quizzes_codes = auxiliar(quizzes, evaluationItems)
             just_bonus_codes = auxiliar(bonus, evaluationItems)
 
-
-
+            '''
+            
             list_skills, list_badges, list_quizzes, list_bonus, posts_list= findDimensions.scrutinizeData(neighbors_profiles,
                                                                                            just_skill_codes,
                                                                                            just_badges_codes,
@@ -567,13 +576,12 @@ def recommendForAllStudents_completeProfiles(underachievers, halfhearted, regula
                                                                                            just_bonus_codes,
                                                                                            topic_dic,
                                                                                            content_topic)
-
+   
             orderedList1 = sortListofTuples(list_skills)
             orderedList2 = sortListofTuples(list_badges)
             orderedList3 = sortListofTuples(list_quizzes)
             orderedList4 = sortListofTuples(list_bonus)
             orderedList5 = sortListofTuples(posts_list)
-
 
 
             l1 = recommender.recommendSkills(orderedList1, just_skill_codes, 3, 3)
@@ -587,12 +595,34 @@ def recommendForAllStudents_completeProfiles(underachievers, halfhearted, regula
             all_lines_badges.append(([cluster], just_badges_codes, l2))
             all_lines_quizzes.append(([cluster], just_quizzes_codes, l3))
             all_lines_bonus.append(([cluster], just_bonus_codes, l4))
+            
             '''
+            lista_all = findDimensions.scrutinizeData(
+                                                        neighbors_profiles,
+                                                        just_skill_codes,
+                                                        just_badges_codes,
+                                                        just_quizzes_codes,
+                                                        just_bonus_codes,
+                                                        topic_dic,
+                                                        content_topic, "everything")
+
+            lista = sortListofTuples(lista_all) # this list contains all the neighbors of the target student ordered by the distance that each of them is from the target student, as well as all the activities performed by them
+
+            a = [key + str(topic_dic.get(key)) for key in topic_dic]
+
+            list_all_recommendations = recommender.recommendSkills2(lista, [just_skill_codes, just_badges_codes, just_bonus_codes, just_quizzes_codes, a], 3, 3)
+
+            to_recommend =[cluster, just_skill_codes, just_badges_codes, just_quizzes_codes, just_bonus_codes, a]
+            for index in activities_to_recommend:
+                to_recommend.append(list_all_recommendations[index])
+
+            recommendations_file.append(to_recommend)
+
         count+=1
 
 
     #return dic_all_lines_skills, dic_all_lines_badges, dic_all_lines_quizzes, dic_all_lines_bonus
-    return all_lines_skills, all_lines_badges, all_lines_quizzes, all_lines_bonus
+    return recommendations_file
 
 
 
@@ -655,7 +685,10 @@ def main():
     d1, d2, d3, d4 = recommendForAllStudents(underachievers, halfhearted, regular, achievers)
 
     '''
-    recommendForAllStudents_completeProfiles(underachievers, halfhearted, regular, achievers)
+    file = recommendForAllStudents_completeProfiles(underachievers, halfhearted, regular, achievers)
+
+    write_file2(file, "trainindFileWithAllInfo")
+
     '''
     write_file2(d1, "testFileSkills")
     write_file2(d2, "testFileBadges")

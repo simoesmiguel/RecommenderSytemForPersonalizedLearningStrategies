@@ -131,7 +131,6 @@ def scrutinizeData(neighbors_profiles, s, ba, q, bo, topic_dic, content_topic, t
         if len(content_topic.items()) == 0:
             target_student_indicators[4] = 0
 
-    #global dic_skills, dic_badges, dic_quizzes, dic_bonus
 
     dic_skills, dic_badges, dic_quizzes, dic_bonus, posts_list = [], [], [], [], []
     lista_all = []
@@ -150,45 +149,45 @@ def scrutinizeData(neighbors_profiles, s, ba, q, bo, topic_dic, content_topic, t
 
         neighbor_posts = profile.getPosts()
 
-        new_l, codes = auxiliar(neighbor_skills, s, evaluationItems)
 
-        new_l2, n_posts_encoded = auxiliar2(neighbor_posts, topic_dic, content_topic )
+        new_l, codes_skills = auxiliar(neighbor_skills, s, evaluationItems)
 
         ##neighbor skills
-        if new_l != [] and codes != []:
+        if new_l != [] and codes_skills != []:
             neighbor_indicators[0] = 1
             avg_distance_skills = calculateAvgDistance(new_l)
             if type_of_recommendation != "everything":
-                if (avg_distance_skills, codes) not in dic_skills:
-                    dic_skills.append((avg_distance_skills, codes))
+                if (avg_distance_skills, codes_skills) not in dic_skills:
+                    dic_skills.append((avg_distance_skills, codes_skills))
 
         ##neighbor badges
-        new_l, codes = auxiliar(neighbor_badges, ba, evaluationItems)
-        if new_l != [] and codes != []:
+        new_l, codes_badges = auxiliar(neighbor_badges, ba, evaluationItems)
+        if new_l != [] and codes_badges != []:
             neighbor_indicators[1] = 1
             avg_distance_badges = calculateAvgDistance(new_l)
             if type_of_recommendation != "everything":
-                if (avg_distance_badges, codes) not in dic_badges:
-                    dic_badges.append((avg_distance_badges, codes))
+                if (avg_distance_badges, codes_badges) not in dic_badges:
+                    dic_badges.append((avg_distance_badges, codes_badges))
 
         ##neighbor bonus
-        new_l, codes = auxiliar(neighbor_bonus, bo, evaluationItems)
-        if new_l != [] and codes != []:
+        new_l, codes_bonus = auxiliar(neighbor_bonus, bo, evaluationItems)
+        if new_l != [] and codes_bonus != []:
             neighbor_indicators[2] = 1
             avg_distance_bonus = calculateAvgDistance(new_l)
             if type_of_recommendation != "everything":
-                if (avg_distance_bonus, codes) not in dic_bonus:
-                    dic_bonus.append((avg_distance_bonus, codes))
+                if (avg_distance_bonus, codes_bonus) not in dic_bonus:
+                    dic_bonus.append((avg_distance_bonus, codes_bonus))
 
             ##neighbor quizzes
-        new_l, codes = auxiliar(neighbor_quizzes, q, evaluationItems)
-        if new_l != [] and codes != []:
+        new_l, codes_quizzes = auxiliar(neighbor_quizzes, q, evaluationItems)
+        if new_l != [] and codes_quizzes != []:
             neighbor_indicators[3] = 1
             avg_distance_quizzes = calculateAvgDistance(new_l)
             if type_of_recommendation != "everything":
-                if (avg_distance_quizzes, codes) not in dic_quizzes:
-                    dic_quizzes.append((avg_distance_quizzes, codes))
+                if (avg_distance_quizzes, codes_quizzes) not in dic_quizzes:
+                    dic_quizzes.append((avg_distance_quizzes, codes_quizzes))
 
+        new_l2, n_posts_encoded = auxiliar2(neighbor_posts, topic_dic, content_topic )
         ##neighbor posts
         if new_l2 != [] and  n_posts_encoded !=[]:
             neighbor_indicators[4] = 1
@@ -208,15 +207,12 @@ def scrutinizeData(neighbors_profiles, s, ba, q, bo, topic_dic, content_topic, t
 
             if count2 >= count1: # we found a candidate to be neighbor of the target student
                 total_distance = avg_distance_skills + avg_distance_badges + avg_distance_bonus + avg_distance_quizzes + avg_distance_posts
-
-
-
-
-
-
+                lista_all.append( ( total_distance, [("skills", codes_skills ),("badges", codes_badges),("bonus", codes_bonus),("quizzes", codes_quizzes),("posts",n_posts_encoded)]))
 
     if type_of_recommendation != "everything":
         return dic_skills, dic_badges, dic_quizzes, dic_bonus, posts_list
+    else:
+        return lista_all
 
 
 

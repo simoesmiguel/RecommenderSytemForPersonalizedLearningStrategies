@@ -1,7 +1,3 @@
-from scipy import spatial
-from scipy import stats
-from sklearn.metrics.pairwise import cosine_similarity
-import main
 
 
 def getNeighbors(targetStudentID,u,h,r,a, all_students_profiles):
