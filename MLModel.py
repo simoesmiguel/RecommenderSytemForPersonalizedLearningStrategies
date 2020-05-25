@@ -4,7 +4,6 @@ from functools import reduce
 import numpy as np
 
 from sklearn import preprocessing
-from sklearn.multioutput import MultiOutputClassifier
 from sklearn.neighbors import KNeighborsClassifier
 
 from sklearn.metrics import confusion_matrix

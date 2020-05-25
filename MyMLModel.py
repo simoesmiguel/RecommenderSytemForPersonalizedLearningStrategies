@@ -21,7 +21,9 @@ para cada estudante que está presente no test set:
     Verificar se aquilo que foi recomendado é realmente aquilo que deveria ser recomendado.
 
 '''
-files_common_path = '/Users/miguelsimoes/Documents/Universidade/Tese/Final Data Warehouse/'
+#files_common_path = '/Users/miguelsimoes/Documents/Universidade/Tese/Final Data Warehouse/'  # MACOS
+files_common_path = 'D:/ChromeDownloads/TeseFolder/Tese/Final Data Warehouse/'      # Windows
+
 
 def readCSVfile(csv_file_name, d):
     l = []
@@ -321,8 +323,8 @@ def main():
     #l = readCSVfile(files_common_path + "Student Evaluation/trainingFileBadges.csv", ",")
     #l2 = readCSVfile(files_common_path + "Student Evaluation/testFileBadges.csv", ",")
 
-    l = readCSVfile(files_common_path + "Student Evaluation/trainingFileQuizzes.csv", ",")
-    l2 = readCSVfile(files_common_path + "Student Evaluation/testFileQuizzes.csv", ",")
+    l = readCSVfile(files_common_path + "trainindFileWithAllInfo.csv", ",")
+    l2 = readCSVfile(files_common_path + "testFileWithAllInfo.csv", ",")
 
 
 

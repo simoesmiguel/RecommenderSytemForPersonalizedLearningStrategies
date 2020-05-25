@@ -12,12 +12,12 @@ import recommender
 import MLModel
 import MyMLModel
 import MLModel2
+import MyMLModel2
 
-from sklearn.cluster import KMeans
 
 import numpy as np
 
-files_common_path = '/Users/miguelsimoes/Documents/Universidade/Tese/Final Data Warehouse/'
+files_common_path = 'D:/ChromeDownloads/TeseFolder/Tese/Final Data Warehouse/'
 
 SE = {}  # Student Evaluation Schema
 MP = {}  # Moodle Participation
@@ -83,7 +83,7 @@ class Student:
 # returns a list of lists where each list represents a line of the csv_file_name
 def readCSVfile(csv_file_name, d):
     l = []
-    with open(csv_file_name) as csv_file:
+    with open(csv_file_name, encoding='utf-8') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=d)
         line_count = 0
         for row in csv_reader:
@@ -94,10 +94,11 @@ def readCSVfile(csv_file_name, d):
         return l
 
 def write_csv_file(filename,l):
-    with open(filename, mode='w') as file:
+    with open(filename, mode='w', newline='') as file:
         writer = csv.writer(file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         for el in l:
             writer.writerow(el)
+
 
 def populateSchemaDictionaries():
     SE["student_result_fact"] = readCSVfile(files_common_path + 'Student Evaluation/student_result_fact (agg).csv', ',')
@@ -506,13 +507,15 @@ def recommendForAllStudents_completeProfiles(underachievers, halfhearted, regula
     count=1
     for key in all_students_profiles:
 
+        #if count == 10:
+        #    break
+
         print("Another: ", count)
         if veryfyStudentYear(key,  "trainSet"): # this student did the course before 2018
         #if veryfyStudentYear(key, "trainSet"):
 
             neighbors_profiles, cluster = clusterComparator.getNeighbors(key, underachievers, halfhearted, regular, achievers,
                                                                 all_students_profiles)
-
 
             target_student_profile = all_students_profiles.get(key)
 
@@ -604,7 +607,7 @@ def recommendForAllStudents_completeProfiles(underachievers, halfhearted, regula
                                                         just_quizzes_codes,
                                                         just_bonus_codes,
                                                         topic_dic,
-                                                        content_topic, "everything")
+                                                        content_topic)
 
             lista = sortListofTuples(lista_all) # this list contains all the neighbors of the target student ordered by the distance that each of them is from the target student, as well as all the activities performed by them
 
@@ -613,6 +616,7 @@ def recommendForAllStudents_completeProfiles(underachievers, halfhearted, regula
             list_all_recommendations = recommender.recommendSkills2(lista, [just_skill_codes, just_badges_codes, just_bonus_codes, just_quizzes_codes, a], 3, 3)
 
             to_recommend =[cluster, just_skill_codes, just_badges_codes, just_quizzes_codes, just_bonus_codes, a]
+
             for index in activities_to_recommend:
                 to_recommend.append(list_all_recommendations[index])
 
@@ -635,6 +639,8 @@ def auxiliar2(l):
             a += el + ","
 
     return a
+
+
 
 def write_file(dic, fileName):
     l = []
@@ -674,6 +680,7 @@ def main():
     populateSchemaDictionaries()
     underachievers, halfhearted, regular, achievers = clusters()
     buildAllStudentsProfiles()
+
     '''
 
 
@@ -685,9 +692,12 @@ def main():
     d1, d2, d3, d4 = recommendForAllStudents(underachievers, halfhearted, regular, achievers)
 
     '''
-    file = recommendForAllStudents_completeProfiles(underachievers, halfhearted, regular, achievers)
 
-    write_file2(file, "trainindFileWithAllInfo")
+    file = recommendForAllStudents_completeProfiles(underachievers, halfhearted, regular, achievers, [0,1])
+    write_csv_file(files_common_path + "trainindFileWithAllInfo.csv", file)
+    #write_csv_file(files_common_path + "testFileWithAllInfo.csv", file)
+
+
 
     '''
     write_file2(d1, "testFileSkills")
@@ -710,7 +720,8 @@ def main():
 
     # MLModel2.main()
 
-    MyMLModel.main()
+    #MyMLModel.main()
+    #MyMLModel2.main()
 
 
 
