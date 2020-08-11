@@ -16,7 +16,11 @@ import MyMLModel2
 
 import numpy as np
 
-files_common_path = 'D:/ChromeDownloads/TeseFolder/Tese/Final Data Warehouse/'
+#windows
+#files_common_path = 'D:/ChromeDownloads/TeseFolder/Tese/Final Data Warehouse/'
+
+#MacOS
+files_common_path = '/Users/miguelsimoes/Documents/Universidade/Tese/Final Data Warehouse/'
 
 SE = {}  # Student Evaluation Schema
 MP = {}  # Moodle Participation
@@ -138,9 +142,36 @@ def clusters():  # splits the students according to quartiles and returns the 4 
     return c1, c2, c3, c4
 
 
-def sortSecond(val):
-    return val[1]
+def clusters_on_given_date():
+    '''
+    :return: returns all the clusters but taking into account the earned Xps till middle of the semester
+    '''
 
+    student_collectedXps = {}
+
+    for studentID in all_students_profiles:
+        all_xps = 0
+        all_evaluation_items = all_students_profiles.get(studentID).getStudentEvaluationItems()
+        for row in all_evaluation_items:
+            date_id = row[0]
+            formatted_date_id = date_id[2:4] + "/" + date_id[4:6] + "/" + date_id[6:8]
+            if checkDates(formatted_date_id):  # checkar se a data está na primeira metade do semestre
+                all_xps+=float(row[3])
+
+        student_collectedXps[studentID] = float(all_xps)
+
+    highest_score = max(student_collectedXps.values())
+
+    c1 = [(key, student_collectedXps.get(key)) for key in student_collectedXps if
+          student_collectedXps.get(key) <= 0.25 * highest_score]
+    c2 = [(key, student_collectedXps.get(key)) for key in student_collectedXps if
+          0.25 * highest_score <  student_collectedXps.get(key) <= 0.50 * highest_score]
+    c3 = [(key, student_collectedXps.get(key)) for key in student_collectedXps if
+          0.50 * highest_score <  student_collectedXps.get(key) <= 0.75 * highest_score]
+    c4 = [(key, student_collectedXps.get(key)) for key in student_collectedXps if
+          student_collectedXps.get(key) > 0.75 * highest_score]
+
+    return c1, c2, c3, c4
 
 
 def buildProfile(studentId):
@@ -288,34 +319,6 @@ def checkDates(d):
     return False
 
 
-def auxiliar(skills, evaluationItems, inRange):
-    if inRange:
-        all_skills_in_range = findDimensions.checkDateinrange(skills, evaluationItems)
-    else:
-        all_skills_in_range = checkDateNotInRange(skills, evaluationItems)
-
-    lista = [all_skills_in_range[key] for key in all_skills_in_range]
-
-    just_skill_codes = [el[11] for el in lista]
-
-    return just_skill_codes
-
-
-def checkDateNotInRange(neighbor_skills, evaluationItems): # returns all the activities that are not inside the range
-    all_skills_in_range = {}
-    for el1 in neighbor_skills:
-        item_id = el1[0]
-        for el2 in evaluationItems:
-            if item_id == el2[2]:  # se os item_id coincidirem
-                date_id = el2[0]
-                formatted_date_id = date_id[2:4] + "/" + date_id[4:6] + "/" + date_id[6:8]
-                if checkDatesOutsideRange(formatted_date_id):
-                    all_skills_in_range[date_id] = el1
-                    break
-
-    return collections.OrderedDict(
-        sorted(all_skills_in_range.items()))  # retorna por ordem da data (do mais antigo para o mais recente)
-
 def checkDatesOutsideRange(d):
     all_dates = {('2011/02/11', '2011/06/29'): '0', ('2012/02/13', '2012/07/03'): '1',
                  ('2013/02/11', '2013/07/16'): '2',
@@ -340,6 +343,60 @@ def checkDatesOutsideRange(d):
     return False
 
 
+def auxiliar(skills, evaluationItems, inRange):
+    '''
+
+    :param skills:
+    :param evaluationItems:
+    :param inRange:
+    :return: this method returns the skills that are inside or outside the range, depending on the inRange variable, ..
+    the first half of the semester, and return them by the oldest to the newest
+    '''
+
+    all_skills_in_range = checkDateAndGetCollectedXP(skills, evaluationItems, inRange)
+    lista = [all_skills_in_range[key] for key in all_skills_in_range]
+
+    return lista
+
+
+
+def checkDateAndGetCollectedXP(items, evaluationItems, checkInsideRange):
+
+    '''
+    :param items: all the items from the "Evaluation Item" table that belong to the target student
+    :param evaluationItems: all the items from the "Student Evaluation" table that belong to the target student
+    :param checkInsideRange:
+    :return: this method returns a dictionary which contains all the activities' final_codes performed by the student
+    that are inside or outside the range, denpending on the checkInsideRange variable. Also this dictionary is ordered
+    by the activities' date, from the oldest to the newest. Furthermore the dictionary's values contain the activities'
+    final codes plus the collected_xp on that activity, separated by ":".
+
+    '''
+
+    final_dic = {}
+    for el1 in items:
+        item_id = el1[0]
+        for el2 in evaluationItems:
+            if item_id == el2[2]:  # se os item_id coincidirem
+                date_id = el2[0]
+                formatted_date_id = date_id[2:4] + "/" + date_id[4:6] + "/" + date_id[6:8]
+
+                if checkInsideRange:
+                    if checkDates(formatted_date_id):  # checkar se a data está na primeira metade do semestre
+                        collected_xp = el2[3] # collected XP by the student on this activity
+                        final_dic[date_id] = el1[11] + ":"+collected_xp # el1[11] is just the item's finalCode
+                        break
+                else:
+                    if checkDatesOutsideRange(formatted_date_id):
+                        collected_xp = el2[3] # collected XP by the student on this activity
+                        final_dic[date_id] = el1[11] + ":"+collected_xp
+                        break
+
+
+    return collections.OrderedDict(
+        sorted(final_dic.items()))  # retorna por ordem da data (do mais antigo para o mais recente)
+
+
 
 def sortListofTuples(l):
     return (sorted(l, key=lambda x: x[0]))
@@ -347,112 +404,8 @@ def sortListofTuples(l):
 def orderdicbyValue(dic):
     return {k: v for k, v in sorted(dic.items(), key=lambda item: item[1][0])}
 
-
 def orderdicbyKey(dic):
     return {k: v for k, v in sorted(dic.items(), key=lambda item: item[0])}
-
-def recommendForAllStudents_completeProfiles(underachievers, halfhearted, regular, achievers, activities_to_recommend):
-    # recommends based on the most complete students profile
-
-
-    activities_to_recommend_mapping = {0: "Recommended Skills", 1: "Recommended badges", 2: "Recommended bonus",
-                                       3: "Recommended quizzes", 4: "Recommended posts"}
-
-    recommendations_file = [
-        ["cluster", "Student skills", "Student badges", "Student bonus", "Student quizzes", "Student posts"]]
-    for index in activities_to_recommend:
-        recommendations_file[0].append(activities_to_recommend_mapping.get(index))
-
-    found = False
-    count = 1
-    for key in all_students_profiles:
-
-        # if count == 10:
-        #    break
-
-        print("Another: ", count)
-        if veryfyStudentYear(key, "trainSet"):  # this student did the course before 2018
-            # if veryfyStudentYear(key, "trainSet"):
-
-            neighbors_profiles, cluster = clusterComparator.getNeighbors(key, underachievers, halfhearted, regular,
-                                                                         achievers,
-                                                                         all_students_profiles)
-
-            target_student_profile = all_students_profiles.get(key)
-
-            student_items_description = target_student_profile.getStudentItemsDescription()
-
-            skills = [el for el in student_items_description if el[4] == "Skill"]
-            badges = [el for el in student_items_description if el[4] == "Badge"]
-            quizzes = [el for el in student_items_description if el[4] == "Quiz"]
-            bonus = [el for el in student_items_description if el[4] == "Bonus"]
-
-            target_student_posts = target_student_profile.getPosts()
-
-            content_topic = []
-            posts_in_range = []
-            topic_dic_ordered = []
-            topic_dic = {}
-            if target_student_posts != []:  # if the student has made any post
-                for lista in target_student_posts:
-                    date = lista[2][2:4] + "/" + lista[2][4:6] + "/" + lista[2][6:8]
-                    if checkDates(date):
-                        posts_in_range.append(lista)
-
-                if posts_in_range != []:  # if there are any posts within the range of 15/04
-                    content_topic = readCSVfile(files_common_path + 'Moodle Participation/content_topic_dim.csv', ',')
-
-                    discussion_topics = [l[0] for l in content_topic for lista in posts_in_range if lista[3] == l[-1]]
-                    for el in discussion_topics:
-                        if el not in topic_dic.keys():
-                            topic_dic[el] = 1
-                        else:
-                            topic_dic[el] = topic_dic.get(el) + 1
-
-                    topic_dic_ordered = sorted(topic_dic.items())
-
-            # topic_dic_ordered = [("Bugs Forum",2),( Questions,1)]
-
-
-
-            evaluationItems = target_student_profile.getStudentEvaluationItems()
-
-            just_skill_codes = auxiliar(skills, evaluationItems , True)
-            just_badges_codes = auxiliar(badges, evaluationItems, True)
-            just_quizzes_codes = auxiliar(quizzes, evaluationItems, True)
-            just_bonus_codes = auxiliar(bonus, evaluationItems, True)
-
-
-            lista_all = findDimensions.scrutinizeData(
-                neighbors_profiles,
-                just_skill_codes,
-                just_badges_codes,
-                just_quizzes_codes,
-                just_bonus_codes,
-                topic_dic,
-                content_topic)
-
-            lista = sortListofTuples(
-                lista_all)  # this list contains all the neighbors of the target student ordered by the distance that each of them is from the target student, as well as all the activities performed by them
-
-            a = [key + str(topic_dic.get(key)) for key in topic_dic]
-
-            list_all_recommendations = recommender.recommendSkills2(lista, [just_skill_codes, just_badges_codes,
-                                                                            just_bonus_codes, just_quizzes_codes, a], 3,
-                                                                    3)
-
-            to_recommend = [cluster, just_skill_codes, just_badges_codes, just_quizzes_codes, just_bonus_codes, a]
-
-            for index in activities_to_recommend:
-                to_recommend.append(list_all_recommendations[index])
-
-            recommendations_file.append(to_recommend)
-
-        count += 1
-
-    # return dic_all_lines_skills, dic_all_lines_badges, dic_all_lines_quizzes, dic_all_lines_bonus
-    return recommendations_file
-
 
 
 def write_file2(lista, fileName):
@@ -502,13 +455,6 @@ def buildTrainingFile(underachievers, halfhearted, regular, achievers, activitie
                                                                          all_students_profiles)
 
             target_student_profile = all_students_profiles.get(key)
-
-            student_items_description = target_student_profile.getStudentItemsDescription()
-
-            skills = [el for el in student_items_description if el[4] == "Skill"]
-            badges = [el for el in student_items_description if el[4] == "Badge"]
-            quizzes = [el for el in student_items_description if el[4] == "Quiz"]
-            bonus = [el for el in student_items_description if el[4] == "Bonus"]
             target_student_posts = target_student_profile.getPosts()
 
 
@@ -535,20 +481,28 @@ def buildTrainingFile(underachievers, halfhearted, regular, achievers, activitie
                     topic_dic_ordered = sorted(topic_dic.items())    # topic_dic_ordered = [("Bugs Forum",2),( Questions,1)]
 
 
-            evaluationItems = target_student_profile.getStudentEvaluationItems()
 
+            student_items_description = target_student_profile.getStudentItemsDescription()
+            # getStudentItemsDescription() -> vai buscar informação ao join das tabelas "Student Evaluation" e "Evaluation Item"
+            skills = [el for el in student_items_description if el[4] == "Skill"]
+            badges = [el for el in student_items_description if el[4] == "Badge"]
+            quizzes = [el for el in student_items_description if el[4] == "Quiz"]
+            bonus = [el for el in student_items_description if el[4] == "Bonus"]
+
+            evaluationItems = target_student_profile.getStudentEvaluationItems()
+            # getStudentEvaluationItems() -> vai buscar informação somente à tabela "Student Evaluation"
             just_skill_codes = auxiliar(skills, evaluationItems, True)
             just_badges_codes = auxiliar(badges, evaluationItems, True)
             just_quizzes_codes = auxiliar(quizzes, evaluationItems, True)
             just_bonus_codes = auxiliar(bonus, evaluationItems, True)
 
 
-            #find the dates that are not inside the range (until 15/04/xxxx)
-
+            #find the dates that are not inside the range (after 15/04/xxxx)
             skills_outside_range = auxiliar(skills, evaluationItems, False)
             badges_outside_range = auxiliar(badges, evaluationItems, False)
             quizzes_outside_range = auxiliar(quizzes, evaluationItems, False)
             bonus_outside_range = auxiliar(bonus, evaluationItems, False)
+
 
             list_all_recommendations = [skills_outside_range, badges_outside_range, quizzes_outside_range, bonus_outside_range]
 
@@ -563,27 +517,33 @@ def buildTrainingFile(underachievers, halfhearted, regular, achievers, activitie
 
         count += 1
 
+
     return recommendations_file
 
 
 
 
 def main():
+    '''
     populateSchemaDictionaries()
-    underachievers, halfhearted, regular, achievers = clusters()
     buildAllStudentsProfiles()
 
-    '''
+    #underachievers, halfhearted, regular, achievers = clusters()
+    underachievers, halfhearted, regular, achievers = clusters_on_given_date()
+
+
     file = buildTrainingFile(underachievers, halfhearted, regular, achievers, [0, 1, 2, 3])
     write_csv_file(files_common_path + "trainindFile_right.csv", file)
 
     print("THAT'S ALL FOLKS")
-    '''
 
+    '''
 
     # MLModel.main()
     # ExperimentalPurposes.main()
     # MyMLModel.main()
+
+
     MyMLModel2.main()
 
 

@@ -511,7 +511,7 @@ def recommendForAllStudents_completeProfiles(underachievers, halfhearted, regula
         #    break
 
         print("Another: ", count)
-        if veryfyStudentYear(key,  "trainSet"): # this student did the course before 2018
+        if veryfyStudentYear(key,  "trainSet"): # this student did the course before 2017
         #if veryfyStudentYear(key, "trainSet"):
 
             neighbors_profiles, cluster = clusterComparator.getNeighbors(key, underachievers, halfhearted, regular, achievers,
