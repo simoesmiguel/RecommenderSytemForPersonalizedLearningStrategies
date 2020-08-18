@@ -1,5 +1,6 @@
 import csv
 from functools import reduce
+from statistics import median
 
 import jellyfish
 import nltk
@@ -9,10 +10,13 @@ import matplotlib.pyplot as plt
 from joblib.numpy_pickle_utils import xrange
 from sklearn.metrics import (brier_score_loss, precision_score, recall_score, f1_score)
 from pyjarowinkler import distance
+import pandas as pd
+import numpy as np
+import seaborn as sns
 
 
-files_common_path = '/Users/miguelsimoes/Documents/Universidade/Tese/Final Data Warehouse/'  # MACOS
-#files_common_path = 'D:/ChromeDownloads/TeseFolder/Tese/Final Data Warehouse/'      # Windows
+#files_common_path = '/Users/miguelsimoes/Documents/Universidade/Tese/Final Data Warehouse/'  # MACOS
+files_common_path = 'D:/ChromeDownloads/TeseFolder/Tese/Final Data Warehouse/'      # Windows
 
 
 def readCSVfile(csv_file_name, d):
@@ -511,9 +515,12 @@ def firstApproach_auxiliar(all_neighbors_activities, n_recommendations, kneighbo
             break
         all_xps = [float(el) for el in all_neighbors_activities.get(key)]
         all_xps.sort(reverse=True)
-        #avg = sum(all_xps[0:kneighbors]) / len(all_xps[0:kneighbors])
 
-        #avg = max(all_xps)
+        #simple avg
+        avg = sum(all_xps[0:kneighbors]) / len(all_xps[0:kneighbors])
+
+        #tihs method gives different weights to the neighbors' achieved XPs
+        '''
         print(key," - ",all_xps)
         avg = 0
         if len(all_xps) == 1:
@@ -528,7 +535,7 @@ def firstApproach_auxiliar(all_neighbors_activities, n_recommendations, kneighbo
                     avg += 0.15 * all_xps[1]
                 else:
                     avg += (0.15/(len(all_xps[2:]))) * all_xps[i]
-
+        '''
 
         act_to_recommend[key] = avg
         count += 1
@@ -624,6 +631,105 @@ def list_occurrences(recommendations):
 
     return final_list
 
+def drawGraphic(k, tag, all_real_xps, all_expected_xps, colors_labels):
+    fig = plt.figure()
+
+    plt.plot([i for i in range(len(all_real_xps))], all_real_xps, colors_labels[1], label = "real Xps")
+    plt.plot([i for i in range(len(all_expected_xps))], all_expected_xps, colors_labels[0], label = "expected Xps")
+
+    plt.ylabel("Xps")
+    plt.xlabel("Students")
+    plt.legend()
+    plt.title("graph_k= "+str(k)+" tag= "+tag)
+    #plt.show()
+
+    # Create legend & Show graphic
+    plt.legend()
+
+    fig.savefig("graph_k= "+str(k)+" tag= "+tag+".png")
+    plt.close(fig)
+
+def drawBarChart(improved_students_xps, same_students_xps, worse_students_xps,k,measure):
+    fig = plt.figure()
+
+    # set width of bar
+    barWidth = 0.25
+
+
+    # set height of bar
+    bars1 = [improved_students_xps[0], improved_students_xps[1], improved_students_xps[2], improved_students_xps[3]]
+    bars2 = [same_students_xps[0], same_students_xps[1], same_students_xps[2], same_students_xps[3]]
+    bars3 = [worse_students_xps[0], worse_students_xps[1], worse_students_xps[2], worse_students_xps[3]]
+
+    # Set position of bar on X axis
+    r1 = [i for i in range(len(bars1))]
+    r2 = [x + barWidth for x in r1]
+    r3 = [x + barWidth for x in r2]
+
+    # Make the plot
+    plt.bar(r1, bars1, color='#557f2d', width=barWidth, edgecolor='white', label='Subiu')
+    plt.bar(r2, bars2, color='#2d7f5e', width=barWidth, edgecolor='white', label='Manteve')
+    plt.bar(r3, bars3, color='#7f6d5f', width=barWidth, edgecolor='white', label='Desceu')
+
+    # Add xticks on the middle of the group bars
+    plt.xlabel('Clusters', fontweight='bold')
+    plt.ylabel("Nº of Students", fontweight='bold')
+    plt.xticks([r + barWidth for r in range(len(bars1))], ['Underachievers', 'Half Hearted', 'Regular', 'Achievers'])
+
+    plt.title("System Performance \n K= " + k + "  SM= " + measure)
+
+    # Create legend & Show graphic
+    plt.legend()
+
+    fig.savefig("barChart"+k+"_"+measure+ ".png")
+    plt.close(fig)
+
+def drawBoxPlot(u,h,r,ac,tag,k,measure):
+    fig = plt.figure()
+
+
+    a = pd.DataFrame({'group': np.repeat('U', len(u)), 'value': u})
+    b = pd.DataFrame({'group': np.repeat('H', len(h)), 'value': h })
+    c = pd.DataFrame({'group': np.repeat('R', len(r)), 'value': r})
+    d = pd.DataFrame({'group': np.repeat('A', len(ac)), 'value': ac})
+    df = a.append(b).append(c).append(d)
+
+
+    # Usual boxplot
+    sns.boxplot(x='group', y='value', data=df)
+
+
+
+    ax = sns.boxplot(x='group', y='value', data=df)
+    #ax = sns.stripplot(x='group', y='value', data=df, color="orange", jitter=0.2, size=2.5)
+
+    # Calculate number of obs per group & median to position labels
+    #medians = df.groupby(['group'])['value'].median().values
+    all = [u, h, r, ac]
+    for l in all:
+        l.sort()
+    medians = [median(l) for l in all]
+    nobs = ["n: "+ str(len(l)) for l in [u,h,r,ac]] #number of observations
+
+    # Add it to the plot
+    pos = range(len(nobs))
+    for tick, label in zip(pos, ax.get_xticklabels()):
+        plt.text(pos[tick], medians[tick] + 0.4, nobs[tick], horizontalalignment='center', size='medium', color='black',
+                 weight='semibold')
+
+    plt.ylabel("XPs")
+
+    if tag == "after":
+        plt.title("XP earned by cluster following System Recommendations\n K= "+k+"  SM= "+measure)
+        fig.savefig("boxPlot_" + k + "_" + measure + ".png")
+    else:
+        plt.title("XP earned by cluster without following System Recommendations")
+        fig.savefig("boxPlot_before.png")
+
+    #plt.show()
+    plt.close(fig)
+
+
 def main():
 
 
@@ -631,7 +737,7 @@ def main():
     train_input, train_output = buildInputandOutput(l)
 
     all_measures =["soundex", "jaccard", "jaro", "damerau"]
-    #all_measures = ["jaro", "damerau"]
+    #all_measures = ["damerau"]
     colors_labels = ['g', 'red']
     colors_labels2 = ['yellowgreen', 'violet', 'tan', 'maroon']
 
@@ -648,6 +754,11 @@ def main():
             print("K= ",k)
             all_real_xps = []
             all_expected_xps =[]
+            improved_students_xps, same_students_xps, worse_students_xps =[0,0,0,0], [0,0,0,0], [0,0,0,0]
+
+            under_before_xps, half_before_xps, reg_before_xps, ach_before_xps = [],[],[],[]
+            under_after_xps, half_after_xps, reg_after_xps, ach_after_xps = [],[],[],[]
+
 
 
             for i in range (len(train_input)):
@@ -701,48 +812,44 @@ def main():
                     expected_xps = skills_recommended_by_the_system.get(best_skill_to_recommend)
 
 
+
                     skill_chosen_by_the_student = next_skills[0].split(":")[0]
                     earned_xps = float(next_skills[0].split(":")[1])
 
                     all_real_xps.append(earned_xps)
                     all_expected_xps.append(expected_xps)
 
-            fig = plt.figure()
 
 
-            plt.plot([i for i in range(len(all_real_xps))], all_real_xps, colors_labels[1], label = "real Xps")
-            plt.plot([i for i in range(len(all_expected_xps))], all_expected_xps, colors_labels[0], label = "expected Xps")
+                    if expected_xps> earned_xps:
+                        #subiu
+                        improved_students_xps[student_cluster] +=1
 
-            plt.ylabel("Xps")
-            plt.xlabel("Students")
-            plt.legend()
-            plt.title("graph_k= "+str(k)+" tag= "+tag)
-            #plt.show()
-            fig.savefig("graph_k= "+str(k)+" tag= "+tag+".png")
+                    elif expected_xps == earned_xps:
+                        #manteve
+                        same_students_xps[student_cluster] +=1
+                    else:
+                        #desceu
+                        worse_students_xps[student_cluster]+=1
+
+                    if student_cluster ==0:
+                        under_before_xps.append(earned_xps)
+                        under_after_xps.append(expected_xps)
+                    elif student_cluster==1:
+                        half_before_xps.append(earned_xps)
+                        half_after_xps.append(expected_xps)
+
+                    elif student_cluster==2:
+                        reg_before_xps.append(earned_xps)
+                        reg_after_xps.append(expected_xps)
+
+                    else:
+                        ach_before_xps.append(earned_xps)
+                        ach_after_xps.append(expected_xps)
 
 
+            #drawBoxPlot(under_before_xps, half_before_xps, reg_before_xps, ach_before_xps, "before", str(k), tag)
+            drawBoxPlot( under_after_xps, half_after_xps, reg_after_xps, ach_after_xps,"after", str(k), tag)
+            drawBarChart(improved_students_xps, same_students_xps,worse_students_xps,str(k),tag)
 
-        '''
 
-        if tag == "soundex":
-            l = "Soundex Measure"
-        elif tag == "jaccard":
-            l = "Jaccard Index"
-        elif tag == "jaro":
-            l = "Jaro-Winkler"
-        elif tag == "damerau":
-            l = "Damerau Levenshtein"
-        else:
-            l= tag
-
-        plt.plot([el[1] for el in accuracy_k], [el[0]*100 for el in accuracy_k], colors_labels[all_measures.index(tag)], label = l)
-        #plt.plot([el[3] for el in accuracy_k], [el[1]*100 for el in accuracy_k] , colors_labels2[all_measures.index(tag)], label = l)
-        #plt.plot([el[3] for el in accuracy_k], [el[2] for el in accuracy_k])
-
-    plt.ylabel("Precision (%)")
-    plt.xlabel("k Neighbors")
-    plt.legend()
-    plt.title ("Precision Vs (K) Neighbors")
-    plt.show()
-    
-    '''

@@ -17,10 +17,10 @@ import MyMLModel2
 import numpy as np
 
 #windows
-#files_common_path = 'D:/ChromeDownloads/TeseFolder/Tese/Final Data Warehouse/'
+files_common_path = 'D:/ChromeDownloads/TeseFolder/Tese/Final Data Warehouse/'
 
 #MacOS
-files_common_path = '/Users/miguelsimoes/Documents/Universidade/Tese/Final Data Warehouse/'
+#files_common_path = '/Users/miguelsimoes/Documents/Universidade/Tese/Final Data Warehouse/'
 
 SE = {}  # Student Evaluation Schema
 MP = {}  # Moodle Participation
@@ -422,20 +422,76 @@ def veryfyStudentYear(studentID, tag):
 
     if tag == "trainSet":
         for el in l:  # normalmente a lista l só deve ter um elemento a não ser que haja um aluno que esteve inscrito na cadeira dois anos diferentes
-            if float(el[0]) < 2017:
+            if int(float(el[0])) < 2018:
                 return True
     else:
         for el in l:  # normalmente a lista l só deve ter um elemento a não ser que haja um aluno que esteve inscrito na cadeira dois anos diferentes
-            if float(el[0]) == 2017:
+            if int(float(el[0])) == 2018:
                 return True
 
     return False
 
+def getStudentYear(studentID):
+    student_profile = all_students_profiles.get(studentID)
+    l = student_profile.getStudentResults()
+    return int(float(l[0][0]))
+
+def StudentDistributionPerYear(dic_all_years):
+    print(dic_all_years)
+    my_circle = plt.Circle((0, 0), 0.7, color='white', autopct="%.1f%%")
+    # Give color names
+    names = []
+    sizes = []
+    for key in dic_all_years:
+        names.append(key)
+        sizes.append(dic_all_years[key])
+
+
+    plt.pie(sizes, labels=names, colors=['red','green','blue','skyblue','orange','yellow','violet','cyan'])
+    p=plt.gcf()
+    p.gca().add_artist(my_circle)
+    plt.title("Data distribution over the years")
+    plt.show()
+
+def smartStudentDistributionPerYear(dic_all_years):
+    fig, ax = plt.subplots(figsize=(6, 3), subplot_kw=dict(aspect="equal"))
+
+    names = []
+    data = []
+    for key in dic_all_years:
+        names.append(key)
+        data.append(dic_all_years[key])
+
+    total_students = sum(data)
+    for i in range(len(data)):
+        names[i] = str(names[i]) + "( "+str(round((data[i]/total_students)*100,1))+ "%)"
+
+
+    wedges, texts = ax.pie(data, wedgeprops=dict(width=0.5), startangle=-40)
+
+    bbox_props = dict(boxstyle="square,pad=0.3", fc="w", ec="k", lw=0.72)
+    kw = dict(arrowprops=dict(arrowstyle="-"),
+              bbox=bbox_props, zorder=0, va="center")
+
+    for i, p in enumerate(wedges):
+        ang = (p.theta2 - p.theta1) / 2. + p.theta1
+        y = np.sin(np.deg2rad(ang))
+        x = np.cos(np.deg2rad(ang))
+        horizontalalignment = {-1: "right", 1: "left"}[int(np.sign(x))]
+        connectionstyle = "angle,angleA=0,angleB={}".format(ang)
+        kw["arrowprops"].update({"connectionstyle": connectionstyle})
+        ax.annotate(names[i], xy=(x, y), xytext=(1.35 * np.sign(x), 1.4 * y),
+                    horizontalalignment=horizontalalignment, **kw)
+
+    #ax.set_title("Data distribution over the years")
+
+    plt.show()
 
 
 def buildTrainingFile(underachievers, halfhearted, regular, achievers, activities_to_recommend):
     print("Building Training File ..")
     count=1
+    dic_all_years={}
 
     activities_to_recommend_mapping = {0: "Next Skills", 1: "Next badges", 2: "Next bonus",
                                        3: "Next quizzes", 4: "Next posts"}
@@ -448,7 +504,14 @@ def buildTrainingFile(underachievers, halfhearted, regular, achievers, activitie
     for key in all_students_profiles:
 
         print("Another: ", count)
-        if veryfyStudentYear(key, "trainSet"):  # this student did the course before 2018
+        year = getStudentYear(key)
+        #print(year)
+        if year in dic_all_years:
+            dic_all_years[year] +=1
+        else:
+            dic_all_years[year] =1
+
+        if veryfyStudentYear(key, "testSet"):  # this student did the course before 2018
 
             neighbors_profiles, cluster = clusterComparator.getNeighbors(key, underachievers, halfhearted, regular,
                                                                          achievers,
@@ -517,6 +580,8 @@ def buildTrainingFile(underachievers, halfhearted, regular, achievers, activitie
 
         count += 1
 
+    #StudentDistributionPerYear(dic_all_years)
+    smartStudentDistributionPerYear(dic_all_years)
 
     return recommendations_file
 
@@ -524,7 +589,7 @@ def buildTrainingFile(underachievers, halfhearted, regular, achievers, activitie
 
 
 def main():
-    '''
+
     populateSchemaDictionaries()
     buildAllStudentsProfiles()
 
@@ -533,18 +598,21 @@ def main():
 
 
     file = buildTrainingFile(underachievers, halfhearted, regular, achievers, [0, 1, 2, 3])
-    write_csv_file(files_common_path + "trainindFile_right.csv", file)
+
+    #write_csv_file(files_common_path + "trainindFile_right.csv", file)
+    write_csv_file(files_common_path + "testFile_right.csv", file)
+
 
     print("THAT'S ALL FOLKS")
 
-    '''
+
 
     # MLModel.main()
     # ExperimentalPurposes.main()
     # MyMLModel.main()
 
 
-    MyMLModel2.main()
+    #MyMLModel2.main()
 
 
 if __name__ == "__main__":
