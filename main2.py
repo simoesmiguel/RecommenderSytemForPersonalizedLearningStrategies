@@ -589,7 +589,7 @@ def buildTrainingFile(underachievers, halfhearted, regular, achievers, activitie
 
 
 def main():
-
+    '''
     populateSchemaDictionaries()
     buildAllStudentsProfiles()
 
@@ -604,7 +604,7 @@ def main():
 
 
     print("THAT'S ALL FOLKS")
-
+    '''
 
 
     # MLModel.main()
@@ -612,7 +612,7 @@ def main():
     # MyMLModel.main()
 
 
-    #MyMLModel2.main()
+    MyMLModel2.main()
 
 
 if __name__ == "__main__":

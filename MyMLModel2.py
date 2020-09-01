@@ -421,7 +421,7 @@ def scrutinizeData(neighbors, s, ba, q, bo, posts, tag):
     return lista_all
 
 
-def getNeighbors(cluster, index, file): #
+def getNeighbors(cluster, file): #
     '''
 
     :param cluster: target students' cluster
@@ -437,7 +437,7 @@ def getNeighbors(cluster, index, file): #
                 neighbors.append(dic)
     else:
         for i in range(len(file)):
-            if i != index and int(file[i].get("cluster")) == cluster:
+            if int(file[i].get("cluster")) == cluster:
                 neighbors.append(file[i])
 
     return neighbors
@@ -466,7 +466,7 @@ def sortListofTuples(l, tag):
         return reversed(sorted(l, key = lambda x: x[0]))
 
 
-def aux (activities_list, tag):
+def aux (activities_list, tag, kNeighbors):
     '''
     :param list_of_tuples: check the param "activities_list" from recommendActivities() method.
     :param tag: could have the following values: "skills", "badges", "bonus", "quizzes", "posts"
@@ -477,19 +477,25 @@ def aux (activities_list, tag):
     '''
     dic ={}
 
+    neighbors_considered =0
 
     for tupl in activities_list:
+        if neighbors_considered == kNeighbors:
+            break
         all_info = tupl[1]
         for tuple in all_info:
             if tuple[0] == tag:
-                for el in tuple[1]:
-                    if ":" in el:
-                        code = el.split(":")[0]
-                        xpEarned = el.split(":")[1]
-                        if code not in dic:
-                            dic[code] = [xpEarned]
-                        else:
-                            dic[code] += [xpEarned]
+                if len(tuple[1]) != 0:
+                    for el in tuple[1]:
+                        if ":" in el:
+                            code = el.split(":")[0]
+                            xpEarned = el.split(":")[1]
+                            if code not in dic:
+                                dic[code] = [xpEarned]
+                            else:
+                                dic[code] += [xpEarned]
+                    neighbors_considered+=1
+
 
     return {k: v for k, v in reversed(sorted(dic.items(), key=lambda item: len(item[1])))}
 
@@ -554,12 +560,18 @@ def firstApproach(activities_list, n_recommendations, kneighbors):
     '''
 
 
-    all_neighbors_skills = aux(activities_list, "skills")
-    all_neighbors_badges = aux(activities_list, "badges")
-    all_neighbors_bonus = aux(activities_list, "bonus")
-    all_neighbor_quizzes = aux(activities_list, "quizzes")
-    all_neighbors_posts = aux(activities_list, "posts")
+    all_neighbors_skills = aux(activities_list, "skills", kneighbors)
+    #print("\nall_neighbors_skills: ")
+    #print(all_neighbors_skills)
+    all_neighbors_badges = aux(activities_list, "badges",kneighbors)
 
+    '''
+     Uncomment when you want the algorithm to recommend bonus, quizzes or posts
+    
+    all_neighbors_bonus = aux(activities_list, "bonus",kneighbors)
+    all_neighbor_quizzes = aux(activities_list, "quizzes",kneighbors)
+    all_neighbors_posts = aux(activities_list, "posts",kneighbors)
+    '''
 
     skills_to_recommend = firstApproach_auxiliar(all_neighbors_skills, n_recommendations, kneighbors)
     badges_to_recommend = firstApproach_auxiliar(all_neighbors_badges, n_recommendations, kneighbors)
@@ -608,10 +620,17 @@ def recommendActivities(activities_list, kneighbors, n_recommendations):
     '''
     lista = [tupl for tupl in activities_list]
 
+    #print("lista: ")
+    #print(lista)
 
 
     # 1st approach
-    list_recommendations = firstApproach(lista[0:kneighbors], n_recommendations, kneighbors)
+    #for i in range(0,kneighbors):
+    #    if lista[i]
+
+
+
+    list_recommendations = firstApproach(lista, n_recommendations, kneighbors)
 
     # 2nd approach
     #TODO
@@ -667,9 +686,9 @@ def drawBarChart(improved_students_xps, same_students_xps, worse_students_xps,k,
     r3 = [x + barWidth for x in r2]
 
     # Make the plot
-    plt.bar(r1, bars1, color='#557f2d', width=barWidth, edgecolor='white', label='Subiu')
-    plt.bar(r2, bars2, color='#2d7f5e', width=barWidth, edgecolor='white', label='Manteve')
-    plt.bar(r3, bars3, color='#7f6d5f', width=barWidth, edgecolor='white', label='Desceu')
+    plt.bar(r1, bars1, color='#557f2d', width=barWidth, edgecolor='white', label='Increases')
+    plt.bar(r2, bars2, color='#2d7f5e', width=barWidth, edgecolor='white', label='Maintains')
+    plt.bar(r3, bars3, color='#7f6d5f', width=barWidth, edgecolor='white', label='Decreases')
 
     # Add xticks on the middle of the group bars
     plt.xlabel('Clusters', fontweight='bold')
@@ -730,11 +749,112 @@ def drawBoxPlot(u,h,r,ac,tag,k,measure):
     plt.close(fig)
 
 
+def smartStudentDistributionPerCluster(dic_all_clusters):
+    fig, ax = plt.subplots(figsize=(6, 3), subplot_kw=dict(aspect="equal"))
+
+    names = []
+    data = []
+    for key in dic_all_clusters:
+        names.append(key)
+        data.append(dic_all_clusters[key])
+
+    total_students = sum(data)
+    for i in range(len(data)):
+        names[i] = str(names[i]) + "( "+str(data[i])+")"
+
+
+    wedges, texts = ax.pie(data, wedgeprops=dict(width=0.5), startangle=-40)
+
+    bbox_props = dict(boxstyle="square,pad=0.3", fc="w", ec="k", lw=0.72)
+    kw = dict(arrowprops=dict(arrowstyle="-"),
+              bbox=bbox_props, zorder=0, va="center")
+
+    for i, p in enumerate(wedges):
+        ang = (p.theta2 - p.theta1) / 2. + p.theta1
+        y = np.sin(np.deg2rad(ang))
+        x = np.cos(np.deg2rad(ang))
+        horizontalalignment = {-1: "right", 1: "left"}[int(np.sign(x))]
+        connectionstyle = "angle,angleA=0,angleB={}".format(ang)
+        kw["arrowprops"].update({"connectionstyle": connectionstyle})
+        ax.annotate(names[i], xy=(x, y), xytext=(1.35 * np.sign(x), 1.4 * y),
+                    horizontalalignment=horizontalalignment, **kw)
+
+    #ax.set_title("Data distribution over the years")
+
+    plt.show()
+
+
+
+def drawTrainAndTestPopulation(input):
+
+    dic_all_clusters = {"UnderAchievers": 0, "Half-Hearted": 0, "Regular": 0, "Achievers": 0}
+
+    for i in range(len(input)):
+        student_cluster = int(input[i].get("cluster"))
+        if student_cluster ==0:
+            dic_all_clusters["UnderAchievers"] += 1
+        elif student_cluster ==1:
+            dic_all_clusters["Half-Hearted"] += 1
+        elif student_cluster ==2:
+            dic_all_clusters["Regular"] += 1
+        else:
+            dic_all_clusters["Achievers"] += 1
+
+    smartStudentDistributionPerCluster(dic_all_clusters)
+
+
+def drawPerformanceOverK(dic_subiu, dic_desceu, dic_manteve, tag):
+    fig = plt.figure()
+
+    x1,y1 = [k for k in dic_subiu], [dic_subiu[k] for k in dic_subiu]
+    ymax = max(y1)
+    xpos = y1.index(ymax)
+    xmax = x1[xpos]
+    plt.plot(x1,y1, 'g', label="Increases")
+    plt.annotate('Max at '+str(xmax), xy=(xmax, ymax), xytext=(xmax, ymax + 5),
+                arrowprops=dict(facecolor='darksalmon', shrink=0.05),
+                )
+
+    # ///////////////////////////////////////////////////
+    x2, y2 = [k for k in dic_subiu], [dic_desceu[k] for k in dic_desceu]
+
+    ymin = min(y2)
+    xpos2 = y2.index(ymin)
+    xmin = x2[xpos2]
+
+    plt.plot(x2,y2, 'red', label="Decreases")
+    plt.annotate('Min at ' + str(xmin), xy=(xmin, ymin), xytext=(xmin, ymin + 5),
+                 arrowprops=dict(facecolor='darksalmon', shrink=0.05),
+                 )
+
+    #////////////////////////////////////////////////////
+
+    plt.plot([k for k in dic_subiu], [dic_manteve[k] for k in dic_manteve], 'blue', label="Maintains")
+
+
+    plt.xlabel("K Neighbors")
+    plt.ylabel("Nº of Students")
+    plt.legend()
+    plt.title("Performance Over K neighbors\n SM= " + tag)
+    # plt.show()
+
+    # Create legend & Show graphic
+    plt.legend()
+
+    fig.savefig("Performance_Over_K_neighbors_SM= " + tag + ".png")
+    plt.close(fig)
+
 def main():
 
 
     l = readCSVfile(files_common_path + "trainindFile_right.csv", ",")
     train_input, train_output = buildInputandOutput(l)
+
+    l2 = readCSVfile(files_common_path+"testFile_right.csv",",")
+    test_input, test_output = buildInputandOutput(l2)
+
+    drawTrainAndTestPopulation(train_input)
+    drawTrainAndTestPopulation(test_input)
 
     all_measures =["soundex", "jaccard", "jaro", "damerau"]
     #all_measures = ["damerau"]
@@ -744,12 +864,12 @@ def main():
     xps_chosen_student=[] # xps earned by the student without following the system recommendationss
 
     for tag in all_measures:
-        accuracy_k = [(0,0)]
+        performance_over_k_increases,performance_over_k_decreases,performance_over_k_maintains = {},{},{}
 
         print("tag: ",tag)
         #accuracy_k =[]
 
-        for k in range(1,5): # k neighbors
+        for k in range(1,16): # k neighbors
             acertou, errou = 0, 0
             print("K= ",k)
             all_real_xps = []
@@ -759,18 +879,22 @@ def main():
             under_before_xps, half_before_xps, reg_before_xps, ach_before_xps = [],[],[],[]
             under_after_xps, half_after_xps, reg_after_xps, ach_after_xps = [],[],[],[]
 
+            dic_all_clusters={"UnderAchievers":0,"Half-Hearted":0,"Regular":0,"Achievers":0}
+            for i in range (len(test_input)):
+
+                student_cluster = int(test_input[i].get("cluster"))
+                student_skills = parseLists(test_input[i].get("Student skills"))
+                student_badges = parseLists(test_input[i].get("Student badges"))
+                student_bonus = parseLists(test_input[i].get("Student bonus"))
+                student_quizzes = parseLists(test_input[i].get("Student quizzes"))
+                student_posts = parseLists(test_input[i].get("Student posts"))
 
 
-            for i in range (len(train_input)):
+                if student_skills ==[] and student_badges ==[] and student_bonus ==[] and student_quizzes==[] and student_posts==[]:
+                    print("TUDO vazio")
+                    continue
 
-                student_cluster = int(train_input[i].get("cluster"))
-                student_skills = parseLists(train_input[i].get("Student skills"))
-                student_badges = parseLists(train_input[i].get("Student badges"))
-                student_bonus = parseLists(train_input[i].get("Student bonus"))
-                student_quizzes = parseLists(train_input[i].get("Student quizzes"))
-                student_posts = parseLists(train_input[i].get("Student posts"))
-
-                n = getNeighbors(student_cluster, i, train_input)
+                n = getNeighbors(student_cluster, train_input)
 
                 #n= get_neighbors_alternative(student_cluster, train_input)
 
@@ -790,9 +914,9 @@ def main():
                 lista = sortListofTuples(lista_all, tag)
 
 
-                next_skills_student = parseLists(train_output[i].get("Next Skills"))
-                next_badges_student = parseLists(train_output[i].get("Next badges"))
-                next_bonus_student = parseLists(train_output[i].get("Next bonus"))
+                next_skills_student = parseLists(test_output[i].get("Next Skills"))
+                next_badges_student = parseLists(test_output[i].get("Next badges"))
+                next_bonus_student = parseLists(test_output[i].get("Next bonus"))
 
 
 
@@ -802,8 +926,9 @@ def main():
                 skills_recommended_by_the_system = list_all_recommendations[0]
 
 
-                if next_skills_student != [] and skills_recommended_by_the_system!={} :
-                    next_skills = next_skills_student
+                if skills_recommended_by_the_system!={} :
+                    earned_xps = 0
+
                     # next_badges = next_badges_student[1]
                     # next_bonus = next_bonus_student[2]
 
@@ -811,10 +936,11 @@ def main():
                     best_skill_to_recommend = list(skills_recommended_by_the_system.keys())[0]
                     expected_xps = skills_recommended_by_the_system.get(best_skill_to_recommend)
 
+                    if next_skills_student != []:
 
+                        skill_chosen_by_the_student = next_skills_student[0].split(":")[0]
+                        earned_xps = float(next_skills_student[0].split(":")[1])
 
-                    skill_chosen_by_the_student = next_skills[0].split(":")[0]
-                    earned_xps = float(next_skills[0].split(":")[1])
 
                     all_real_xps.append(earned_xps)
                     all_expected_xps.append(expected_xps)
@@ -835,21 +961,45 @@ def main():
                     if student_cluster ==0:
                         under_before_xps.append(earned_xps)
                         under_after_xps.append(expected_xps)
+                        dic_all_clusters["UnderAchievers"] +=1
                     elif student_cluster==1:
                         half_before_xps.append(earned_xps)
                         half_after_xps.append(expected_xps)
+                        dic_all_clusters["Half-Hearted"]+=1
 
                     elif student_cluster==2:
                         reg_before_xps.append(earned_xps)
                         reg_after_xps.append(expected_xps)
+                        dic_all_clusters["Regular"]+=1
 
                     else:
                         ach_before_xps.append(earned_xps)
                         ach_after_xps.append(expected_xps)
+                        dic_all_clusters["Achievers"]+=1
+
+                else:
+                    print ("\nCluster: "+str(student_cluster))
+                    print("next_skills_student :")
+                    print(next_skills_student)
+                    print("skills_recommended_by_the_system : ")
+                    print(skills_recommended_by_the_system)
+                    print("Neighbors: ")
+                    for nei in n:
+                        print(nei)
+                    print("lista_all")
+                    print(lista_all)
+                    print("lista_all_recommendations: ")
+                    print(list_all_recommendations)
+
+            performance_over_k_increases[k] = sum(improved_students_xps)
+            performance_over_k_decreases[k] = sum(worse_students_xps)
+            performance_over_k_maintains[k] =sum(same_students_xps)
 
 
             #drawBoxPlot(under_before_xps, half_before_xps, reg_before_xps, ach_before_xps, "before", str(k), tag)
             drawBoxPlot( under_after_xps, half_after_xps, reg_after_xps, ach_after_xps,"after", str(k), tag)
             drawBarChart(improved_students_xps, same_students_xps,worse_students_xps,str(k),tag)
+
+        drawPerformanceOverK(performance_over_k_increases,performance_over_k_decreases,performance_over_k_maintains, tag)
 
 
