@@ -1,32 +1,42 @@
 import matplotlib.pyplot as plt
 import csv
 import collections
-from functools import reduce
-import plotly.figure_factory as ff
-import plotly.graph_objects as go
+
 from collections import Counter
 from datetime import datetime as dt
 import clusterComparator
-import findDimensions
-import recommender
-import MLModel
-import MyMLModel
-import MLModel2
+
 import MyMLModel2
 
 import numpy as np
 
+'''
+GLOBAL Vars #############################################################################
+
+'''
+
 #windows
-files_common_path = 'D:/ChromeDownloads/TeseFolder/Tese/Final Data Warehouse/'
+#files_common_path = 'D:/ChromeDownloads/TeseFolder/Tese/Final Data Warehouse/'
 
 #MacOS
-#files_common_path = '/Users/miguelsimoes/Documents/Universidade/Tese/Final Data Warehouse/'
+files_common_path = '/Users/miguelsimoes/Documents/Universidade/Tese/Final Data Warehouse/'
 
 SE = {}  # Student Evaluation Schema
 MP = {}  # Moodle Participation
 all_students_profiles = {}  # saves all the instances of students profiles
 
 debug = False
+
+#date_range = "/03/15"
+#date_range = "/04/15"
+date_range = "/05/20"
+
+test_year = 2018
+
+'''
+###########################################################################################
+'''
+
 
 
 class Student:
@@ -97,11 +107,13 @@ def readCSVfile(csv_file_name, d):
         return l
 
 
-def write_csv_file(filename, l):
+def write_csv_file(filename, l, fileType):
     with open(filename, mode='w', newline='') as file:
         writer = csv.writer(file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         for el in l:
             writer.writerow(el)
+
+    print(fileType+ " file was created")
 
 
 def populateSchemaDictionaries():
@@ -144,7 +156,7 @@ def clusters():  # splits the students according to quartiles and returns the 4 
 
 def clusters_on_given_date():
     '''
-    :return: returns all the clusters but taking into account the earned Xps till middle of the semester
+    :return: returns all the clusters but taking into account the earned Xps till the date_range
     '''
 
     student_collectedXps = {}
@@ -298,47 +310,41 @@ def getEvaluationItems(all_clusters, tag):
 
 
 def checkDates(d):
-    all_dates = {('2011/02/11', '2011/06/29'): '0', ('2012/02/13', '2012/07/03'): '1',
+    all_dates = {('2011/02/11', '2011/06/29'): '0',
+                 ('2012/02/13', '2012/07/03'): '1',
                  ('2013/02/11', '2013/07/16'): '2',
-                 ('2014/02/14', '2014/07/01'): '3', ('2015/02/13', '2015/06/24'): '4',
+                 ('2014/02/14', '2014/07/01'): '3',
+                 ('2015/02/13', '2015/06/24'): '4',
                  ('2016/02/12', '2016/07/02'): '5',
-                 ('2017/02/17', '2017/06/14'): '6', ('2018/02/14', '2018/09/21'): '7',
-                 ('2013/03/24', '2013/06/23'): '2',
-                 ('2014/02/18', '2014/06/17'): '3', ('2015/02/21', '2015/06/23'): '4',
-                 ('2016/02/09', '2016/06/20'): '5',
-                 ('2017/02/21', '2017/06/06'): '6', ('2018/02/15', '2018/07/05'): '7',
-                 ('2019/02/14', '2019/05/09'): '8',
-                 ('2011/02/14', '2011/06/26'): '0', ('2012/02/14', '2012/06/30'): '1',
-                 ('2013/05/04', '2013/07/22'): '2'}
+                 ('2017/02/17', '2017/06/14'): '6',
+                 ('2018/02/14', '2018/09/21'): '7',
+                 ('2019/02/14', '2019/05/09'): '8'}
 
     for el in all_dates:
         d1 = dt.strptime(el[0][2:], "%y/%m/%d")
-        d2 = dt.strptime(el[0][2:4] + "/04/15", "%y/%m/%d")
+        d2 = dt.strptime(el[0][2:4] + date_range, "%y/%m/%d")
         if (d1 < dt.strptime(d,"%y/%m/%d") < d2):  # quer dizer que está na primeira metade do semestre (até 15 de Abril)
             return True
     return False
 
 
 def checkDatesOutsideRange(d):
-    all_dates = {('2011/02/11', '2011/06/29'): '0', ('2012/02/13', '2012/07/03'): '1',
+    all_dates = {('2011/02/11', '2011/06/29'): '0',
+                 ('2012/02/13', '2012/07/03'): '1',
                  ('2013/02/11', '2013/07/16'): '2',
-                 ('2014/02/14', '2014/07/01'): '3', ('2015/02/13', '2015/06/24'): '4',
+                 ('2014/02/14', '2014/07/01'): '3',
+                 ('2015/02/13', '2015/06/24'): '4',
                  ('2016/02/12', '2016/07/02'): '5',
-                 ('2017/02/17', '2017/06/14'): '6', ('2018/02/14', '2018/09/21'): '7',
-                 ('2013/03/24', '2013/06/23'): '2',
-                 ('2014/02/18', '2014/06/17'): '3', ('2015/02/21', '2015/06/23'): '4',
-                 ('2016/02/09', '2016/06/20'): '5',
-                 ('2017/02/21', '2017/06/06'): '6', ('2018/02/15', '2018/07/05'): '7',
-                 ('2019/02/14', '2019/05/09'): '8',
-                 ('2011/02/14', '2011/06/26'): '0', ('2012/02/14', '2012/06/30'): '1',
-                 ('2013/05/04', '2013/07/22'): '2'}
+                 ('2017/02/17', '2017/06/14'): '6',
+                 ('2018/02/14', '2018/09/21'): '7',
+                 ('2019/02/14', '2019/05/09'): '8'}
 
 
     for el in all_dates:
-        d1 = dt.strptime(el[1][2:4] + "/04/15", "%y/%m/%d")
+        d1 = dt.strptime(el[1][2:4] +date_range, "%y/%m/%d")
         d2 = dt.strptime(el[1][2:], "%y/%m/%d")
 
-        if (d1 <= dt.strptime(d,"%y/%m/%d") < d2):  # quer dizer que está na primeira metade do semestre (até 15 de Abril)
+        if (d1 <= dt.strptime(d,"%y/%m/%d") < d2):  # quer dizer que está fora do range, por exemplo, depois de 15/04 e antes do final do semestre
             return True
     return False
 
@@ -422,11 +428,11 @@ def veryfyStudentYear(studentID, tag):
 
     if tag == "trainSet":
         for el in l:  # normalmente a lista l só deve ter um elemento a não ser que haja um aluno que esteve inscrito na cadeira dois anos diferentes
-            if int(float(el[0])) < 2018:
+            if int(float(el[0])) < test_year:
                 return True
     else:
         for el in l:  # normalmente a lista l só deve ter um elemento a não ser que haja um aluno que esteve inscrito na cadeira dois anos diferentes
-            if int(float(el[0])) == 2018:
+            if int(float(el[0])) == test_year:
                 return True
 
     return False
@@ -488,8 +494,8 @@ def smartStudentDistributionPerYear(dic_all_years):
     plt.show()
 
 
-def buildTrainingFile(underachievers, halfhearted, regular, achievers, activities_to_recommend):
-    print("Building Training File ..")
+def buildTrainOrTestFile(underachievers, halfhearted, regular, achievers, activities_to_recommend, tag):
+    print("Building "+tag+ " File ....")
     count=1
     dic_all_years={}
 
@@ -511,7 +517,7 @@ def buildTrainingFile(underachievers, halfhearted, regular, achievers, activitie
         else:
             dic_all_years[year] =1
 
-        if veryfyStudentYear(key, "testSet"):  # this student did the course before 2018
+        if veryfyStudentYear(key, tag):  # this student did the course before &test_year
 
             neighbors_profiles, cluster = clusterComparator.getNeighbors(key, underachievers, halfhearted, regular,
                                                                          achievers,
@@ -531,7 +537,7 @@ def buildTrainingFile(underachievers, halfhearted, regular, achievers, activitie
                     if checkDates(date):
                         posts_in_range.append(lista)
 
-                if posts_in_range != []:  # if there are any posts within the range of 15/04
+                if posts_in_range != []:  # if there are any posts within the range of &date_range
                     content_topic = readCSVfile(files_common_path + 'Moodle Participation/content_topic_dim.csv', ',')
 
                     discussion_topics = [l[0] for l in content_topic for lista in posts_in_range if lista[3] == l[-1]]
@@ -581,7 +587,7 @@ def buildTrainingFile(underachievers, halfhearted, regular, achievers, activitie
         count += 1
 
     #StudentDistributionPerYear(dic_all_years)
-    smartStudentDistributionPerYear(dic_all_years)
+    #smartStudentDistributionPerYear(dic_all_years)
 
     return recommendations_file
 
@@ -589,7 +595,18 @@ def buildTrainingFile(underachievers, halfhearted, regular, achievers, activitie
 
 
 def main():
+
+    ''''''
+
     '''
+        Create Train and Test Set #############################################################################
+    
+    
+    
+    
+    #fileType = "trainSet"
+    fileType = "testSet"
+
     populateSchemaDictionaries()
     buildAllStudentsProfiles()
 
@@ -597,22 +614,29 @@ def main():
     underachievers, halfhearted, regular, achievers = clusters_on_given_date()
 
 
-    file = buildTrainingFile(underachievers, halfhearted, regular, achievers, [0, 1, 2, 3])
+    file = buildTrainOrTestFile(underachievers, halfhearted, regular, achievers, [0, 1, 2, 3], fileType)
 
-    #write_csv_file(files_common_path + "trainindFile_right.csv", file)
-    write_csv_file(files_common_path + "testFile_right.csv", file)
+    data = date_range[1:].split("/")
+    print(data)
+    print("./train&test_files/"+data[1]+"_"+data[0]+"/"+fileType + "_" + str(test_year) + "_dateRange=" +data[1]+"_"+data[0] + ".csv")
+    write_csv_file("./train&test_files/"+data[1]+"_"+data[0]+"/"+fileType + "_" + str(test_year) + "_dateRange=" +data[1]+"_"+data[0] + ".csv",file, fileType)
 
 
     print("THAT'S ALL FOLKS")
     '''
 
+    populateSchemaDictionaries()
+    buildAllStudentsProfiles()
+    underachievers, halfhearted, regular, achievers = clusters_on_given_date()
 
-    # MLModel.main()
-    # ExperimentalPurposes.main()
-    # MyMLModel.main()
+    print(underachievers)
+    print(halfhearted)
+    print(regular)
+    print(achievers)
 
 
-    MyMLModel2.main()
+
+    #MyMLModel2.main()
 
 
 if __name__ == "__main__":

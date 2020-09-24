@@ -15,8 +15,8 @@ import numpy as np
 import seaborn as sns
 
 
-#files_common_path = '/Users/miguelsimoes/Documents/Universidade/Tese/Final Data Warehouse/'  # MACOS
-files_common_path = 'D:/ChromeDownloads/TeseFolder/Tese/Final Data Warehouse/'      # Windows
+files_common_path = '/Users/miguelsimoes/Documents/Universidade/Tese/Final Data Warehouse/'  # MACOS
+#files_common_path = 'D:/ChromeDownloads/TeseFolder/Tese/Final Data Warehouse/'      # Windows
 
 
 def readCSVfile(csv_file_name, d):
@@ -238,57 +238,6 @@ def parseLists(lista_string):
 
 
 
-def makeRecommendations (neighbors_list, train_input, train_output, test_output, tag):
-    # neighbors_list = [(0.6666666666666666, {"cluser":2, "Student Skills": [...], "student badges": [...] }), ... ]
-    # train_input, train_output : list of dictionaries
-    # test_output : dictionary
-
-    #order neighbors list
-    if tag == "levenshtein" or tag == "jaccard" or tag == "hamming" or tag == "soundex" or tag == "damerau":
-        ordered_n_list = sorted(neighbors_list, key=lambda item: item[0])
-    else:
-        ordered_n_list = reversed(sorted(neighbors_list, key=lambda item: item[0]))
-
-    indexes = [train_input.index(tupl[1]) for tupl in ordered_n_list]
-
-    recommendations = [train_output[i] for i in indexes] # list of dictionaires
-
-
-    total_precision, total_recall, total_f1 = [], [], []
-
-    for key in test_output:
-
-        a = [parseLists(dic.get(key)) for dic in recommendations]  # list of lists
-        b = list(dict.fromkeys([activity for lista in a for activity in lista])) # list with all the activities without duplicates
-
-        new_l = orderElements(parseLists(test_output.get(key)), b, tag)
-        y_test = [el[0] for el in new_l]
-        y_pred = [el[1] for el in new_l]
-
-        if y_test != [] and y_pred != []:
-            precision = precision_score(y_test, y_pred,
-                                        average="micro")  # the less false positives a classifier gives, the higher is its precision.
-
-            recall = recall_score(y_test, y_pred, average="micro")
-
-            #f1 = f1_score(y_test, y_pred, average="micro")
-            total_precision.append(precision)
-            total_recall.append(recall)
-            #total_f1.append(f1)
-
-        else:
-            #return 0, 0, 0, recommendations, y_pred, y_test
-            total_precision.append(0)
-            total_recall.append(0)
-
-    avg_precision = reduce(lambda a, b: a + b, total_precision) / len(total_precision)
-    avg_recall = reduce(lambda a, b: a + b, total_recall) / len(total_recall)
-    #f1_score = reduce(lambda a, b: a + b, total_f1) / len(total_f1)
-
-
-    return avg_precision, avg_recall
-
-
 def getIndicators(skills, badges, bonus, quizzes, posts):
     indicators = [0, 0, 0, 0, 0]
 
@@ -343,6 +292,9 @@ def scrutinizeData(neighbors, s, ba, q, bo, posts, tag):
 
 
     lista_all = []
+    if len(neighbors) ==0:
+        print("A LISTA DE VIZINHOS ESTÁ VAZIA")
+
 
     for neighbor in neighbors: # for all the target student's neighbors
 
@@ -361,14 +313,20 @@ def scrutinizeData(neighbors, s, ba, q, bo, posts, tag):
           have acquired some skills and badges too.
 
         '''
+
+
         count1, count2 = 0, 0
+        '''
         for i in range(len(target_student_indicators)):
             if target_student_indicators[i] == 1:
                 count1 += 1
                 if neighbor_indicators[i] == 1:
                     count2 += 1
+        '''
 
-        if count2 == count1:  # we found a neighbor of the target student
+        if neighbor_indicators[0] == 1: # this only works when we are recommending skills from the activity tree
+
+        #if count2 == count1:  # we found a neighbor of the target student
 
             skills_dic_t, badges_dic_t, bonus_dic_t, quizzes_dic_t = buildActivityXpsDic([neighbor_skills, neighbor_badges, neighbor_bonus, neighbor_quizzes])
 
@@ -401,7 +359,6 @@ def scrutinizeData(neighbors, s, ba, q, bo, posts, tag):
             if new_l != []:
                 avg_distance_posts = calculateAvgDistance(new_l, tag)
 
-
             all_distances = [avg_distance_skills, avg_distance_badges, avg_distance_bonus, avg_distance_quizzes,
                              avg_distance_posts]
 
@@ -416,7 +373,14 @@ def scrutinizeData(neighbors, s, ba, q, bo, posts, tag):
                 lista_all.append((total_distance,
                                   [("skills", neighbor_skills), ("badges", neighbor_badges), ("bonus", neighbor_bonus),
                                    ("quizzes", neighbor_quizzes), ("posts", neighbor_posts)]))
-
+            else:
+                #print("TOTAL DIST ===== 0")
+                #print(target_student_indicators, "   VSss   ", neighbor_indicators)
+                #print(avg_distance_skills, avg_distance_badges, avg_distance_bonus, avg_distance_quizzes, avg_distance_posts)
+                pass
+        else:
+            #print(target_student_indicators,"   VS   ",neighbor_indicators)
+            pass
 
     return lista_all
 
@@ -494,7 +458,7 @@ def aux (activities_list, tag, kNeighbors):
                                 dic[code] = [xpEarned]
                             else:
                                 dic[code] += [xpEarned]
-                    neighbors_considered+=1
+                    neighbors_considered+=1              # só os neighbors que tiverem skills feitas irão ser considerados.
 
 
     return {k: v for k, v in reversed(sorted(dic.items(), key=lambda item: len(item[1])))}
@@ -665,7 +629,7 @@ def drawGraphic(k, tag, all_real_xps, all_expected_xps, colors_labels):
     # Create legend & Show graphic
     plt.legend()
 
-    fig.savefig("graph_k= "+str(k)+" tag= "+tag+".png")
+    fig.savefig("./results/graph_k= "+str(k)+" tag= "+tag+".png")
     plt.close(fig)
 
 def drawBarChart(improved_students_xps, same_students_xps, worse_students_xps,k,measure):
@@ -700,10 +664,12 @@ def drawBarChart(improved_students_xps, same_students_xps, worse_students_xps,k,
     # Create legend & Show graphic
     plt.legend()
 
-    fig.savefig("barChart"+k+"_"+measure+ ".png")
+    fig.savefig("./results/barChart"+k+"_"+measure+ ".png")
     plt.close(fig)
 
 def drawBoxPlot(u,h,r,ac,tag,k,measure):
+
+
     fig = plt.figure()
 
 
@@ -727,8 +693,8 @@ def drawBoxPlot(u,h,r,ac,tag,k,measure):
     all = [u, h, r, ac]
     for l in all:
         l.sort()
-    medians = [median(l) for l in all]
-    nobs = ["n: "+ str(len(l)) for l in [u,h,r,ac]] #number of observations
+    medians = [median(l) for l in all if l!=[]]
+    nobs = ["n: "+ str(len(l)) for l in [u,h,r,ac] if l!=[]] #number of observations
 
     # Add it to the plot
     pos = range(len(nobs))
@@ -740,10 +706,10 @@ def drawBoxPlot(u,h,r,ac,tag,k,measure):
 
     if tag == "after":
         plt.title("XP earned by cluster following System Recommendations\n K= "+k+"  SM= "+measure)
-        fig.savefig("boxPlot_" + k + "_" + measure + ".png")
+        fig.savefig("./results/boxPlot_" + k + "_" + measure + ".png")
     else:
         plt.title("XP earned by cluster without following System Recommendations")
-        fig.savefig("boxPlot_before.png")
+        fig.savefig("./results/boxPlot_before.png")
 
     #plt.show()
     plt.close(fig)
@@ -841,16 +807,21 @@ def drawPerformanceOverK(dic_subiu, dic_desceu, dic_manteve, tag):
     # Create legend & Show graphic
     plt.legend()
 
-    fig.savefig("Performance_Over_K_neighbors_SM= " + tag + ".png")
+    fig.savefig("./results/Performance_Over_K_neighbors_SM= " + tag + ".png")
     plt.close(fig)
 
 def main():
+    #date_range = "/03/15"
+    # date_range = "/04/15"
+    date_range = "/05/20"
 
+    test_year = 2018
 
-    l = readCSVfile(files_common_path + "trainindFile_right.csv", ",")
+    data = date_range[1:].split("/")
+    l = readCSVfile("./train&test_files/"+data[1]+"_"+data[0]+"/trainSet_" + str(test_year) + "_dateRange=" +data[1]+"_"+data[0] + ".csv", ",")
     train_input, train_output = buildInputandOutput(l)
 
-    l2 = readCSVfile(files_common_path+"testFile_right.csv",",")
+    l2 = readCSVfile("./train&test_files/"+data[1]+"_"+data[0]+"/testSet_" + str(test_year) + "_dateRange=" +data[1]+"_"+data[0] + ".csv", ",")
     test_input, test_output = buildInputandOutput(l2)
 
     drawTrainAndTestPopulation(train_input)
@@ -897,6 +868,8 @@ def main():
                 n = getNeighbors(student_cluster, train_input)
 
                 #n= get_neighbors_alternative(student_cluster, train_input)
+
+
 
                 lista_all = scrutinizeData(n, student_skills, student_badges, student_quizzes, student_bonus, student_posts, tag)
 
@@ -997,9 +970,9 @@ def main():
 
 
             #drawBoxPlot(under_before_xps, half_before_xps, reg_before_xps, ach_before_xps, "before", str(k), tag)
-            drawBoxPlot( under_after_xps, half_after_xps, reg_after_xps, ach_after_xps,"after", str(k), tag)
-            drawBarChart(improved_students_xps, same_students_xps,worse_students_xps,str(k),tag)
+            #drawBoxPlot( under_after_xps, half_after_xps, reg_after_xps, ach_after_xps,"after", str(k), tag)
+            #drawBarChart(improved_students_xps, same_students_xps,worse_students_xps,str(k),tag)
 
-        drawPerformanceOverK(performance_over_k_increases,performance_over_k_decreases,performance_over_k_maintains, tag)
+        #drawPerformanceOverK(performance_over_k_increases,performance_over_k_decreases,performance_over_k_maintains, tag)
 
 
