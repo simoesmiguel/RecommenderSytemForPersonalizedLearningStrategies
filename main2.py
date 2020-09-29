@@ -1,3 +1,5 @@
+from functools import reduce
+
 import matplotlib.pyplot as plt
 import csv
 import collections
@@ -16,10 +18,10 @@ GLOBAL Vars ####################################################################
 '''
 
 #windows
-#files_common_path = 'D:/ChromeDownloads/TeseFolder/Tese/Final Data Warehouse/'
+files_common_path = 'D:/ChromeDownloads/TeseFolder/Tese/Final Data Warehouse/'
 
 #MacOS
-files_common_path = '/Users/miguelsimoes/Documents/Universidade/Tese/Final Data Warehouse/'
+#files_common_path = '/Users/miguelsimoes/Documents/Universidade/Tese/Final Data Warehouse/'
 
 SE = {}  # Student Evaluation Schema
 MP = {}  # Moodle Participation
@@ -156,10 +158,14 @@ def clusters():  # splits the students according to quartiles and returns the 4 
 
 def clusters_on_given_date():
     '''
-    :return: returns all the clusters but taking into account the earned Xps till the date_range
+    :return: returns all the clusters taking into account the earned Xps till the date_range.
+            Also, it differentiates the students' year in order to find these clusters, which means thta by the end of
+            this method we'll have 4 clusters per year. All this info is loaded to the "clusters_by_year" dictionary.
     '''
 
     student_collectedXps = {}
+
+    clusters_by_year ={}
 
     for studentID in all_students_profiles:
         all_xps = 0
@@ -170,20 +176,45 @@ def clusters_on_given_date():
             if checkDates(formatted_date_id):  # checkar se a data está na primeira metade do semestre
                 all_xps+=float(row[3])
 
-        student_collectedXps[studentID] = float(all_xps)
+        year = getStudentYear(studentID)
+        if year not in student_collectedXps:
+            student_collectedXps[year] = [(studentID, float(all_xps))]
+        else:
+            student_collectedXps[year].append((studentID, float(all_xps)))
 
-    highest_score = max(student_collectedXps.values())
 
-    c1 = [(key, student_collectedXps.get(key)) for key in student_collectedXps if
-          student_collectedXps.get(key) <= 0.25 * highest_score]
-    c2 = [(key, student_collectedXps.get(key)) for key in student_collectedXps if
-          0.25 * highest_score <  student_collectedXps.get(key) <= 0.50 * highest_score]
-    c3 = [(key, student_collectedXps.get(key)) for key in student_collectedXps if
-          0.50 * highest_score <  student_collectedXps.get(key) <= 0.75 * highest_score]
-    c4 = [(key, student_collectedXps.get(key)) for key in student_collectedXps if
-          student_collectedXps.get(key) > 0.75 * highest_score]
+    for year in student_collectedXps:
+        all_grades = [t[1] for t in student_collectedXps.get(year)]
 
-    return c1, c2, c3, c4
+        # the idea of considering the 3 highest values is to avoid outliers
+        # consider only the 3 highest values
+        highest_values = sorted(all_grades)[-3:]
+
+        # calculate avg from the 3 highest values
+        avg_value = reduce(lambda a, b: a + b, highest_values) / len(highest_values)
+
+        c1 = [tupl for tupl in student_collectedXps.get(year) if tupl[1] <= 0.25 * avg_value]
+        c2 = [tupl for tupl in student_collectedXps.get(year) if 0.25 * avg_value < tupl[1] <= 0.50 * avg_value]
+        c3 = [tupl for tupl in student_collectedXps.get(year) if 0.50 * avg_value <  tupl[1]<= 0.75 * avg_value]
+        c4 = [tupl for tupl in student_collectedXps.get(year) if tupl[1] > 0.75 * avg_value]
+
+        clusters_by_year[year] = [c1,c2,c3,c4]
+
+    return clusters_by_year
+
+def getStudentYear(studentID):
+    student_profile = all_students_profiles.get(studentID)
+    l = student_profile.getStudentResults()
+
+    year=[]
+    for el in l:  # normalmente a lista l só deve ter um elemento a não ser que haja um aluno que esteve inscrito na cadeira dois anos diferentes
+        year.append(int(float(el[0])))
+
+    if len(year)>1:
+        print("WHATTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT")
+
+    return year[0]
+
 
 
 def buildProfile(studentId):
@@ -494,7 +525,17 @@ def smartStudentDistributionPerYear(dic_all_years):
     plt.show()
 
 
-def buildTrainOrTestFile(underachievers, halfhearted, regular, achievers, activities_to_recommend, tag):
+def getStudentCluster(studentID):
+    clusters_by_year=clusters_on_given_date()
+    for year in clusters_by_year:
+        cluster = 0
+        for lista in clusters_by_year.get(year):
+            for tupl in lista:
+                if tupl[0] == studentID:
+                    return cluster
+            cluster+=1
+
+def buildTrainOrTestFile(activities_to_recommend, tag):
     print("Building "+tag+ " File ....")
     count=1
     dic_all_years={}
@@ -519,13 +560,8 @@ def buildTrainOrTestFile(underachievers, halfhearted, regular, achievers, activi
 
         if veryfyStudentYear(key, tag):  # this student did the course before &test_year
 
-            neighbors_profiles, cluster = clusterComparator.getNeighbors(key, underachievers, halfhearted, regular,
-                                                                         achievers,
-                                                                         all_students_profiles)
-
             target_student_profile = all_students_profiles.get(key)
             target_student_posts = target_student_profile.getPosts()
-
 
             content_topic = []
             posts_in_range = []
@@ -548,8 +584,6 @@ def buildTrainOrTestFile(underachievers, halfhearted, regular, achievers, activi
                             topic_dic[el] = topic_dic.get(el) + 1
 
                     topic_dic_ordered = sorted(topic_dic.items())    # topic_dic_ordered = [("Bugs Forum",2),( Questions,1)]
-
-
 
             student_items_description = target_student_profile.getStudentItemsDescription()
             # getStudentItemsDescription() -> vai buscar informação ao join das tabelas "Student Evaluation" e "Evaluation Item"
@@ -577,6 +611,8 @@ def buildTrainOrTestFile(underachievers, halfhearted, regular, achievers, activi
 
             posts = [key + str(topic_dic.get(key)) for key in topic_dic]
 
+            cluster = getStudentCluster(key)
+
             to_recommend = [cluster, just_skill_codes, just_badges_codes, just_quizzes_codes, just_bonus_codes, posts]
 
             for index in activities_to_recommend:
@@ -599,10 +635,7 @@ def main():
     ''''''
 
     '''
-        Create Train and Test Set #############################################################################
-    
-    
-    
+    #    Create Train and Test Set #############################################################################
     
     #fileType = "trainSet"
     fileType = "testSet"
@@ -610,34 +643,37 @@ def main():
     populateSchemaDictionaries()
     buildAllStudentsProfiles()
 
-    #underachievers, halfhearted, regular, achievers = clusters()
-    underachievers, halfhearted, regular, achievers = clusters_on_given_date()
-
-
-    file = buildTrainOrTestFile(underachievers, halfhearted, regular, achievers, [0, 1, 2, 3], fileType)
+    file = buildTrainOrTestFile( [0, 1, 2, 3], fileType)
 
     data = date_range[1:].split("/")
-    print(data)
     print("./train&test_files/"+data[1]+"_"+data[0]+"/"+fileType + "_" + str(test_year) + "_dateRange=" +data[1]+"_"+data[0] + ".csv")
     write_csv_file("./train&test_files/"+data[1]+"_"+data[0]+"/"+fileType + "_" + str(test_year) + "_dateRange=" +data[1]+"_"+data[0] + ".csv",file, fileType)
-
 
     print("THAT'S ALL FOLKS")
     '''
 
+
+
+
+    MyMLModel2.main()
+
+
+
+    '''
     populateSchemaDictionaries()
     buildAllStudentsProfiles()
-    underachievers, halfhearted, regular, achievers = clusters_on_given_date()
+    clusters_by_year = clusters_on_given_date()
+    total =0
+    for year in clusters_by_year:
+        print(year)
+        print("     U = ",len(clusters_by_year.get(year)[0]))
+        print("     H = ",len(clusters_by_year.get(year)[1]))
+        print("     R = ",len(clusters_by_year.get(year)[2]))
+        print("     A = ",len(clusters_by_year.get(year)[3]))
+        total+=len(clusters_by_year.get(year)[0])+len(clusters_by_year.get(year)[1])+len(clusters_by_year.get(year)[2])+len(clusters_by_year.get(year)[3])
 
-    print(underachievers)
-    print(halfhearted)
-    print(regular)
-    print(achievers)
-
-
-
-    #MyMLModel2.main()
-
+    print(total)
+    '''
 
 if __name__ == "__main__":
     main()

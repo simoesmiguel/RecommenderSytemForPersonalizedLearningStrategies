@@ -15,8 +15,7 @@ import numpy as np
 import seaborn as sns
 
 
-files_common_path = '/Users/miguelsimoes/Documents/Universidade/Tese/Final Data Warehouse/'  # MACOS
-#files_common_path = 'D:/ChromeDownloads/TeseFolder/Tese/Final Data Warehouse/'      # Windows
+
 
 
 def readCSVfile(csv_file_name, d):
