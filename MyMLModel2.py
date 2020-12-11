@@ -15,7 +15,22 @@ import numpy as np
 import seaborn as sns
 
 
+'''
+GLOBAL Vars #############################################################################
 
+'''
+#date_range = "/03/15"
+#date_range = "/04/15"
+#date_range = "/05/03"
+date_range = "/04/30"
+
+
+test_year = 2018
+
+
+'''
+###########################################################################################
+'''
 
 
 def readCSVfile(csv_file_name, d):
@@ -462,7 +477,8 @@ def aux (activities_list, tag, kNeighbors):
 
     return {k: v for k, v in reversed(sorted(dic.items(), key=lambda item: len(item[1])))}
 
-def firstApproach_auxiliar(all_neighbors_activities, n_recommendations, kneighbors):
+
+def firstApproach_auxiliar(all_neighbors_activities, n_recommendations, kneighbors, activities_already_done_by_student):
     '''
     This function was created only to avoid the code repetition in the "firstApproach" method.
 
@@ -480,40 +496,49 @@ def firstApproach_auxiliar(all_neighbors_activities, n_recommendations, kneighbo
     count = 0
 
     for key in all_neighbors_activities:
-        if count == n_recommendations:
-            break
-        all_xps = [float(el) for el in all_neighbors_activities.get(key)]
-        all_xps.sort(reverse=True)
 
-        #simple avg
-        avg = sum(all_xps[0:kneighbors]) / len(all_xps[0:kneighbors])
+        new_key = ""
+        for char in key:
+            if not RepresentsInt(char):
+                new_key += char
 
-        #tihs method gives different weights to the neighbors' achieved XPs
-        '''
-        print(key," - ",all_xps)
-        avg = 0
-        if len(all_xps) == 1:
-            avg = all_xps[0]
-        elif len(all_xps) == 2:
-            avg = 0.8*all_xps[0] + 0.2*all_xps[1]
-        else:
-            for i in range(len(all_xps)):
-                if i ==0:
-                    avg += 0.7 * all_xps[0]
-                elif i==1:
-                    avg += 0.15 * all_xps[1]
-                else:
-                    avg += (0.15/(len(all_xps[2:]))) * all_xps[i]
-        '''
+        if new_key not in activities_already_done_by_student:
 
-        act_to_recommend[key] = avg
-        count += 1
+
+            if count == n_recommendations:
+                break
+            all_xps = [float(el) for el in all_neighbors_activities.get(key)]
+            all_xps.sort(reverse=True)
+
+            #simple avg
+            avg = sum(all_xps[0:kneighbors]) / len(all_xps[0:kneighbors])
+
+            #tihs method gives different weights to the neighbors' achieved XPs
+            '''
+            print(key," - ",all_xps)
+            avg = 0
+            if len(all_xps) == 1:
+                avg = all_xps[0]
+            elif len(all_xps) == 2:
+                avg = 0.8*all_xps[0] + 0.2*all_xps[1]
+            else:
+                for i in range(len(all_xps)):
+                    if i ==0:
+                        avg += 0.7 * all_xps[0]
+                    elif i==1:
+                        avg += 0.15 * all_xps[1]
+                    else:
+                        avg += (0.15/(len(all_xps[2:]))) * all_xps[i]
+            '''
+
+            act_to_recommend[new_key] = avg
+            count += 1
 
     return {k: v for k, v in reversed(sorted(act_to_recommend.items(), key=lambda item: item[1]))}
 
 
 
-def firstApproach(activities_list, n_recommendations, kneighbors):
+def firstApproach(activities_list, n_recommendations, kneighbors, activities_already_done_by_student):
 
     '''
     :param activities_list:  check the param "activities_list" from "recommendActivities" method
@@ -536,13 +561,13 @@ def firstApproach(activities_list, n_recommendations, kneighbors):
     all_neighbors_posts = aux(activities_list, "posts",kneighbors)
     '''
 
-    skills_to_recommend = firstApproach_auxiliar(all_neighbors_skills, n_recommendations, kneighbors)
-    badges_to_recommend = firstApproach_auxiliar(all_neighbors_badges, n_recommendations, kneighbors)
+    skills_to_recommend = firstApproach_auxiliar(all_neighbors_skills, n_recommendations, kneighbors, activities_already_done_by_student)
+    # badges_to_recommend = firstApproach_auxiliar(all_neighbors_badges, n_recommendations, kneighbors, activities_already_done_by_student)
 
-    return [skills_to_recommend, badges_to_recommend]
+    return [skills_to_recommend]
 
 
-def recommendActivities(activities_list, kneighbors, n_recommendations):
+def recommendActivities(activities_list, kneighbors, n_recommendations, activities_already_done_by_student):
     '''
     :param activities_list: list of tuples with the following schema:
 
@@ -593,7 +618,7 @@ def recommendActivities(activities_list, kneighbors, n_recommendations):
 
 
 
-    list_recommendations = firstApproach(lista, n_recommendations, kneighbors)
+    list_recommendations = firstApproach(lista, n_recommendations, kneighbors, activities_already_done_by_student)
 
     # 2nd approach
     #TODO
@@ -649,9 +674,9 @@ def drawBarChart(improved_students_xps, same_students_xps, worse_students_xps,k,
     r3 = [x + barWidth for x in r2]
 
     # Make the plot
-    plt.bar(r1, bars1, color='#557f2d', width=barWidth, edgecolor='white', label='Increases')
-    plt.bar(r2, bars2, color='#2d7f5e', width=barWidth, edgecolor='white', label='Maintains')
-    plt.bar(r3, bars3, color='#7f6d5f', width=barWidth, edgecolor='white', label='Decreases')
+    plt.bar(r1, bars1, color='g', width=barWidth, edgecolor='white', label='Increases')
+    plt.bar(r2, bars2, color='blue', width=barWidth, edgecolor='white', label='Maintains')
+    plt.bar(r3, bars3, color='red', width=barWidth, edgecolor='white', label='Decreases')
 
     # Add xticks on the middle of the group bars
     plt.xlabel('Clusters', fontweight='bold')
@@ -668,9 +693,7 @@ def drawBarChart(improved_students_xps, same_students_xps, worse_students_xps,k,
 
 def drawBoxPlot(u,h,r,ac,tag,k,measure):
 
-
     fig = plt.figure()
-
 
     a = pd.DataFrame({'group': np.repeat('U', len(u)), 'value': u})
     b = pd.DataFrame({'group': np.repeat('H', len(h)), 'value': h })
@@ -678,11 +701,8 @@ def drawBoxPlot(u,h,r,ac,tag,k,measure):
     d = pd.DataFrame({'group': np.repeat('A', len(ac)), 'value': ac})
     df = a.append(b).append(c).append(d)
 
-
     # Usual boxplot
     sns.boxplot(x='group', y='value', data=df)
-
-
 
     ax = sns.boxplot(x='group', y='value', data=df)
     #ax = sns.stripplot(x='group', y='value', data=df, color="orange", jitter=0.2, size=2.5)
@@ -776,7 +796,7 @@ def drawPerformanceOverK(dic_subiu, dic_desceu, dic_manteve, tag):
     xpos = y1.index(ymax)
     xmax = x1[xpos]
     plt.plot(x1,y1, 'g', label="Increases")
-    plt.annotate('Max at '+str(xmax), xy=(xmax, ymax), xytext=(xmax, ymax + 5),
+    plt.annotate('Max at k='+str(xmax)+', y= '+str(ymax), xy=(xmax, ymax), xytext=(xmax, ymax + 5),
                 arrowprops=dict(facecolor='darksalmon', shrink=0.05),
                 )
 
@@ -788,7 +808,7 @@ def drawPerformanceOverK(dic_subiu, dic_desceu, dic_manteve, tag):
     xmin = x2[xpos2]
 
     plt.plot(x2,y2, 'red', label="Decreases")
-    plt.annotate('Min at ' + str(xmin), xy=(xmin, ymin), xytext=(xmin, ymin + 5),
+    plt.annotate('Min at k=' + str(xmin)+', y= '+str(ymin), xy=(xmin, ymin), xytext=(xmin, ymin + 5),
                  arrowprops=dict(facecolor='darksalmon', shrink=0.05),
                  )
 
@@ -809,12 +829,27 @@ def drawPerformanceOverK(dic_subiu, dic_desceu, dic_manteve, tag):
     fig.savefig("./results/Performance_Over_K_neighbors_SM= " + tag + ".png")
     plt.close(fig)
 
-def main():
-    #date_range = "/03/15"
-    # date_range = "/04/15"
-    date_range = "/05/20"
 
-    test_year = 2018
+def justSkillsWithoutCodes(lista):
+    act_without_code = []
+    for key in lista:
+        new_key = ""
+        for char in key:
+            if not RepresentsInt(char):
+                new_key += char
+            act_without_code.append(new_key)
+
+    return act_without_code
+
+
+def RepresentsInt(s):
+    try:
+        int(s)
+        return True
+    except ValueError:
+        return False
+
+def main():
 
     data = date_range[1:].split("/")
     l = readCSVfile("./train&test_files/"+data[1]+"_"+data[0]+"/trainSet_" + str(test_year) + "_dateRange=" +data[1]+"_"+data[0] + ".csv", ",")
@@ -862,6 +897,10 @@ def main():
 
                 if student_skills ==[] and student_badges ==[] and student_bonus ==[] and student_quizzes==[] and student_posts==[]:
                     print("TUDO vazio")
+                    improved_students_xps[0] += 1
+                    under_before_xps.append(0)
+                    under_after_xps.append(150)
+                    dic_all_clusters["UnderAchievers"] += 1
                     continue
 
                 n = getNeighbors(student_cluster, train_input)
@@ -892,7 +931,7 @@ def main():
 
 
 
-                list_all_recommendations = recommendActivities(lista, k, 3)
+                list_all_recommendations = recommendActivities(lista, k, 3, justSkillsWithoutCodes(student_skills))
 
 
                 skills_recommended_by_the_system = list_all_recommendations[0]
@@ -912,6 +951,14 @@ def main():
 
                         skill_chosen_by_the_student = next_skills_student[0].split(":")[0]
                         earned_xps = float(next_skills_student[0].split(":")[1])
+
+                        new_key = ""
+                        for char in skill_chosen_by_the_student:
+                            if not RepresentsInt(char):
+                                new_key += char
+
+                        print("Skill que o aluno escolheu: ",new_key )
+                        print("Skill recomendada pelo sistema: ", best_skill_to_recommend)
 
 
                     all_real_xps.append(earned_xps)
@@ -968,10 +1015,10 @@ def main():
             performance_over_k_maintains[k] =sum(same_students_xps)
 
 
-            #drawBoxPlot(under_before_xps, half_before_xps, reg_before_xps, ach_before_xps, "before", str(k), tag)
-            #drawBoxPlot( under_after_xps, half_after_xps, reg_after_xps, ach_after_xps,"after", str(k), tag)
-            #drawBarChart(improved_students_xps, same_students_xps,worse_students_xps,str(k),tag)
+            drawBoxPlot(under_before_xps, half_before_xps, reg_before_xps, ach_before_xps, "before", str(k), tag)
+            drawBoxPlot( under_after_xps, half_after_xps, reg_after_xps, ach_after_xps,"after", str(k), tag)
+            drawBarChart(improved_students_xps, same_students_xps,worse_students_xps,str(k),tag)
 
-        #drawPerformanceOverK(performance_over_k_increases,performance_over_k_decreases,performance_over_k_maintains, tag)
+        drawPerformanceOverK(performance_over_k_increases,performance_over_k_decreases,performance_over_k_maintains, tag)
 
 

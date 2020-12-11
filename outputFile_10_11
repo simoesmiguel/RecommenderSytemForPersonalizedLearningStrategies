@@ -1,0 +1,2302 @@
+/Library/Python/3.7/site-packages/sklearn/externals/joblib/externals/cloudpickle/cloudpickle.py:47: DeprecationWarning: the imp module is deprecated in favour of importlib; see the module's documentation for alternative uses
+  import imp
+Created  580  Student Profiles
+ALUNO ID : 63918 ===================================================
+Recomendando para : 17/03/15
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethePublicistSkill', 400.0, '10005133CompletetheZombiesandMonstersSkill', 100.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletethePublicistSkill:400.0']
+
+
+Student ID:  63918
+Diferença nas notas :::  300.0
+Nº de Actividades feitas :::  1
+['18/03/08', '17/03/15']
+['150.0', '100.0']
+Nota que o aluno teve por si só:
+
+100.0
+Nota que o aluno teria se seguisse as recomendações:
+400.0
+Diferenças das notas:
+[300.0]
+ALUNO ID : 69364 ===================================================
+Recomendando para : 18/06/04
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethereTrailerSkill', 400.0, '23206433CompletetheLoopingGIFSkill', 400.0]
+Skills feitas pelo estudante:
+['12606233CompletetheReporterSkill:150.0', 'CompletethereTrailerSkill:400.0']
+
+
+Recomendando para : 18/06/04
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheCourseLogoSkill', 100.0, '23206433CompletetheLoopingGIFSkill', 400.0]
+Skills feitas pelo estudante:
+['12606233CompletetheReporterSkill:150.0', 'CompletethereTrailerSkill:400.0', 'CompletetheCourseLogoSkill:100.0']
+
+
+Recomendando para : 18/06/04
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethePublicistSkill', 400.0, '23206433CompletetheLoopingGIFSkill', 400.0]
+Skills feitas pelo estudante:
+['12606233CompletetheReporterSkill:150.0', 'CompletethereTrailerSkill:400.0', 'CompletetheCourseLogoSkill:100.0', 'CompletethePublicistSkill:400.0']
+
+
+Recomendando para : 18/06/05
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheStopMotionSkill', 700.0, '22806833CompletetheMovieBarcodesSkill', 150.0]
+Skills feitas pelo estudante:
+['12606233CompletetheReporterSkill:150.0', 'CompletethereTrailerSkill:400.0', 'CompletetheCourseLogoSkill:100.0', 'CompletethePublicistSkill:400.0', 'CompletetheStopMotionSkill:700.0']
+
+
+Recomendando para : 18/06/18
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheLoopingGIFSkill', 400.0, '23509433CompletethePixelArtSkill', 400.0]
+Skills feitas pelo estudante:
+['12606233CompletetheReporterSkill:150.0', 'CompletethereTrailerSkill:400.0', 'CompletetheCourseLogoSkill:100.0', 'CompletethePublicistSkill:400.0', 'CompletetheStopMotionSkill:700.0', 'CompletetheLoopingGIFSkill:400.0']
+
+
+Recomendando para : 18/06/18
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheLipSyncSkill', 900.0, '23509433CompletethePixelArtSkill', 400.0]
+Skills feitas pelo estudante:
+['12606233CompletetheReporterSkill:150.0', 'CompletethereTrailerSkill:400.0', 'CompletetheCourseLogoSkill:100.0', 'CompletethePublicistSkill:400.0', 'CompletetheStopMotionSkill:700.0', 'CompletetheLoopingGIFSkill:400.0', 'CompletetheLipSyncSkill:900.0']
+
+
+Recomendando para : 18/06/18
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheFakeNewsSkill', 700.0, '23509433CompletethePixelArtSkill', 400.0]
+Skills feitas pelo estudante:
+['12606233CompletetheReporterSkill:150.0', 'CompletethereTrailerSkill:400.0', 'CompletetheCourseLogoSkill:100.0', 'CompletethePublicistSkill:400.0', 'CompletetheStopMotionSkill:700.0', 'CompletetheLoopingGIFSkill:400.0', 'CompletetheLipSyncSkill:900.0', 'CompletetheFakeNewsSkill:700.0']
+
+
+Student ID:  69364
+Diferença nas notas :::  1050.0
+Nº de Actividades feitas :::  7
+['18/06/01', '18/06/04', '18/06/04', '18/06/04', '18/06/05', '18/06/18', '18/06/18', '18/06/18']
+['150.0', '150.0', '150.0', '400.0', '150.0', '150.0', '400.0', '400.0']
+Nota que o aluno teve por si só:
+
+2550.0
+Nota que o aluno teria se seguisse as recomendações:
+3600.0
+Diferenças das notas:
+[1050.0, 300.0]
+ALUNO ID : 69701 ===================================================
+Recomendando para : 18/05/24
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethePublicistSkill', 400.0, '10305333CompletetheCourseLogoSkill', 150.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletethePublicistSkill:400.0']
+
+
+Recomendando para : 18/06/04
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheMoviePosterSkill', 400.0, '23106033CompletethePublicistSkill', 400.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletetheMoviePosterSkill:400.0']
+
+
+Recomendando para : 18/06/04
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheCourseLogoSkill', 100.0, '23106033CompletethePublicistSkill', 400.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheCourseLogoSkill:100.0']
+
+
+Recomendando para : 18/06/05
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheTextArtSkill', 100.0, '23406733CompletetheCourseImageSkill', 400.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheCourseLogoSkill:100.0', 'CompletetheTextArtSkill:100.0']
+
+
+Recomendando para : 18/06/05
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheLivingPageSkill', 400.0, '23406733CompletetheCourseImageSkill', 400.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheCourseLogoSkill:100.0', 'CompletetheTextArtSkill:100.0', 'CompletetheLivingPageSkill:400.0']
+
+
+Recomendando para : 18/06/05
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheIlluminatorSkill', 700.0, '23406733CompletetheCourseImageSkill', 400.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheCourseLogoSkill:100.0', 'CompletetheTextArtSkill:100.0', 'CompletetheLivingPageSkill:400.0', 'CompletetheIlluminatorSkill:700.0']
+
+
+Recomendando para : 18/06/18
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheFakeNewsSkill', 700.0, '23509433CompletethePixelArtSkill', 400.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheCourseLogoSkill:100.0', 'CompletetheTextArtSkill:100.0', 'CompletetheLivingPageSkill:400.0', 'CompletetheIlluminatorSkill:700.0', 'CompletetheFakeNewsSkill:700.0']
+
+
+Recomendando para : 18/06/18
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheLoopingGIFSkill', 400.0, '23509433CompletethePixelArtSkill', 400.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheCourseLogoSkill:100.0', 'CompletetheTextArtSkill:100.0', 'CompletetheLivingPageSkill:400.0', 'CompletetheIlluminatorSkill:700.0', 'CompletetheFakeNewsSkill:700.0', 'CompletetheLoopingGIFSkill:400.0']
+
+
+Recomendando para : 18/06/18
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethereTrailerSkill', 400.0, '23509433CompletethePixelArtSkill', 400.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheCourseLogoSkill:100.0', 'CompletetheTextArtSkill:100.0', 'CompletetheLivingPageSkill:400.0', 'CompletetheIlluminatorSkill:700.0', 'CompletetheFakeNewsSkill:700.0', 'CompletetheLoopingGIFSkill:400.0', 'CompletethereTrailerSkill:400.0']
+
+
+Student ID:  69701
+Diferença nas notas :::  250.0
+Nº de Actividades feitas :::  9
+['18/05/21', '18/05/24', '18/06/04', '18/06/04', '18/06/05', '18/06/05', '18/06/05', '18/06/18', '18/06/18', '18/06/18']
+['150.0', '150.0', '150.0', '400.0', '150.0', '150.0', '400.0', '150.0', '400.0', '400.0']
+Nota que o aluno teve por si só:
+
+3350.0
+Nota que o aluno teria se seguisse as recomendações:
+3600.0
+Diferenças das notas:
+[1050.0, 300.0, 250.0]
+ALUNO ID : 70012 ===================================================
+Recomendando para : 18/05/17
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheCourseImageSkill', 400.0, '22905933CompletetheMoviePosterSkill', 150.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheCourseImageSkill:400.0']
+
+
+Recomendando para : 18/06/02
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheDGIFSkill', 100.0, '09504733CompletetheAlienInvasionSkill', 150.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheCourseImageSkill:400.0', 'CompletetheDGIFSkill:100.0']
+
+
+Student ID:  70012
+Diferença nas notas :::  200.0
+Nº de Actividades feitas :::  2
+['18/04/27', '18/05/17', '18/06/02']
+['150.0', '150.0', '150.0']
+Nota que o aluno teve por si só:
+
+300.0
+Nota que o aluno teria se seguisse as recomendações:
+500.0
+Diferenças das notas:
+[1050.0, 300.0, 250.0, 200.0]
+ALUNO ID : 71053 ===================================================
+Recomendando para : 18/03/29
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethePublicistSkill', 400.0, '10305333CompletetheCourseLogoSkill', 150.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletethePublicistSkill:400.0']
+
+
+Recomendando para : 18/04/02
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheDGIFSkill', 100.0, '09504733CompletetheAlienInvasionSkill', 150.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletetheDGIFSkill:100.0']
+
+
+Recomendando para : 18/04/27
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheMovieBarcodesSkill', 400.0, '23106033CompletethePublicistSkill', 400.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletetheDGIFSkill:100.0', 'CompletetheMovieBarcodesSkill:400.0']
+
+
+Recomendando para : 18/05/28
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheFakeSpeechSkill', 700.0, '12606233CompletetheReporterSkill', 150.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletetheDGIFSkill:100.0', 'CompletetheMovieBarcodesSkill:400.0', 'CompletetheFakeSpeechSkill:700.0']
+
+
+Recomendando para : 18/05/29
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheFakeNewsSkill', 700.0, '23406733CompletetheCourseImageSkill', 400.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletetheDGIFSkill:100.0', 'CompletetheMovieBarcodesSkill:400.0', 'CompletetheFakeSpeechSkill:700.0', 'CompletetheFakeNewsSkill:700.0']
+
+
+Recomendando para : 18/05/29
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheStopMotionSkill', 700.0, '23406733CompletetheCourseImageSkill', 400.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletetheDGIFSkill:100.0', 'CompletetheMovieBarcodesSkill:400.0', 'CompletetheFakeSpeechSkill:700.0', 'CompletetheFakeNewsSkill:700.0', 'CompletetheStopMotionSkill:700.0']
+
+
+Recomendando para : 18/06/01
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethereTrailerSkill', 400.0, '23206433CompletetheLoopingGIFSkill', 400.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletetheDGIFSkill:100.0', 'CompletetheMovieBarcodesSkill:400.0', 'CompletetheFakeSpeechSkill:700.0', 'CompletetheFakeNewsSkill:700.0', 'CompletetheStopMotionSkill:700.0', 'CompletethereTrailerSkill:400.0']
+
+
+Recomendando para : 18/06/01
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheCourseImageSkill', 400.0, '23206433CompletetheLoopingGIFSkill', 400.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletetheDGIFSkill:100.0', 'CompletetheMovieBarcodesSkill:400.0', 'CompletetheFakeSpeechSkill:700.0', 'CompletetheFakeNewsSkill:700.0', 'CompletetheStopMotionSkill:700.0', 'CompletethereTrailerSkill:400.0', 'CompletetheCourseImageSkill:400.0']
+
+
+Recomendando para : 18/06/01
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheLoopingGIFSkill', 400.0, '23206433CompletetheLoopingGIFSkill', 400.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletetheDGIFSkill:100.0', 'CompletetheMovieBarcodesSkill:400.0', 'CompletetheFakeSpeechSkill:700.0', 'CompletetheFakeNewsSkill:700.0', 'CompletetheStopMotionSkill:700.0', 'CompletethereTrailerSkill:400.0', 'CompletetheCourseImageSkill:400.0', 'CompletetheLoopingGIFSkill:400.0']
+
+
+Recomendando para : 18/06/04
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethereMIDISkill', 100.0, '23509433CompletethePixelArtSkill', 400.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletetheDGIFSkill:100.0', 'CompletetheMovieBarcodesSkill:400.0', 'CompletetheFakeSpeechSkill:700.0', 'CompletetheFakeNewsSkill:700.0', 'CompletetheStopMotionSkill:700.0', 'CompletethereTrailerSkill:400.0', 'CompletetheCourseImageSkill:400.0', 'CompletetheLoopingGIFSkill:400.0', 'CompletethereMIDISkill:100.0']
+
+
+Student ID:  71053
+Diferença nas notas :::  1050.0
+Nº de Actividades feitas :::  10
+['18/03/13', '18/03/29', '18/04/02', '18/04/27', '18/05/28', '18/05/29', '18/05/29', '18/06/01', '18/06/01', '18/06/01', '18/06/04']
+['150.0', '150.0', '150.0', '400.0', '150.0', '150.0', '400.0', '150.0', '400.0', '400.0', '400.0']
+Nota que o aluno teve por si só:
+
+3250.0
+Nota que o aluno teria se seguisse as recomendações:
+4300.0
+Diferenças das notas:
+[1050.0, 1050.0, 300.0, 250.0, 200.0]
+ALUNO ID : 72619 ===================================================
+Recomendando para : 18/03/09
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethePublicistSkill', 400.0, '22806833CompletetheMovieBarcodesSkill', 150.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletethePublicistSkill:400.0']
+
+
+Recomendando para : 18/04/27
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheTextArtSkill', 100.0, '10305333CompletetheCourseLogoSkill', 150.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletetheTextArtSkill:100.0']
+
+
+Recomendando para : 18/05/12
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheMovieBarcodesSkill', 400.0, '23306333CompletethePodcastSkill', 150.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletetheTextArtSkill:100.0', 'CompletetheMovieBarcodesSkill:400.0']
+
+
+Recomendando para : 18/05/14
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheReporterSkill', 100.0, '23106033CompletethePublicistSkill', 400.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletetheTextArtSkill:100.0', 'CompletetheMovieBarcodesSkill:400.0', 'CompletetheReporterSkill:100.0']
+
+
+Recomendando para : 18/06/04
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethereTrailerSkill', 400.0, '09504733CompletetheAlienInvasionSkill', 150.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletetheTextArtSkill:100.0', 'CompletetheMovieBarcodesSkill:400.0', 'CompletetheReporterSkill:100.0', 'CompletethereTrailerSkill:400.0']
+
+
+Student ID:  72619
+Diferença nas notas :::  400.0
+Nº de Actividades feitas :::  5
+['18/03/05', '18/03/09', '18/04/27', '18/05/12', '18/05/14', '18/06/04']
+['150.0', '150.0', '150.0', '150.0', '400.0', '150.0']
+Nota que o aluno teve por si só:
+
+1000.0
+Nota que o aluno teria se seguisse as recomendações:
+1400.0
+Diferenças das notas:
+[1050.0, 1050.0, 400.0, 300.0, 250.0, 200.0]
+ALUNO ID : 72850 ===================================================
+Recomendando para : 18/03/18
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheMoviePosterSkill', 400.0, '23306333CompletethePodcastSkill', 150.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheMoviePosterSkill:400.0']
+
+
+Student ID:  72850
+Diferença nas notas :::  250.0
+Nº de Actividades feitas :::  1
+['18/03/05', '18/03/18']
+['150.0', '150.0']
+Nota que o aluno teve por si só:
+
+150.0
+Nota que o aluno teria se seguisse as recomendações:
+400.0
+Diferenças das notas:
+[1050.0, 1050.0, 400.0, 300.0, 250.0, 250.0, 200.0]
+ALUNO ID : 73063 ===================================================
+Recomendando para : 18/03/05
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheReporterSkill', 150.0, '22806833CompletetheMovieBarcodesSkill', 150.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletetheReporterSkill:150.0']
+
+
+Recomendando para : 18/03/08
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethePublicistSkill', 400.0, '10305333CompletetheCourseLogoSkill', 150.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletetheReporterSkill:150.0', 'CompletethePublicistSkill:400.0']
+
+
+Recomendando para : 18/03/18
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheCourseLogoSkill', 100.0, '09504733CompletetheAlienInvasionSkill', 150.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletetheReporterSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletetheCourseLogoSkill:100.0']
+
+
+Recomendando para : 18/03/21
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheTextArtSkill', 100.0, '23106033CompletethePublicistSkill', 400.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletetheReporterSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletetheCourseLogoSkill:100.0', 'CompletetheTextArtSkill:100.0']
+
+
+Recomendando para : 18/04/02
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheDGIFSkill', 100.0, '23406733CompletetheCourseImageSkill', 400.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletetheReporterSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletetheCourseLogoSkill:100.0', 'CompletetheTextArtSkill:100.0', 'CompletetheDGIFSkill:100.0']
+
+
+Recomendando para : 18/06/05
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheMovieBarcodesSkill', 400.0, '12606233CompletetheReporterSkill', 150.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletetheReporterSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletetheCourseLogoSkill:100.0', 'CompletetheTextArtSkill:100.0', 'CompletetheDGIFSkill:100.0', 'CompletetheMovieBarcodesSkill:400.0']
+
+
+Recomendando para : 18/06/18
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheKinecticSkill', 700.0, '23306333CompletethePodcastSkill', 150.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletetheReporterSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletetheCourseLogoSkill:100.0', 'CompletetheTextArtSkill:100.0', 'CompletetheDGIFSkill:100.0', 'CompletetheMovieBarcodesSkill:400.0', 'CompletetheKinecticSkill:700.0']
+
+
+Student ID:  73063
+Diferença nas notas :::  400.0
+Nº de Actividades feitas :::  7
+['18/03/01', '18/03/05', '18/03/08', '18/03/18', '18/03/21', '18/04/02', '18/06/05', '18/06/18']
+['150.0', '150.0', '150.0', '150.0', '400.0', '400.0', '150.0', '150.0']
+Nota que o aluno teve por si só:
+
+1550.0
+Nota que o aluno teria se seguisse as recomendações:
+1950.0
+Diferenças das notas:
+[1050.0, 1050.0, 400.0, 400.0, 300.0, 250.0, 250.0, 200.0]
+ALUNO ID : 75736 ===================================================
+Recomendando para : 18/03/05
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethereMIDISkill', 150.0, '22905933CompletetheMoviePosterSkill', 150.0]
+Skills feitas pelo estudante:
+['10205233CompletetheeBookSkill:100.0', 'CompletethereMIDISkill:150.0']
+
+
+Recomendando para : 18/03/13
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheTextArtSkill', 125.0, '10305333CompletetheCourseLogoSkill', 150.0]
+Skills feitas pelo estudante:
+['10205233CompletetheeBookSkill:100.0', 'CompletethereMIDISkill:150.0', 'CompletetheTextArtSkill:125.0']
+
+
+Recomendando para : 18/05/07
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheMoviePosterSkill', 400.0, '23306333CompletethePodcastSkill', 150.0]
+Skills feitas pelo estudante:
+['10205233CompletetheeBookSkill:100.0', 'CompletethereMIDISkill:150.0', 'CompletetheTextArtSkill:125.0', 'CompletetheMoviePosterSkill:400.0']
+
+
+Recomendando para : 18/05/10
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheLivingPageSkill', 400.0, '23509433CompletethePixelArtSkill', 400.0]
+Skills feitas pelo estudante:
+['10205233CompletetheeBookSkill:100.0', 'CompletethereMIDISkill:150.0', 'CompletetheTextArtSkill:125.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheLivingPageSkill:400.0']
+
+
+Recomendando para : 18/05/14
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethePublicistSkill', 400.0, '23106033CompletethePublicistSkill', 400.0]
+Skills feitas pelo estudante:
+['10205233CompletetheeBookSkill:100.0', 'CompletethereMIDISkill:150.0', 'CompletetheTextArtSkill:125.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheLivingPageSkill:400.0', 'CompletethePublicistSkill:400.0']
+
+
+Recomendando para : 18/05/24
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheCourseImageSkill', 400.0, '23206433CompletetheLoopingGIFSkill', 400.0]
+Skills feitas pelo estudante:
+['10205233CompletetheeBookSkill:100.0', 'CompletethereMIDISkill:150.0', 'CompletetheTextArtSkill:125.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheLivingPageSkill:400.0', 'CompletethePublicistSkill:400.0', 'CompletetheCourseImageSkill:400.0']
+
+
+Recomendando para : 18/05/24
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheLoopingGIFSkill', 400.0, '23206433CompletetheLoopingGIFSkill', 400.0]
+Skills feitas pelo estudante:
+['10205233CompletetheeBookSkill:100.0', 'CompletethereMIDISkill:150.0', 'CompletetheTextArtSkill:125.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheLivingPageSkill:400.0', 'CompletethePublicistSkill:400.0', 'CompletetheCourseImageSkill:400.0', 'CompletetheLoopingGIFSkill:400.0']
+
+
+Recomendando para : 18/05/31
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheMovieBarcodesSkill', 400.0, '23909633CompletetheUNIMationSkill', 400.0]
+Skills feitas pelo estudante:
+['10205233CompletetheeBookSkill:100.0', 'CompletethereMIDISkill:150.0', 'CompletetheTextArtSkill:125.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheLivingPageSkill:400.0', 'CompletethePublicistSkill:400.0', 'CompletetheCourseImageSkill:400.0', 'CompletetheLoopingGIFSkill:400.0', 'CompletetheMovieBarcodesSkill:400.0']
+
+
+Recomendando para : 17/03/03
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+[]
+Student ID:  75736
+Diferença nas notas :::  225.0
+Nº de Actividades feitas :::  9
+['18/03/05', '18/03/05', '18/03/13', '18/05/07', '18/05/10', '18/05/14', '18/05/24', '18/05/24', '18/05/31', '17/03/03']
+['150.0', '150.0', '150.0', '150.0', '400.0', '400.0', '150.0', '400.0', '400.0', '100.0']
+Nota que o aluno teve por si só:
+
+2450.0
+Nota que o aluno teria se seguisse as recomendações:
+2675.0
+Diferenças das notas:
+[1050.0, 1050.0, 400.0, 400.0, 300.0, 250.0, 250.0, 225.0, 200.0]
+ALUNO ID : 76273 ===================================================
+Recomendando para : 18/03/12
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheMoviePosterSkill', 400.0, '10305333CompletetheCourseLogoSkill', 150.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheMoviePosterSkill:400.0']
+
+
+Recomendando para : 18/03/12
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheTextArtSkill', 100.0, '10305333CompletetheCourseLogoSkill', 150.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheTextArtSkill:100.0']
+
+
+Recomendando para : 18/03/17
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheLivingPageSkill', 400.0, '23106033CompletethePublicistSkill', 400.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheTextArtSkill:100.0', 'CompletetheLivingPageSkill:400.0']
+
+
+Recomendando para : 18/03/17
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheDGIFSkill', 100.0, '23106033CompletethePublicistSkill', 400.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheTextArtSkill:100.0', 'CompletetheLivingPageSkill:400.0', 'CompletetheDGIFSkill:100.0']
+
+
+Recomendando para : 18/04/27
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheCourseImageSkill', 400.0, '23406733CompletetheCourseImageSkill', 400.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheTextArtSkill:100.0', 'CompletetheLivingPageSkill:400.0', 'CompletetheDGIFSkill:100.0', 'CompletetheCourseImageSkill:400.0']
+
+
+Recomendando para : 18/05/05
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheLoopingGIFSkill', 400.0, '23306333CompletethePodcastSkill', 150.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheTextArtSkill:100.0', 'CompletetheLivingPageSkill:400.0', 'CompletetheDGIFSkill:100.0', 'CompletetheCourseImageSkill:400.0', 'CompletetheLoopingGIFSkill:400.0']
+
+
+Student ID:  76273
+Diferença nas notas :::  150.0
+Nº de Actividades feitas :::  6
+['18/03/05', '18/03/12', '18/03/12', '18/03/17', '18/03/17', '18/04/27', '18/05/05']
+['150.0', '150.0', '150.0', '150.0', '400.0', '400.0', '150.0']
+Nota que o aluno teve por si só:
+
+1650.0
+Nota que o aluno teria se seguisse as recomendações:
+1800.0
+Diferenças das notas:
+[1050.0, 1050.0, 400.0, 400.0, 300.0, 250.0, 250.0, 225.0, 200.0, 150.0]
+ALUNO ID : 76406 ===================================================
+Recomendando para : 18/05/29
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethereTrailerSkill', 400.0, '22806833CompletetheMovieBarcodesSkill', 150.0]
+Skills feitas pelo estudante:
+['10305333CompletetheCourseLogoSkill:150.0', 'CompletethereTrailerSkill:400.0']
+
+
+Student ID:  76406
+Diferença nas notas :::  250.0
+Nº de Actividades feitas :::  1
+['18/05/07', '18/05/29']
+['150.0', '150.0']
+Nota que o aluno teve por si só:
+
+150.0
+Nota que o aluno teria se seguisse as recomendações:
+400.0
+Diferenças das notas:
+[1050.0, 1050.0, 400.0, 400.0, 300.0, 250.0, 250.0, 250.0, 225.0, 200.0, 150.0]
+ALUNO ID : 76445 ===================================================
+Recomendando para : 18/06/04
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheFakeSpeechSkill', 700.0, '22905933CompletetheMoviePosterSkill', 150.0]
+Skills feitas pelo estudante:
+['CompletetheFakeSpeechSkill:700.0']
+
+
+Recomendando para : 18/06/04
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethePodcastSkill', 400.0, '22905933CompletetheMoviePosterSkill', 150.0]
+Skills feitas pelo estudante:
+['CompletetheFakeSpeechSkill:700.0', 'CompletethePodcastSkill:400.0']
+
+
+Student ID:  76445
+Diferença nas notas :::  800.0
+Nº de Actividades feitas :::  2
+['18/06/04', '18/06/04', '18/06/04']
+['150.0', '150.0', '150.0']
+Nota que o aluno teve por si só:
+
+300.0
+Nota que o aluno teria se seguisse as recomendações:
+1100.0
+Diferenças das notas:
+[1050.0, 1050.0, 800.0, 400.0, 400.0, 300.0, 250.0, 250.0, 250.0, 225.0, 200.0, 150.0]
+ALUNO ID : 76496 ===================================================
+Recomendando para : 18/03/07
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheZombiesandMonstersSkill', 150.0, '22905933CompletetheMoviePosterSkill', 150.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheZombiesandMonstersSkill:150.0']
+
+
+Recomendando para : 18/03/14
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheMoviePosterSkill', 400.0, '10305333CompletetheCourseLogoSkill', 150.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheZombiesandMonstersSkill:150.0', 'CompletetheMoviePosterSkill:400.0']
+
+
+Recomendando para : 18/03/21
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheDGIFSkill', 100.0, '23106033CompletethePublicistSkill', 400.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheZombiesandMonstersSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheDGIFSkill:100.0']
+
+
+Recomendando para : 18/05/13
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheCourseImageSkill', 400.0, '23306333CompletethePodcastSkill', 150.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheZombiesandMonstersSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheDGIFSkill:100.0', 'CompletetheCourseImageSkill:400.0']
+
+
+Recomendando para : 18/05/14
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheTextArtSkill', 100.0, '23509433CompletethePixelArtSkill', 400.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheZombiesandMonstersSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheDGIFSkill:100.0', 'CompletetheCourseImageSkill:400.0', 'CompletetheTextArtSkill:100.0']
+
+
+Recomendando para : 18/05/27
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheStopMotionSkill', 700.0, '09504733CompletetheAlienInvasionSkill', 150.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheZombiesandMonstersSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheDGIFSkill:100.0', 'CompletetheCourseImageSkill:400.0', 'CompletetheTextArtSkill:100.0', 'CompletetheStopMotionSkill:700.0']
+
+
+Recomendando para : 18/06/02
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethePublicistSkill', 400.0, '23406733CompletetheCourseImageSkill', 400.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheZombiesandMonstersSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheDGIFSkill:100.0', 'CompletetheCourseImageSkill:400.0', 'CompletetheTextArtSkill:100.0', 'CompletetheStopMotionSkill:700.0', 'CompletethePublicistSkill:400.0']
+
+
+Student ID:  76496
+Diferença nas notas :::  450.0
+Nº de Actividades feitas :::  7
+['18/03/05', '18/03/07', '18/03/14', '18/03/21', '18/05/13', '18/05/14', '18/05/27', '18/06/02']
+['150.0', '150.0', '150.0', '400.0', '150.0', '400.0', '150.0', '400.0']
+Nota que o aluno teve por si só:
+
+1800.0
+Nota que o aluno teria se seguisse as recomendações:
+2250.0
+Diferenças das notas:
+[1050.0, 1050.0, 800.0, 450.0, 400.0, 400.0, 300.0, 250.0, 250.0, 250.0, 225.0, 200.0, 150.0]
+ALUNO ID : 76497 ===================================================
+Recomendando para : 18/05/14
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheCourseImageSkill', 400.0, '22806833CompletetheMovieBarcodesSkill', 150.0]
+Skills feitas pelo estudante:
+['10305333CompletetheCourseLogoSkill:150.0', 'CompletetheCourseImageSkill:400.0']
+
+
+Recomendando para : 18/05/21
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheMoviePosterSkill', 400.0, '09504733CompletetheAlienInvasionSkill', 150.0]
+Skills feitas pelo estudante:
+['10305333CompletetheCourseLogoSkill:150.0', 'CompletetheCourseImageSkill:400.0', 'CompletetheMoviePosterSkill:400.0']
+
+
+Recomendando para : 18/06/04
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheLivingPageSkill', 400.0, '23406733CompletetheCourseImageSkill', 400.0]
+Skills feitas pelo estudante:
+['10305333CompletetheCourseLogoSkill:150.0', 'CompletetheCourseImageSkill:400.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheLivingPageSkill:400.0']
+
+
+Student ID:  76497
+Diferença nas notas :::  500.0
+Nº de Actividades feitas :::  3
+['18/05/02', '18/05/14', '18/05/21', '18/06/04']
+['150.0', '150.0', '150.0', '400.0']
+Nota que o aluno teve por si só:
+
+700.0
+Nota que o aluno teria se seguisse as recomendações:
+1200.0
+Diferenças das notas:
+[1050.0, 1050.0, 800.0, 500.0, 450.0, 400.0, 400.0, 300.0, 250.0, 250.0, 250.0, 225.0, 200.0, 150.0]
+ALUNO ID : 77941 ===================================================
+Recomendando para : 18/04/30
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheTextArtSkill', 100.0, '10305333CompletetheCourseLogoSkill', 150.0]
+Skills feitas pelo estudante:
+['09504733CompletetheAlienInvasionSkill:150.0', 'CompletetheTextArtSkill:100.0']
+
+
+Recomendando para : 18/05/15
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethePublicistSkill', 400.0, '22905933CompletetheMoviePosterSkill', 150.0]
+Skills feitas pelo estudante:
+['09504733CompletetheAlienInvasionSkill:150.0', 'CompletetheTextArtSkill:100.0', 'CompletethePublicistSkill:400.0']
+
+
+Recomendando para : 18/05/21
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+[]
+Student ID:  77941
+Diferença nas notas :::  200.0
+Nº de Actividades feitas :::  3
+['18/02/28', '18/04/30', '18/05/15', '18/05/21']
+['150.0', '150.0', '150.0', '150.0']
+Nota que o aluno teve por si só:
+
+300.0
+Nota que o aluno teria se seguisse as recomendações:
+500.0
+Diferenças das notas:
+[1050.0, 1050.0, 800.0, 500.0, 450.0, 400.0, 400.0, 300.0, 250.0, 250.0, 250.0, 225.0, 200.0, 200.0, 150.0]
+ALUNO ID : 78022 ===================================================
+Recomendando para : 18/05/21
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethePublicistSkill', 400.0, '22806833CompletetheMovieBarcodesSkill', 150.0]
+Skills feitas pelo estudante:
+['09504733CompletetheAlienInvasionSkill:150.0', 'CompletethePublicistSkill:400.0']
+
+
+Recomendando para : 18/05/23
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheMoviePosterSkill', 400.0, '22905933CompletetheMoviePosterSkill', 150.0]
+Skills feitas pelo estudante:
+['09504733CompletetheAlienInvasionSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletetheMoviePosterSkill:400.0']
+
+
+Student ID:  78022
+Diferença nas notas :::  500.0
+Nº de Actividades feitas :::  2
+['18/05/18', '18/05/21', '18/05/23']
+['150.0', '150.0', '150.0']
+Nota que o aluno teve por si só:
+
+300.0
+Nota que o aluno teria se seguisse as recomendações:
+800.0
+Diferenças das notas:
+[1050.0, 1050.0, 800.0, 500.0, 500.0, 450.0, 400.0, 400.0, 300.0, 250.0, 250.0, 250.0, 225.0, 200.0, 200.0, 150.0]
+ALUNO ID : 78037 ===================================================
+Recomendando para : 18/03/05
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheCourseLogoSkill', 100.0, '09504733CompletetheAlienInvasionSkill', 150.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletetheCourseLogoSkill:100.0']
+
+
+Recomendando para : 18/03/05
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheAlienInvasionSkill', 100.0, '09504733CompletetheAlienInvasionSkill', 150.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletetheCourseLogoSkill:100.0', 'CompletetheAlienInvasionSkill:100.0']
+
+
+Recomendando para : 18/05/04
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheLivingPageSkill', 400.0, '10305333CompletetheCourseLogoSkill', 150.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletetheCourseLogoSkill:100.0', 'CompletetheAlienInvasionSkill:100.0', 'CompletetheLivingPageSkill:400.0']
+
+
+Recomendando para : 18/05/29
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheCourseImageSkill', 400.0, '23406733CompletetheCourseImageSkill', 400.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletetheCourseLogoSkill:100.0', 'CompletetheAlienInvasionSkill:100.0', 'CompletetheLivingPageSkill:400.0', 'CompletetheCourseImageSkill:400.0']
+
+
+Recomendando para : 18/06/02
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethePublicistSkill', 400.0, '23106033CompletethePublicistSkill', 400.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletetheCourseLogoSkill:100.0', 'CompletetheAlienInvasionSkill:100.0', 'CompletetheLivingPageSkill:400.0', 'CompletetheCourseImageSkill:400.0', 'CompletethePublicistSkill:400.0']
+
+
+Student ID:  78037
+Diferença nas notas :::  150.0
+Nº de Actividades feitas :::  5
+['18/03/01', '18/03/05', '18/03/05', '18/05/04', '18/05/29', '18/06/02']
+['150.0', '150.0', '150.0', '150.0', '400.0', '400.0']
+Nota que o aluno teve por si só:
+
+1250.0
+Nota que o aluno teria se seguisse as recomendações:
+1400.0
+Diferenças das notas:
+[1050.0, 1050.0, 800.0, 500.0, 500.0, 450.0, 400.0, 400.0, 300.0, 250.0, 250.0, 250.0, 225.0, 200.0, 200.0, 150.0, 150.0]
+ALUNO ID : 78271 ===================================================
+Recomendando para : 18/05/30
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheMoviePosterSkill', 400.0, '12606233CompletetheReporterSkill', 150.0]
+Skills feitas pelo estudante:
+['10305333CompletetheCourseLogoSkill:150.0', 'CompletetheMoviePosterSkill:400.0']
+
+
+Recomendando para : 18/06/02
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethePublicistSkill', 400.0, '22806833CompletetheMovieBarcodesSkill', 150.0]
+Skills feitas pelo estudante:
+['10305333CompletetheCourseLogoSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletethePublicistSkill:400.0']
+
+
+Student ID:  78271
+Diferença nas notas :::  500.0
+Nº de Actividades feitas :::  2
+['18/05/24', '18/05/30', '18/06/02']
+['150.0', '150.0', '150.0']
+Nota que o aluno teve por si só:
+
+300.0
+Nota que o aluno teria se seguisse as recomendações:
+800.0
+Diferenças das notas:
+[1050.0, 1050.0, 800.0, 500.0, 500.0, 500.0, 450.0, 400.0, 400.0, 300.0, 250.0, 250.0, 250.0, 225.0, 200.0, 200.0, 150.0, 150.0]
+ALUNO ID : 78403 ===================================================
+Recomendando para : 18/03/09
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethePublicistSkill', 400.0, '22806833CompletetheMovieBarcodesSkill', 150.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletethePublicistSkill:400.0']
+
+
+Recomendando para : 18/03/13
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethePodcastSkill', 400.0, '10305333CompletetheCourseLogoSkill', 150.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletethePodcastSkill:400.0']
+
+
+Recomendando para : 18/05/14
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheZombiesandMonstersSkill', 100.0, '09504733CompletetheAlienInvasionSkill', 150.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletethePodcastSkill:400.0', 'CompletetheZombiesandMonstersSkill:100.0']
+
+
+Recomendando para : 18/05/23
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheTextArtSkill', 100.0, '23106033CompletethePublicistSkill', 400.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletethePodcastSkill:400.0', 'CompletetheZombiesandMonstersSkill:100.0', 'CompletetheTextArtSkill:100.0']
+
+
+Recomendando para : 18/06/05
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheMovieBarcodesSkill', 400.0, '23406733CompletetheCourseImageSkill', 400.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletethePodcastSkill:400.0', 'CompletetheZombiesandMonstersSkill:100.0', 'CompletetheTextArtSkill:100.0', 'CompletetheMovieBarcodesSkill:400.0']
+
+
+Recomendando para : 18/06/18
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheIlluminatorSkill', 700.0, '23306333CompletethePodcastSkill', 150.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletethePodcastSkill:400.0', 'CompletetheZombiesandMonstersSkill:100.0', 'CompletetheTextArtSkill:100.0', 'CompletetheMovieBarcodesSkill:400.0', 'CompletetheIlluminatorSkill:700.0']
+
+
+Student ID:  78403
+Diferença nas notas :::  700.0
+Nº de Actividades feitas :::  6
+['18/02/27', '18/03/09', '18/03/13', '18/05/14', '18/05/23', '18/06/05', '18/06/18']
+['150.0', '150.0', '150.0', '150.0', '400.0', '400.0', '150.0']
+Nota que o aluno teve por si só:
+
+1400.0
+Nota que o aluno teria se seguisse as recomendações:
+2100.0
+Diferenças das notas:
+[1050.0, 1050.0, 800.0, 700.0, 500.0, 500.0, 500.0, 450.0, 400.0, 400.0, 300.0, 250.0, 250.0, 250.0, 225.0, 200.0, 200.0, 150.0, 150.0]
+ALUNO ID : 78503 ===================================================
+Recomendando para : 18/05/14
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethePublicistSkill', 400.0, '22806833CompletetheMovieBarcodesSkill', 150.0]
+Skills feitas pelo estudante:
+['10305333CompletetheCourseLogoSkill:150.0', 'CompletethePublicistSkill:400.0']
+
+
+Student ID:  78503
+Diferença nas notas :::  250.0
+Nº de Actividades feitas :::  1
+['18/04/27', '18/05/14']
+['150.0', '150.0']
+Nota que o aluno teve por si só:
+
+150.0
+Nota que o aluno teria se seguisse as recomendações:
+400.0
+Diferenças das notas:
+[1050.0, 1050.0, 800.0, 700.0, 500.0, 500.0, 500.0, 450.0, 400.0, 400.0, 300.0, 250.0, 250.0, 250.0, 250.0, 225.0, 200.0, 200.0, 150.0, 150.0]
+ALUNO ID : 78910 ===================================================
+Recomendando para : 18/03/06
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheMoviePosterSkill', 400.0, '10305333CompletetheCourseLogoSkill', 150.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheMoviePosterSkill:400.0']
+
+
+Recomendando para : 18/05/03
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheLoopingGIFSkill', 400.0, '22905933CompletetheMoviePosterSkill', 150.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheLoopingGIFSkill:400.0']
+
+
+Student ID:  78910
+Diferença nas notas :::  500.0
+Nº de Actividades feitas :::  2
+['18/03/05', '18/03/06', '18/05/03']
+['150.0', '150.0', '150.0']
+Nota que o aluno teve por si só:
+
+300.0
+Nota que o aluno teria se seguisse as recomendações:
+800.0
+Diferenças das notas:
+[1050.0, 1050.0, 800.0, 700.0, 500.0, 500.0, 500.0, 500.0, 450.0, 400.0, 400.0, 300.0, 250.0, 250.0, 250.0, 250.0, 225.0, 200.0, 200.0, 150.0, 150.0]
+ALUNO ID : 78982 ===================================================
+Recomendando para : 18/03/17
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheZombiesandMonstersSkill', 150.0, '22905933CompletetheMoviePosterSkill', 150.0]
+Skills feitas pelo estudante:
+['10305333CompletetheCourseLogoSkill:150.0', 'CompletetheZombiesandMonstersSkill:150.0']
+
+
+Recomendando para : 18/05/03
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheMoviePosterSkill', 400.0, '09504733CompletetheAlienInvasionSkill', 150.0]
+Skills feitas pelo estudante:
+['10305333CompletetheCourseLogoSkill:150.0', 'CompletetheZombiesandMonstersSkill:150.0', 'CompletetheMoviePosterSkill:400.0']
+
+
+Recomendando para : 18/05/08
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethePublicistSkill', 400.0, '22806833CompletetheMovieBarcodesSkill', 150.0]
+Skills feitas pelo estudante:
+['10305333CompletetheCourseLogoSkill:150.0', 'CompletetheZombiesandMonstersSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletethePublicistSkill:400.0']
+
+
+Student ID:  78982
+Diferença nas notas :::  500.0
+Nº de Actividades feitas :::  3
+['18/03/08', '18/03/17', '18/05/03', '18/05/08']
+['150.0', '150.0', '150.0', '150.0']
+Nota que o aluno teve por si só:
+
+450.0
+Nota que o aluno teria se seguisse as recomendações:
+950.0
+Diferenças das notas:
+[1050.0, 1050.0, 800.0, 700.0, 500.0, 500.0, 500.0, 500.0, 500.0, 450.0, 400.0, 400.0, 300.0, 250.0, 250.0, 250.0, 250.0, 225.0, 200.0, 200.0, 150.0, 150.0]
+ALUNO ID : 79100 ===================================================
+Recomendando para : 18/05/21
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheMovieBarcodesSkill', 400.0, '22806833CompletetheMovieBarcodesSkill', 150.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletetheMovieBarcodesSkill:400.0']
+
+
+Recomendando para : 18/06/01
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethePublicistSkill', 400.0, '10305333CompletetheCourseLogoSkill', 150.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletetheMovieBarcodesSkill:400.0', 'CompletethePublicistSkill:400.0']
+
+
+Recomendando para : 18/06/06
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheDGIFSkill', 100.0, '09504733CompletetheAlienInvasionSkill', 150.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletetheMovieBarcodesSkill:400.0', 'CompletethePublicistSkill:400.0', 'CompletetheDGIFSkill:100.0']
+
+
+Student ID:  79100
+Diferença nas notas :::  450.0
+Nº de Actividades feitas :::  3
+['18/03/07', '18/05/21', '18/06/01', '18/06/06']
+['150.0', '150.0', '150.0', '150.0']
+Nota que o aluno teve por si só:
+
+450.0
+Nota que o aluno teria se seguisse as recomendações:
+900.0
+Diferenças das notas:
+[1050.0, 1050.0, 800.0, 700.0, 500.0, 500.0, 500.0, 500.0, 500.0, 450.0, 450.0, 400.0, 400.0, 300.0, 250.0, 250.0, 250.0, 250.0, 225.0, 200.0, 200.0, 150.0, 150.0]
+ALUNO ID : 79102 ===================================================
+Recomendando para : 18/03/05
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheCourseLogoSkill', 100.0, '22905933CompletetheMoviePosterSkill', 150.0]
+Skills feitas pelo estudante:
+['CompletetheCourseLogoSkill:100.0']
+
+
+Recomendando para : 18/05/12
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheCourseImageSkill', 400.0, '09504733CompletetheAlienInvasionSkill', 150.0]
+Skills feitas pelo estudante:
+['CompletetheCourseLogoSkill:100.0', 'CompletetheCourseImageSkill:400.0']
+
+
+Recomendando para : 18/05/14
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheMovieBarcodesSkill', 400.0, '23106033CompletethePublicistSkill', 400.0]
+Skills feitas pelo estudante:
+['CompletetheCourseLogoSkill:100.0', 'CompletetheCourseImageSkill:400.0', 'CompletetheMovieBarcodesSkill:400.0']
+
+
+Recomendando para : 18/05/14
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheLoopingGIFSkill', 400.0, '23106033CompletethePublicistSkill', 400.0]
+Skills feitas pelo estudante:
+['CompletetheCourseLogoSkill:100.0', 'CompletetheCourseImageSkill:400.0', 'CompletetheMovieBarcodesSkill:400.0', 'CompletetheLoopingGIFSkill:400.0']
+
+
+Recomendando para : 18/05/27
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheLivingPageSkill', 400.0, '23509433CompletethePixelArtSkill', 400.0]
+Skills feitas pelo estudante:
+['CompletetheCourseLogoSkill:100.0', 'CompletetheCourseImageSkill:400.0', 'CompletetheMovieBarcodesSkill:400.0', 'CompletetheLoopingGIFSkill:400.0', 'CompletetheLivingPageSkill:400.0']
+
+
+Recomendando para : 18/05/27
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheFakeNewsSkill', 700.0, '23509433CompletethePixelArtSkill', 400.0]
+Skills feitas pelo estudante:
+['CompletetheCourseLogoSkill:100.0', 'CompletetheCourseImageSkill:400.0', 'CompletetheMovieBarcodesSkill:400.0', 'CompletetheLoopingGIFSkill:400.0', 'CompletetheLivingPageSkill:400.0', 'CompletetheFakeNewsSkill:700.0']
+
+
+Recomendando para : 18/05/28
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethePublicistSkill', 400.0, '23206433CompletetheLoopingGIFSkill', 400.0]
+Skills feitas pelo estudante:
+['CompletetheCourseLogoSkill:100.0', 'CompletetheCourseImageSkill:400.0', 'CompletetheMovieBarcodesSkill:400.0', 'CompletetheLoopingGIFSkill:400.0', 'CompletetheLivingPageSkill:400.0', 'CompletetheFakeNewsSkill:700.0', 'CompletethePublicistSkill:400.0']
+
+
+Recomendando para : 18/05/28
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheTextArtSkill', 100.0, '23206433CompletetheLoopingGIFSkill', 400.0]
+Skills feitas pelo estudante:
+['CompletetheCourseLogoSkill:100.0', 'CompletetheCourseImageSkill:400.0', 'CompletetheMovieBarcodesSkill:400.0', 'CompletetheLoopingGIFSkill:400.0', 'CompletetheLivingPageSkill:400.0', 'CompletetheFakeNewsSkill:700.0', 'CompletethePublicistSkill:400.0', 'CompletetheTextArtSkill:100.0']
+
+
+Recomendando para : 18/06/01
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheFakeSpeechSkill', 700.0, '23909633CompletetheUNIMationSkill', 400.0]
+Skills feitas pelo estudante:
+['CompletetheCourseLogoSkill:100.0', 'CompletetheCourseImageSkill:400.0', 'CompletetheMovieBarcodesSkill:400.0', 'CompletetheLoopingGIFSkill:400.0', 'CompletetheLivingPageSkill:400.0', 'CompletetheFakeNewsSkill:700.0', 'CompletethePublicistSkill:400.0', 'CompletetheTextArtSkill:100.0', 'CompletetheFakeSpeechSkill:700.0']
+
+
+Student ID:  79102
+Diferença nas notas :::  500.0
+Nº de Actividades feitas :::  9
+['18/03/05', '18/03/05', '18/05/12', '18/05/14', '18/05/14', '18/05/27', '18/05/27', '18/05/28', '18/05/28', '18/06/01']
+['150.0', '150.0', '150.0', '150.0', '400.0', '150.0', '400.0', '150.0', '400.0', '400.0']
+Nota que o aluno teve por si só:
+
+3100.0
+Nota que o aluno teria se seguisse as recomendações:
+3600.0
+Diferenças das notas:
+[1050.0, 1050.0, 800.0, 700.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 450.0, 450.0, 400.0, 400.0, 300.0, 250.0, 250.0, 250.0, 250.0, 225.0, 200.0, 200.0, 150.0, 150.0]
+ALUNO ID : 79679 ===================================================
+Recomendando para : 18/05/21
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheMovieBarcodesSkill', 400.0, '22806833CompletetheMovieBarcodesSkill', 150.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletetheMovieBarcodesSkill:400.0']
+
+
+Recomendando para : 18/05/24
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheTextArtSkill', 100.0, '09504733CompletetheAlienInvasionSkill', 150.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletetheMovieBarcodesSkill:400.0', 'CompletetheTextArtSkill:100.0']
+
+
+Student ID:  79679
+Diferença nas notas :::  200.0
+Nº de Actividades feitas :::  2
+['18/04/17', '18/05/21', '18/05/24']
+['150.0', '150.0', '150.0']
+Nota que o aluno teve por si só:
+
+300.0
+Nota que o aluno teria se seguisse as recomendações:
+500.0
+Diferenças das notas:
+[1050.0, 1050.0, 800.0, 700.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 450.0, 450.0, 400.0, 400.0, 300.0, 250.0, 250.0, 250.0, 250.0, 225.0, 200.0, 200.0, 200.0, 150.0, 150.0]
+ALUNO ID : 80858 ===================================================
+Recomendando para : 18/03/05
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheDGIFSkill', 100.0, '22806833CompletetheMovieBarcodesSkill', 150.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletetheDGIFSkill:100.0']
+
+
+Recomendando para : 18/03/12
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheMovieBarcodesSkill', 400.0, '09504733CompletetheAlienInvasionSkill', 150.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletetheDGIFSkill:100.0', 'CompletetheMovieBarcodesSkill:400.0']
+
+
+Recomendando para : 18/03/17
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheFakeSpeechSkill', 700.0, '10305333CompletetheCourseLogoSkill', 150.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletetheDGIFSkill:100.0', 'CompletetheMovieBarcodesSkill:400.0', 'CompletetheFakeSpeechSkill:700.0']
+
+
+Recomendando para : 18/04/02
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheStopMotionSkill', 700.0, '23106033CompletethePublicistSkill', 400.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletetheDGIFSkill:100.0', 'CompletetheMovieBarcodesSkill:400.0', 'CompletetheFakeSpeechSkill:700.0', 'CompletetheStopMotionSkill:700.0']
+
+
+Recomendando para : 18/04/30
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheIlluminatorSkill', 700.0, '23306333CompletethePodcastSkill', 150.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletetheDGIFSkill:100.0', 'CompletetheMovieBarcodesSkill:400.0', 'CompletetheFakeSpeechSkill:700.0', 'CompletetheStopMotionSkill:700.0', 'CompletetheIlluminatorSkill:700.0']
+
+
+Recomendando para : 18/05/07
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheCourseImageSkill', 400.0, '23509433CompletethePixelArtSkill', 400.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletetheDGIFSkill:100.0', 'CompletetheMovieBarcodesSkill:400.0', 'CompletetheFakeSpeechSkill:700.0', 'CompletetheStopMotionSkill:700.0', 'CompletetheIlluminatorSkill:700.0', 'CompletetheCourseImageSkill:400.0']
+
+
+Student ID:  80858
+Diferença nas notas :::  1600.0
+Nº de Actividades feitas :::  6
+['18/02/26', '18/03/05', '18/03/12', '18/03/17', '18/04/02', '18/04/30', '18/05/07']
+['150.0', '150.0', '150.0', '150.0', '400.0', '150.0', '400.0']
+Nota que o aluno teve por si só:
+
+1400.0
+Nota que o aluno teria se seguisse as recomendações:
+3000.0
+Diferenças das notas:
+[1600.0, 1050.0, 1050.0, 800.0, 700.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 450.0, 450.0, 400.0, 400.0, 300.0, 250.0, 250.0, 250.0, 250.0, 225.0, 200.0, 200.0, 200.0, 150.0, 150.0]
+ALUNO ID : 80952 ===================================================
+Recomendando para : 18/05/11
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheMoviePosterSkill', 400.0, '22905933CompletetheMoviePosterSkill', 150.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheMoviePosterSkill:400.0']
+
+
+Recomendando para : 18/05/12
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheCourseImageSkill', 400.0, '09504733CompletetheAlienInvasionSkill', 150.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheCourseImageSkill:400.0']
+
+
+Recomendando para : 18/05/14
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheZombiesandMonstersSkill', 100.0, '12606233CompletetheReporterSkill', 150.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheCourseImageSkill:400.0', 'CompletetheZombiesandMonstersSkill:100.0']
+
+
+Recomendando para : 18/06/04
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethePublicistSkill', 400.0, '23206433CompletetheLoopingGIFSkill', 400.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheCourseImageSkill:400.0', 'CompletetheZombiesandMonstersSkill:100.0', 'CompletethePublicistSkill:400.0']
+
+
+Recomendando para : 18/06/05
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheStopMotionSkill', 700.0, '23106033CompletethePublicistSkill', 400.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheCourseImageSkill:400.0', 'CompletetheZombiesandMonstersSkill:100.0', 'CompletethePublicistSkill:400.0', 'CompletetheStopMotionSkill:700.0']
+
+
+Recomendando para : 18/06/05
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheAlienInvasionSkill', 100.0, '23106033CompletethePublicistSkill', 400.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheCourseImageSkill:400.0', 'CompletetheZombiesandMonstersSkill:100.0', 'CompletethePublicistSkill:400.0', 'CompletetheStopMotionSkill:700.0', 'CompletetheAlienInvasionSkill:100.0']
+
+
+Recomendando para : 18/06/05
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheDGIFSkill', 100.0, '23106033CompletethePublicistSkill', 400.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheCourseImageSkill:400.0', 'CompletetheZombiesandMonstersSkill:100.0', 'CompletethePublicistSkill:400.0', 'CompletetheStopMotionSkill:700.0', 'CompletetheAlienInvasionSkill:100.0', 'CompletetheDGIFSkill:100.0']
+
+
+Student ID:  80952
+Diferença nas notas :::  150.0
+Nº de Actividades feitas :::  7
+['18/04/02', '18/05/11', '18/05/12', '18/05/14', '18/06/04', '18/06/05', '18/06/05', '18/06/05']
+['150.0', '150.0', '150.0', '150.0', '400.0', '150.0', '400.0', '400.0']
+Nota que o aluno teve por si só:
+
+2050.0
+Nota que o aluno teria se seguisse as recomendações:
+2200.0
+Diferenças das notas:
+[1600.0, 1050.0, 1050.0, 800.0, 700.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 450.0, 450.0, 400.0, 400.0, 300.0, 250.0, 250.0, 250.0, 250.0, 225.0, 200.0, 200.0, 200.0, 150.0, 150.0, 150.0]
+ALUNO ID : 81328 ===================================================
+Recomendando para : 18/03/09
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheAlienInvasionSkill', 150.0, '22806833CompletetheMovieBarcodesSkill', 150.0]
+Skills feitas pelo estudante:
+['10305333CompletetheCourseLogoSkill:150.0', 'CompletetheAlienInvasionSkill:150.0']
+
+
+Recomendando para : 18/03/28
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheMovieBarcodesSkill', 400.0, '22905933CompletetheMoviePosterSkill', 150.0]
+Skills feitas pelo estudante:
+['10305333CompletetheCourseLogoSkill:150.0', 'CompletetheAlienInvasionSkill:150.0', 'CompletetheMovieBarcodesSkill:400.0']
+
+
+Recomendando para : 18/04/02
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheMoviePosterSkill', 400.0, '23106033CompletethePublicistSkill', 400.0]
+Skills feitas pelo estudante:
+['10305333CompletetheCourseLogoSkill:150.0', 'CompletetheAlienInvasionSkill:150.0', 'CompletetheMovieBarcodesSkill:400.0', 'CompletetheMoviePosterSkill:400.0']
+
+
+Recomendando para : 18/05/06
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethePublicistSkill', 400.0, '09504733CompletetheAlienInvasionSkill', 150.0]
+Skills feitas pelo estudante:
+['10305333CompletetheCourseLogoSkill:150.0', 'CompletetheAlienInvasionSkill:150.0', 'CompletetheMovieBarcodesSkill:400.0', 'CompletetheMoviePosterSkill:400.0', 'CompletethePublicistSkill:400.0']
+
+
+Recomendando para : 18/05/09
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheTextArtSkill', 100.0, '23406733CompletetheCourseImageSkill', 400.0]
+Skills feitas pelo estudante:
+['10305333CompletetheCourseLogoSkill:150.0', 'CompletetheAlienInvasionSkill:150.0', 'CompletetheMovieBarcodesSkill:400.0', 'CompletetheMoviePosterSkill:400.0', 'CompletethePublicistSkill:400.0', 'CompletetheTextArtSkill:100.0']
+
+
+Recomendando para : 18/05/27
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheLivingPageSkill', 400.0, '23306333CompletethePodcastSkill', 150.0]
+Skills feitas pelo estudante:
+['10305333CompletetheCourseLogoSkill:150.0', 'CompletetheAlienInvasionSkill:150.0', 'CompletetheMovieBarcodesSkill:400.0', 'CompletetheMoviePosterSkill:400.0', 'CompletethePublicistSkill:400.0', 'CompletetheTextArtSkill:100.0', 'CompletetheLivingPageSkill:400.0']
+
+
+Recomendando para : 18/06/04
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheLoopingGIFSkill', 400.0, '12606233CompletetheReporterSkill', 150.0]
+Skills feitas pelo estudante:
+['10305333CompletetheCourseLogoSkill:150.0', 'CompletetheAlienInvasionSkill:150.0', 'CompletetheMovieBarcodesSkill:400.0', 'CompletetheMoviePosterSkill:400.0', 'CompletethePublicistSkill:400.0', 'CompletetheTextArtSkill:100.0', 'CompletetheLivingPageSkill:400.0', 'CompletetheLoopingGIFSkill:400.0']
+
+
+Recomendando para : 18/06/05
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethePodcastSkill', 400.0, '23509433CompletethePixelArtSkill', 400.0]
+Skills feitas pelo estudante:
+['10305333CompletetheCourseLogoSkill:150.0', 'CompletetheAlienInvasionSkill:150.0', 'CompletetheMovieBarcodesSkill:400.0', 'CompletetheMoviePosterSkill:400.0', 'CompletethePublicistSkill:400.0', 'CompletetheTextArtSkill:100.0', 'CompletetheLivingPageSkill:400.0', 'CompletetheLoopingGIFSkill:400.0', 'CompletethePodcastSkill:400.0']
+
+
+Student ID:  81328
+Diferença nas notas :::  700.0
+Nº de Actividades feitas :::  8
+['18/03/02', '18/03/09', '18/03/28', '18/04/02', '18/05/06', '18/05/09', '18/05/27', '18/06/04', '18/06/05']
+['150.0', '150.0', '150.0', '400.0', '150.0', '400.0', '150.0', '150.0', '400.0']
+Nota que o aluno teve por si só:
+
+1950.0
+Nota que o aluno teria se seguisse as recomendações:
+2650.0
+Diferenças das notas:
+[1600.0, 1050.0, 1050.0, 800.0, 700.0, 700.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 450.0, 450.0, 400.0, 400.0, 300.0, 250.0, 250.0, 250.0, 250.0, 225.0, 200.0, 200.0, 200.0, 150.0, 150.0, 150.0]
+ALUNO ID : 81418 ===================================================
+Recomendando para : 18/04/18
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheDGIFSkill', 100.0, '22905933CompletetheMoviePosterSkill', 150.0]
+Skills feitas pelo estudante:
+['09504733CompletetheAlienInvasionSkill:150.0', 'CompletetheDGIFSkill:100.0']
+
+
+Recomendando para : 18/05/30
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheLivingPageSkill', 400.0, '10305333CompletetheCourseLogoSkill', 150.0]
+Skills feitas pelo estudante:
+['09504733CompletetheAlienInvasionSkill:150.0', 'CompletetheDGIFSkill:100.0', 'CompletetheLivingPageSkill:400.0']
+
+
+Student ID:  81418
+Diferença nas notas :::  200.0
+Nº de Actividades feitas :::  2
+['18/04/11', '18/04/18', '18/05/30']
+['150.0', '150.0', '150.0']
+Nota que o aluno teve por si só:
+
+300.0
+Nota que o aluno teria se seguisse as recomendações:
+500.0
+Diferenças das notas:
+[1600.0, 1050.0, 1050.0, 800.0, 700.0, 700.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 450.0, 450.0, 400.0, 400.0, 300.0, 250.0, 250.0, 250.0, 250.0, 225.0, 200.0, 200.0, 200.0, 200.0, 150.0, 150.0, 150.0]
+ALUNO ID : 81901 ===================================================
+Recomendando para : 18/03/28
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheTextArtSkill', 100.0, '22905933CompletetheMoviePosterSkill', 150.0]
+Skills feitas pelo estudante:
+['09504733CompletetheAlienInvasionSkill:150.0', 'CompletetheTextArtSkill:100.0']
+
+
+Recomendando para : 18/04/30
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheCourseLogoSkill', 100.0, '10305333CompletetheCourseLogoSkill', 150.0]
+Skills feitas pelo estudante:
+['09504733CompletetheAlienInvasionSkill:150.0', 'CompletetheTextArtSkill:100.0', 'CompletetheCourseLogoSkill:100.0']
+
+
+Recomendando para : 18/05/14
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheLivingPageSkill', 400.0, '22806833CompletetheMovieBarcodesSkill', 150.0]
+Skills feitas pelo estudante:
+['09504733CompletetheAlienInvasionSkill:150.0', 'CompletetheTextArtSkill:100.0', 'CompletetheCourseLogoSkill:100.0', 'CompletetheLivingPageSkill:400.0']
+
+
+Student ID:  81901
+Diferença nas notas :::  150.0
+Nº de Actividades feitas :::  3
+['18/03/12', '18/03/28', '18/04/30', '18/05/14']
+['150.0', '150.0', '150.0', '150.0']
+Nota que o aluno teve por si só:
+
+450.0
+Nota que o aluno teria se seguisse as recomendações:
+600.0
+Diferenças das notas:
+[1600.0, 1050.0, 1050.0, 800.0, 700.0, 700.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 450.0, 450.0, 400.0, 400.0, 300.0, 250.0, 250.0, 250.0, 250.0, 225.0, 200.0, 200.0, 200.0, 200.0, 150.0, 150.0, 150.0, 150.0]
+ALUNO ID : 81983 ===================================================
+Recomendando para : 18/03/19
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheDGIFSkill', 100.0, '23306333CompletethePodcastSkill', 150.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletetheDGIFSkill:100.0']
+
+
+Recomendando para : 18/04/27
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheCourseImageSkill', 400.0, '22806833CompletetheMovieBarcodesSkill', 150.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletetheDGIFSkill:100.0', 'CompletetheCourseImageSkill:400.0']
+
+
+Recomendando para : 18/05/02
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheLoopingGIFSkill', 400.0, '23509433CompletethePixelArtSkill', 400.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletetheDGIFSkill:100.0', 'CompletetheCourseImageSkill:400.0', 'CompletetheLoopingGIFSkill:400.0']
+
+
+Recomendando para : 18/05/21
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheLivingPageSkill', 400.0, '09504733CompletetheAlienInvasionSkill', 150.0]
+Skills feitas pelo estudante:
+['22905933CompletetheMoviePosterSkill:150.0', 'CompletetheDGIFSkill:100.0', 'CompletetheCourseImageSkill:400.0', 'CompletetheLoopingGIFSkill:400.0', 'CompletetheLivingPageSkill:400.0']
+
+
+Student ID:  81983
+Diferença nas notas :::  450.0
+Nº de Actividades feitas :::  4
+['18/03/05', '18/03/19', '18/04/27', '18/05/02', '18/05/21']
+['150.0', '150.0', '150.0', '400.0', '150.0']
+Nota que o aluno teve por si só:
+
+850.0
+Nota que o aluno teria se seguisse as recomendações:
+1300.0
+Diferenças das notas:
+[1600.0, 1050.0, 1050.0, 800.0, 700.0, 700.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 450.0, 450.0, 450.0, 400.0, 400.0, 300.0, 250.0, 250.0, 250.0, 250.0, 225.0, 200.0, 200.0, 200.0, 200.0, 150.0, 150.0, 150.0, 150.0]
+ALUNO ID : 82007 ===================================================
+Recomendando para : 18/03/25
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheMoviePosterSkill', 400.0, '09504733CompletetheAlienInvasionSkill', 150.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheMoviePosterSkill:400.0']
+
+
+Recomendando para : 18/05/02
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheDGIFSkill', 100.0, '23306333CompletethePodcastSkill', 150.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheDGIFSkill:100.0']
+
+
+Recomendando para : 18/05/07
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethePublicistSkill', 400.0, '23509433CompletethePixelArtSkill', 400.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheDGIFSkill:100.0', 'CompletethePublicistSkill:400.0']
+
+
+Student ID:  82007
+Diferença nas notas :::  200.0
+Nº de Actividades feitas :::  3
+['18/03/05', '18/03/25', '18/05/02', '18/05/07']
+['150.0', '150.0', '150.0', '400.0']
+Nota que o aluno teve por si só:
+
+700.0
+Nota que o aluno teria se seguisse as recomendações:
+900.0
+Diferenças das notas:
+[1600.0, 1050.0, 1050.0, 800.0, 700.0, 700.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 450.0, 450.0, 450.0, 400.0, 400.0, 300.0, 250.0, 250.0, 250.0, 250.0, 225.0, 200.0, 200.0, 200.0, 200.0, 200.0, 150.0, 150.0, 150.0, 150.0]
+ALUNO ID : 82054 ===================================================
+Recomendando para : 18/05/07
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheTextArtSkill', 100.0, '09504733CompletetheAlienInvasionSkill', 150.0]
+Skills feitas pelo estudante:
+['CompletetheTextArtSkill:100.0']
+
+
+Recomendando para : 18/05/08
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheAlienInvasionSkill', 100.0, '22806833CompletetheMovieBarcodesSkill', 150.0]
+Skills feitas pelo estudante:
+['CompletetheTextArtSkill:100.0', 'CompletetheAlienInvasionSkill:100.0']
+
+
+Recomendando para : 18/05/11
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheMoviePosterSkill', 400.0, '12606233CompletetheReporterSkill', 150.0]
+Skills feitas pelo estudante:
+['CompletetheTextArtSkill:100.0', 'CompletetheAlienInvasionSkill:100.0', 'CompletetheMoviePosterSkill:400.0']
+
+
+Recomendando para : 18/06/18
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheLivingPageSkill', 400.0, '23509433CompletethePixelArtSkill', 400.0]
+Skills feitas pelo estudante:
+['CompletetheTextArtSkill:100.0', 'CompletetheAlienInvasionSkill:100.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheLivingPageSkill:400.0']
+
+
+Recomendando para : 18/06/18
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethePublicistSkill', 400.0, '23509433CompletethePixelArtSkill', 400.0]
+Skills feitas pelo estudante:
+['CompletetheTextArtSkill:100.0', 'CompletetheAlienInvasionSkill:100.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheLivingPageSkill:400.0', 'CompletethePublicistSkill:400.0']
+
+
+Recomendando para : 18/06/18
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheCourseImageSkill', 400.0, '23509433CompletethePixelArtSkill', 400.0]
+Skills feitas pelo estudante:
+['CompletetheTextArtSkill:100.0', 'CompletetheAlienInvasionSkill:100.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheLivingPageSkill:400.0', 'CompletethePublicistSkill:400.0', 'CompletetheCourseImageSkill:400.0']
+
+
+Student ID:  82054
+Diferença nas notas :::  150.0
+Nº de Actividades feitas :::  6
+['18/05/07', '18/05/07', '18/05/08', '18/05/11', '18/06/18', '18/06/18', '18/06/18']
+['150.0', '150.0', '150.0', '150.0', '150.0', '400.0', '400.0']
+Nota que o aluno teve por si só:
+
+1650.0
+Nota que o aluno teria se seguisse as recomendações:
+1800.0
+Diferenças das notas:
+[1600.0, 1050.0, 1050.0, 800.0, 700.0, 700.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 450.0, 450.0, 450.0, 400.0, 400.0, 300.0, 250.0, 250.0, 250.0, 250.0, 225.0, 200.0, 200.0, 200.0, 200.0, 200.0, 150.0, 150.0, 150.0, 150.0, 150.0]
+ALUNO ID : 82091 ===================================================
+Recomendando para : 18/03/21
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheMoviePosterSkill', 400.0, '22806833CompletetheMovieBarcodesSkill', 150.0]
+Skills feitas pelo estudante:
+['10305333CompletetheCourseLogoSkill:150.0', 'CompletetheMoviePosterSkill:400.0']
+
+
+Recomendando para : 18/03/29
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+[]
+Recomendando para : 18/05/14
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheLivingPageSkill', 400.0, '23106033CompletethePublicistSkill', 400.0]
+Skills feitas pelo estudante:
+['10305333CompletetheCourseLogoSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheLivingPageSkill:400.0']
+
+
+Recomendando para : 18/05/23
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheCourseImageSkill', 400.0, '12606233CompletetheReporterSkill', 150.0]
+Skills feitas pelo estudante:
+['10305333CompletetheCourseLogoSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheLivingPageSkill:400.0', 'CompletetheCourseImageSkill:400.0']
+
+
+Recomendando para : 18/06/01
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheeBookSkill', 100.0, '23206433CompletetheLoopingGIFSkill', 400.0]
+Skills feitas pelo estudante:
+['10305333CompletetheCourseLogoSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheLivingPageSkill:400.0', 'CompletetheCourseImageSkill:400.0', 'CompletetheeBookSkill:100.0']
+
+
+Student ID:  82091
+Diferença nas notas :::  200.0
+Nº de Actividades feitas :::  5
+['18/03/07', '18/03/21', '18/03/29', '18/05/14', '18/05/23', '18/06/01']
+['150.0', '150.0', '150.0', '400.0', '150.0', '400.0']
+Nota que o aluno teve por si só:
+
+1100.0
+Nota que o aluno teria se seguisse as recomendações:
+1300.0
+Diferenças das notas:
+[1600.0, 1050.0, 1050.0, 800.0, 700.0, 700.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 450.0, 450.0, 450.0, 400.0, 400.0, 300.0, 250.0, 250.0, 250.0, 250.0, 225.0, 200.0, 200.0, 200.0, 200.0, 200.0, 200.0, 150.0, 150.0, 150.0, 150.0, 150.0]
+ALUNO ID : 82527 ===================================================
+Recomendando para : 18/03/18
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheMoviePosterSkill', 400.0, '09504733CompletetheAlienInvasionSkill', 150.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheMoviePosterSkill:400.0']
+
+
+Recomendando para : 18/03/19
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheLivingPageSkill', 400.0, '22905933CompletetheMoviePosterSkill', 150.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheLivingPageSkill:400.0']
+
+
+Recomendando para : 18/05/07
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethePublicistSkill', 400.0, '10305333CompletetheCourseLogoSkill', 150.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheLivingPageSkill:400.0', 'CompletethePublicistSkill:400.0']
+
+
+Recomendando para : 18/05/14
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheFakeSpeechSkill', 700.0, '23106033CompletethePublicistSkill', 400.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheLivingPageSkill:400.0', 'CompletethePublicistSkill:400.0', 'CompletetheFakeSpeechSkill:700.0']
+
+
+Recomendando para : 18/05/21
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheFakeNewsSkill', 700.0, '23406733CompletetheCourseImageSkill', 400.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheLivingPageSkill:400.0', 'CompletethePublicistSkill:400.0', 'CompletetheFakeSpeechSkill:700.0', 'CompletetheFakeNewsSkill:700.0']
+
+
+Recomendando para : 18/06/01
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheZombiesandMonstersSkill', 100.0, '12606233CompletetheReporterSkill', 150.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheLivingPageSkill:400.0', 'CompletethePublicistSkill:400.0', 'CompletetheFakeSpeechSkill:700.0', 'CompletetheFakeNewsSkill:700.0', 'CompletetheZombiesandMonstersSkill:100.0']
+
+
+Recomendando para : 18/06/01
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheLoopingGIFSkill', 400.0, '12606233CompletetheReporterSkill', 150.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheLivingPageSkill:400.0', 'CompletethePublicistSkill:400.0', 'CompletetheFakeSpeechSkill:700.0', 'CompletetheFakeNewsSkill:700.0', 'CompletetheZombiesandMonstersSkill:100.0', 'CompletetheLoopingGIFSkill:400.0']
+
+
+Recomendando para : 18/06/04
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheCourseLogoSkill', 100.0, '23206433CompletetheLoopingGIFSkill', 400.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheLivingPageSkill:400.0', 'CompletethePublicistSkill:400.0', 'CompletetheFakeSpeechSkill:700.0', 'CompletetheFakeNewsSkill:700.0', 'CompletetheZombiesandMonstersSkill:100.0', 'CompletetheLoopingGIFSkill:400.0', 'CompletetheCourseLogoSkill:100.0']
+
+
+Recomendando para : 18/06/04
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheReporterSkill', 100.0, '23206433CompletetheLoopingGIFSkill', 400.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheLivingPageSkill:400.0', 'CompletethePublicistSkill:400.0', 'CompletetheFakeSpeechSkill:700.0', 'CompletetheFakeNewsSkill:700.0', 'CompletetheZombiesandMonstersSkill:100.0', 'CompletetheLoopingGIFSkill:400.0', 'CompletetheCourseLogoSkill:100.0', 'CompletetheReporterSkill:100.0']
+
+
+Recomendando para : 18/06/07
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheStopMotionSkill', 700.0, '24103233CompletetheKineticSkill', 750.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheLivingPageSkill:400.0', 'CompletethePublicistSkill:400.0', 'CompletetheFakeSpeechSkill:700.0', 'CompletetheFakeNewsSkill:700.0', 'CompletetheZombiesandMonstersSkill:100.0', 'CompletetheLoopingGIFSkill:400.0', 'CompletetheCourseLogoSkill:100.0', 'CompletetheReporterSkill:100.0', 'CompletetheStopMotionSkill:700.0']
+
+
+Recomendando para : 18/06/07
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheDGIFSkill', 100.0, '24103233CompletetheKineticSkill', 750.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheMoviePosterSkill:400.0', 'CompletetheLivingPageSkill:400.0', 'CompletethePublicistSkill:400.0', 'CompletetheFakeSpeechSkill:700.0', 'CompletetheFakeNewsSkill:700.0', 'CompletetheZombiesandMonstersSkill:100.0', 'CompletetheLoopingGIFSkill:400.0', 'CompletetheCourseLogoSkill:100.0', 'CompletetheReporterSkill:100.0', 'CompletetheStopMotionSkill:700.0', 'CompletetheDGIFSkill:100.0']
+
+
+Student ID:  82527
+Diferença nas notas :::  250.0
+Nº de Actividades feitas :::  11
+['18/03/05', '18/03/18', '18/03/19', '18/05/07', '18/05/14', '18/05/21', '18/06/01', '18/06/01', '18/06/04', '18/06/04', '18/06/07', '18/06/07']
+['150.0', '150.0', '150.0', '150.0', '400.0', '400.0', '150.0', '150.0', '400.0', '400.0', '400.0', '750.0']
+Nota que o aluno teve por si só:
+
+3850.0
+Nota que o aluno teria se seguisse as recomendações:
+4100.0
+Diferenças das notas:
+[1600.0, 1050.0, 1050.0, 800.0, 700.0, 700.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 450.0, 450.0, 450.0, 400.0, 400.0, 300.0, 250.0, 250.0, 250.0, 250.0, 250.0, 225.0, 200.0, 200.0, 200.0, 200.0, 200.0, 200.0, 150.0, 150.0, 150.0, 150.0, 150.0]
+ALUNO ID : 91201 ===================================================
+Recomendando para : 18/03/28
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheMoviePosterSkill', 400.0, '10305333CompletetheCourseLogoSkill', 150.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletetheMoviePosterSkill:400.0']
+
+
+Student ID:  91201
+Diferença nas notas :::  250.0
+Nº de Actividades feitas :::  1
+['18/03/13', '18/03/28']
+['150.0', '150.0']
+Nota que o aluno teve por si só:
+
+150.0
+Nota que o aluno teria se seguisse as recomendações:
+400.0
+Diferenças das notas:
+[1600.0, 1050.0, 1050.0, 800.0, 700.0, 700.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 450.0, 450.0, 450.0, 400.0, 400.0, 300.0, 250.0, 250.0, 250.0, 250.0, 250.0, 250.0, 225.0, 200.0, 200.0, 200.0, 200.0, 200.0, 200.0, 150.0, 150.0, 150.0, 150.0, 150.0]
+ALUNO ID : 91290 ===================================================
+Recomendando para : 18/05/28
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletethePublicistSkill', 400.0, '22905933CompletetheMoviePosterSkill', 150.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletethePublicistSkill:400.0']
+
+
+Recomendando para : 18/05/28
+Building trainSet File ....
+Building TEST File ....
+trainSet file was created
+testSet file was created
+Resultados do ML:
+['CompletetheLivingPageSkill', 400.0, '22905933CompletetheMoviePosterSkill', 150.0]
+Skills feitas pelo estudante:
+['22806833CompletetheMovieBarcodesSkill:150.0', 'CompletethePublicistSkill:400.0', 'CompletetheLivingPageSkill:400.0']
+
+
+Student ID:  91290
+Diferença nas notas :::  500.0
+Nº de Actividades feitas :::  2
+['18/05/21', '18/05/28', '18/05/28']
+['150.0', '150.0', '150.0']
+Nota que o aluno teve por si só:
+
+300.0
+Nota que o aluno teria se seguisse as recomendações:
+800.0
+Diferenças das notas:
+[1600.0, 1050.0, 1050.0, 800.0, 700.0, 700.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 500.0, 450.0, 450.0, 450.0, 400.0, 400.0, 300.0, 250.0, 250.0, 250.0, 250.0, 250.0, 250.0, 225.0, 200.0, 200.0, 200.0, 200.0, 200.0, 200.0, 150.0, 150.0, 150.0, 150.0, 150.0]
+Inc:
+37
+Dec:
+0

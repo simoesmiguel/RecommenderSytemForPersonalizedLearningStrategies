@@ -18,10 +18,10 @@ GLOBAL Vars ####################################################################
 '''
 
 #windows
-files_common_path = 'D:/ChromeDownloads/TeseFolder/Tese/Final Data Warehouse/'
+#files_common_path = 'D:/ChromeDownloads/TeseFolder/Tese/Final Data Warehouse/'
 
 #MacOS
-#files_common_path = '/Users/miguelsimoes/Documents/Universidade/Tese/Final Data Warehouse/'
+files_common_path = '/Users/miguelsimoes/Documents/Universidade/Tese/Final Data Warehouse/'
 
 SE = {}  # Student Evaluation Schema
 MP = {}  # Moodle Participation
@@ -31,7 +31,9 @@ debug = False
 
 #date_range = "/03/15"
 #date_range = "/04/15"
-date_range = "/05/20"
+#date_range = "/05/03"
+date_range = "/04/30"
+
 
 test_year = 2018
 
@@ -159,7 +161,7 @@ def clusters():  # splits the students according to quartiles and returns the 4 
 def clusters_on_given_date():
     '''
     :return: returns all the clusters taking into account the earned Xps till the date_range.
-            Also, it differentiates the students' year in order to find these clusters, which means thta by the end of
+            Also, it differentiates the students' year in order to find these clusters, which means that by the end of
             this method we'll have 4 clusters per year. All this info is loaded to the "clusters_by_year" dictionary.
     '''
 
@@ -186,13 +188,16 @@ def clusters_on_given_date():
     for year in student_collectedXps:
         all_grades = [t[1] for t in student_collectedXps.get(year)]
 
+
         # the idea of considering the 3 highest values is to avoid outliers
         # consider only the 3 highest values
-        highest_values = sorted(all_grades)[-3:]
+        highest_values = sorted(all_grades)[-4:]
 
         # calculate avg from the 3 highest values
         avg_value = reduce(lambda a, b: a + b, highest_values) / len(highest_values)
 
+
+        #avg_value= sorted(all_grades)[-1]
         c1 = [tupl for tupl in student_collectedXps.get(year) if tupl[1] <= 0.25 * avg_value]
         c2 = [tupl for tupl in student_collectedXps.get(year) if 0.25 * avg_value < tupl[1] <= 0.50 * avg_value]
         c3 = [tupl for tupl in student_collectedXps.get(year) if 0.50 * avg_value <  tupl[1]<= 0.75 * avg_value]
@@ -525,8 +530,7 @@ def smartStudentDistributionPerYear(dic_all_years):
     plt.show()
 
 
-def getStudentCluster(studentID):
-    clusters_by_year=clusters_on_given_date()
+def getStudentCluster(studentID,clusters_by_year):
     for year in clusters_by_year:
         cluster = 0
         for lista in clusters_by_year.get(year):
@@ -535,7 +539,7 @@ def getStudentCluster(studentID):
                     return cluster
             cluster+=1
 
-def buildTrainOrTestFile(activities_to_recommend, tag):
+def buildTrainOrTestFile(activities_to_recommend, tag, clusters_by_year):
     print("Building "+tag+ " File ....")
     count=1
     dic_all_years={}
@@ -611,7 +615,7 @@ def buildTrainOrTestFile(activities_to_recommend, tag):
 
             posts = [key + str(topic_dic.get(key)) for key in topic_dic]
 
-            cluster = getStudentCluster(key)
+            cluster = getStudentCluster(key, clusters_by_year)
 
             to_recommend = [cluster, just_skill_codes, just_badges_codes, just_quizzes_codes, just_bonus_codes, posts]
 
@@ -634,26 +638,27 @@ def main():
 
     ''''''
 
-    '''
     #    Create Train and Test Set #############################################################################
-    
+
+    '''
     #fileType = "trainSet"
     fileType = "testSet"
 
     populateSchemaDictionaries()
     buildAllStudentsProfiles()
+    clusters_by_year = clusters_on_given_date()
 
-    file = buildTrainOrTestFile( [0, 1, 2, 3], fileType)
+    file = buildTrainOrTestFile([0, 1, 2, 3], fileType, clusters_by_year)
 
     data = date_range[1:].split("/")
-    print("./train&test_files/"+data[1]+"_"+data[0]+"/"+fileType + "_" + str(test_year) + "_dateRange=" +data[1]+"_"+data[0] + ".csv")
-    write_csv_file("./train&test_files/"+data[1]+"_"+data[0]+"/"+fileType + "_" + str(test_year) + "_dateRange=" +data[1]+"_"+data[0] + ".csv",file, fileType)
+    print("./train&test_files/" + data[1] + "_" + data[0] + "/" + fileType + "_" + str(test_year) + "_dateRange=" +
+          data[1] + "_" + data[0] + ".csv")
+    write_csv_file(
+        "./train&test_files/" + data[1] + "_" + data[0] + "/" + fileType + "_" + str(test_year) + "_dateRange=" + data[
+            1] + "_" + data[0] + ".csv", file, fileType)
 
     print("THAT'S ALL FOLKS")
     '''
-
-
-
 
     MyMLModel2.main()
 
